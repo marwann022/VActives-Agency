@@ -10,28 +10,32 @@
 
   /* Background Colors */
   --color-bg-main: #ffffff;
-  --color-bg-surface: #f8fafc;
-  --color-bg-dark: #0f172a;
+  --color-bg-surface: #fffdf9;
+  --color-bg-hero: #fdf9f0;
+  --color-bg-dark: #073c31;
 
   /* Text Colors */
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted: #94a3b8;
+  --color-text-primary: #102c26;
+  --color-text-secondary: #405d56;
+  --color-text-muted: #71867f;
   --color-text-inverse: #ffffff;
 
   /* Primary Brand Colors (Provisional) */
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
-  --color-primary-soft: #eff6ff;
+  --color-primary: #08735b;
+  --color-primary-hover: #055f4b;
+  --color-primary-soft: #e8f4ef;
 
   /* Accent Colors (Provisional) */
-  --color-accent: #0d9488;
-  --color-accent-soft: #ccfbf1;
+  --color-accent: #c5aa7a;
+  --color-accent-soft: #f4ead8;
+  --color-gold-strong: #bd8d31;
+  --color-teal: #14a6aa;
+  --color-coral: #ee7854;
 
   /* Border Colors */
-  --color-border: #e2e8f0;
-  --color-border-strong: #cbd5e1;
-  --color-border-dark: #334155;
+  --color-border: #e8ded0;
+  --color-border-strong: #d7c6ae;
+  --color-border-dark: #29584d;
 
   /* Feedback Colors */
   --color-success: #16a34a;
@@ -92,9 +96,10 @@
   /* --------------------------------------------------------------------------
      7. SHADOW TOKENS (Subtle elevation scale)
      -------------------------------------------------------------------------- */
-  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+  --shadow-sm: 0 2px 5px rgba(16, 44, 38, 0.06);
+  --shadow-md: 0 10px 24px rgba(16, 44, 38, 0.12), 0 2px 5px rgba(16, 44, 38, 0.05);
+  --shadow-lg: 0 18px 40px rgba(16, 44, 38, 0.13), 0 4px 10px rgba(16, 44, 38, 0.05);
+  --shadow-float: 0 18px 42px rgba(16, 44, 38, 0.16);
 
   /* --------------------------------------------------------------------------
      8. Z-INDEX SCALE

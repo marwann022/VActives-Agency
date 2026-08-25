@@ -9,13 +9,15 @@
     ]"
   >
     <BaseContainer class="flex items-center justify-between">
-      <!-- Brand Wordmark Placeholder (Temporary until official VActives logo asset is received) -->
       <router-link
         to="/"
-        class="group font-display text-h4 font-bold tracking-tight text-main hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded-xs"
+        class="group flex items-center focus-visible:outline-2 focus-visible:outline-primary rounded-xs"
         aria-label="VActives Home"
       >
-        VACTIVES
+        <BrandLogo compact />
+        <span class="hidden lg:inline-flex ml-4 pl-4 border-l border-border text-[10px] uppercase tracking-[.12em] text-muted font-semibold">
+          Virtual Recruitment Agency
+        </span>
       </router-link>
 
       <!-- Desktop Navigation Items (Home, Services — Start Hiring is rendered as dedicated CTA button) -->
@@ -68,9 +70,8 @@
           aria-label="Toggle navigation menu"
           @click="toggleMobileMenu"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+          <IconX v-if="isMobileMenuOpen" :size="24" :stroke-width="2" aria-hidden="true" />
+          <IconMenu2 v-else :size="24" :stroke-width="2" aria-hidden="true" />
         </button>
       </div>
     </BaseContainer>
@@ -85,8 +86,10 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { IconMenu2, IconX } from '@tabler/icons-vue'
 import BaseContainer from '@/components/base/BaseContainer.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import BrandLogo from '@/components/brand/BrandLogo.vue'
 import MobileMenu from '@/components/navigation/MobileMenu.vue'
 import { useGsap } from '@/composables/useGsap'
 import { isReducedMotionActive } from '@/utils/motion/reveal'

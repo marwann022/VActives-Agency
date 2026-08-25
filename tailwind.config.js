@@ -9,6 +9,7 @@ export default {
       colors: {
         'bg-main': 'var(--color-bg-main)',
         'bg-surface': 'var(--color-bg-surface)',
+        'bg-hero': 'var(--color-bg-hero)',
         'bg-dark': 'var(--color-bg-dark)',
 
         'primary': 'var(--color-primary)',

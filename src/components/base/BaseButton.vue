@@ -18,18 +18,19 @@
     ]"
   >
     <slot />
-    <span
+    <IconArrowRight
       v-if="showArrow"
-      class="inline-block transition-transform duration-normal ease-standard group-hover:translate-x-1"
+      :size="18"
+      :stroke-width="2"
+      class="transition-transform duration-normal ease-standard group-hover:translate-x-1"
       aria-hidden="true"
-    >
-      &rarr;
-    </span>
+    />
   </component>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { IconArrowRight } from '@tabler/icons-vue'
 
 const props = defineProps({
   variant: {
@@ -78,14 +79,14 @@ const isComponent = computed(() => {
 })
 
 const variantClasses = {
-  primary: 'bg-primary text-inverse hover:bg-primary-hover border border-transparent shadow-sm',
-  secondary: 'bg-bg-surface text-main border border-border hover:border-border-strong hover:bg-slate-100/80 shadow-sm',
+  primary: 'bg-primary text-inverse hover:bg-primary-hover border border-transparent shadow-md',
+  secondary: 'bg-white text-main border border-border-strong hover:border-primary hover:text-primary shadow-sm',
   ghost: 'bg-transparent text-main hover:bg-bg-surface border border-transparent'
 }
 
 const sizeClasses = {
   sm: 'text-sm py-1.5 px-3 min-h-[36px]',
   md: 'text-body py-2.5 px-5 min-h-[44px]',
-  lg: 'text-body-lg py-3 px-6 min-h-[52px]'
+  lg: 'text-[1rem] font-semibold py-3.5 px-7 min-h-[56px] rounded-pill'
 }
 </script>
