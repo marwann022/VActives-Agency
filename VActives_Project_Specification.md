@@ -1,87 +1,88 @@
 # VActives Website — Full Project Implementation Specification
 
-> **نوع المستند:** شرح تنفيذي تفصيلي للمشروع  
-> **المشروع:** VActives Website  
-> **الهدف:** توضيح كل ما سيتم تنفيذه، وما لن يتم تنفيذه، وما يحتاجه المطور من العميل، وكيف سيتم بناء المشروع واختباره ورفعه وتسليمه.  
-> **المصادر الأساسية:**  
+> **Document type:** Detailed project implementation specification  
+> **Project:** VActives Website  
+> **Purpose:** Define exactly what will be built, what will not be built, what information is required from the client, how the website will be designed and developed, how forms and integrations will work, how the project will be tested, deployed, handed over, and supported.  
+> **Primary source documents:**  
 > 1. `VActives_Website_Requirements_Brief.docx`  
-> 2. `VActives Website-Agreement.pdf`  
+> 2. `VActives Website-Agreement.pdf`
 >
-> **مهم:** أي بند مذكور تحت عنوان **متطلب رسمي** مصدره المستندات المتفق عليها.  
-> أي بند مذكور تحت عنوان **قرار تقني مقترح/معتمد للتنفيذ** هو اختيار هندسي لتنفيذ المتطلبات بأبسط وأفضل شكل، وليس Feature إضافية خارج الـScope.
+> **Important:** Items described as **official requirements** come from the approved project documents. Items described as **technical implementation decisions** are engineering choices made to deliver the agreed scope efficiently and professionally; they do not add new contractual features.
 
 ---
 
-# 1. ملخص المشروع
+# 1. Project Overview
 
-VActives هي وكالة توظيف افتراضي مقرها مصر، وهدف الموقع هو تقديم الشركة بصورة احترافية للعملاء الدوليين، خصوصًا في:
+VActives is a virtual recruitment agency based in Egypt serving international clients, mainly in:
 
-- الولايات المتحدة الأمريكية
-- المملكة المتحدة
-- كندا
-- أستراليا
+- United States
+- United Kingdom
+- Canada
+- Australia
 
-الموقع ليس Job Portal كامل، وليس نظام توظيف داخلي، وليس Dashboard، وليس CRM.
+The website is a **marketing and lead-generation website**. It is not a job portal, internal recruitment system, CRM, dashboard, applicant tracking system, or SaaS platform.
 
-هو **Marketing + Lead Generation Website** هدفه الأساسي:
+The website is intended to:
 
-1. تعريف العميل بـVActives.
-2. شرح الخدمات.
-3. عرض الأدوار التي تقوم الشركة بالتوظيف لها.
-4. شرح طريقة العمل.
-5. عرض الأسعار بصورة مبدئية/معتمدة من العميل.
-6. بناء الثقة.
-7. تحويل الزائر إلى Lead من خلال:
+1. Present VActives professionally.
+2. Explain the recruitment services.
+3. Show the roles VActives recruits for.
+4. Explain the recruitment process.
+5. Present approved pricing information.
+6. Build trust with potential clients.
+7. Convert visitors into qualified leads through:
    - Start Hiring
    - Book a Discovery Call
    - Hiring Inquiry Form
    - Referral Form
-   - WhatsApp / Email / LinkedIn
+   - WhatsApp
+   - Email
+   - LinkedIn
 
 ---
 
-# 2. حدود المشروع الرسمية Scope
+# 2. Official Project Scope
 
-## 2.1 عدد الصفحات
+## 2.1 Website Size
 
-**متطلب رسمي:**  
-الموقع يجب أن يتكون من **صفحتين إلى ثلاث صفحات كحد أقصى**.
+**Official requirement:** The website must contain **2–3 main pages maximum**.
 
-**القرار المعتمد للتنفيذ:**  
-سيتم تنفيذ الموقع كـ **3 صفحات رئيسية**:
+**Approved implementation decision:** Build the website as **3 main pages**:
 
 1. Home
 2. Services & Pricing
 3. Contact / Start Hiring
 
-هذا الاختيار هو الأقرب للـRecommended Structure الموجود في ملف المتطلبات، وهو أفضل من دمج كل شيء في Landing Page طويلة جدًا.
+This follows the recommended structure in the requirements brief and avoids turning the project into one excessively long landing page.
 
 ---
 
-# 3. الصفحات النهائية للموقع
+# 3. Final Website Structure
 
-## 3.1 Page 1 — Home
+# 3.1 Page 1 — Home
 
-الغرض من الصفحة الرئيسية هو:
+The Home page is the main brand and conversion page.
 
-- تقديم البراند.
-- شرح VActives في ثوانٍ.
-- توضيح الأسواق المستهدفة.
-- توضيح أنواع العملاء.
-- عرض الوظائف/الأدوار.
-- شرح طريقة التوظيف.
-- بناء الثقة.
-- دفع العميل لاتخاذ Action.
+Its goals are to:
 
-### 3.1.1 Header / Navigation
+- Introduce VActives.
+- Explain the value proposition quickly.
+- Show the markets served.
+- Explain the target industries.
+- Present the roles VActives recruits for.
+- Explain how the recruitment process works.
+- Build credibility.
+- Direct visitors toward a conversion action.
 
-سيحتوي الـHeader على:
+## 3.1.1 Header / Navigation
 
-- VActives Logo.
-- روابط تنقل.
-- CTA رئيسي.
+The header will include:
 
-الروابط المقترحة:
+- Approved VActives logo.
+- Main navigation links.
+- Primary CTA button.
+
+Suggested navigation:
 
 - Home
 - About
@@ -92,16 +93,22 @@ VActives هي وكالة توظيف افتراضي مقرها مصر، وهدف 
 - Testimonials
 - Contact
 
-**السلوك:**
+### Navigation Behavior
 
-- Sticky Header.
-- يعمل Desktop / Tablet / Mobile.
-- Mobile Hamburger Menu.
-- CTA واضح حتى على الموبايل.
+- Sticky header on desktop and mobile.
+- Responsive navigation.
+- Mobile hamburger menu.
+- Visible CTA on mobile.
+- Clear hover and active states.
+- Keyboard-accessible interactions.
 
-### 3.1.2 Hero Section
+---
 
-أهم جزء في الموقع.
+## 3.1.2 Hero Section
+
+The Hero is the first and most important visual section.
+
+### Initial Approved Copy
 
 **Headline:**
 
@@ -111,55 +118,114 @@ VActives هي وكالة توظيف افتراضي مقرها مصر، وهدف 
 
 > VActives helps startups and small businesses hire skilled, English-speaking virtual professionals for sales, administration, customer service, and operations.
 
-**CTA 1:** Start Hiring  
-**CTA 2:** Book a Discovery Call
+**Primary CTA:** Start Hiring  
+**Secondary CTA:** Book a Discovery Call
 
-**المطلوب تصميميًا:**
+### Design Requirements
 
-- Headline واضح جدًا.
-- Supporting copy قصير.
-- CTA Primary.
-- CTA Secondary.
-- Professional visual.
-- استخدام اللوجو بصورة صحيحة.
-- تجنب شكل Call Center Stock Photo التقليدي.
+- Strong headline hierarchy.
+- Short supporting copy.
+- Clearly differentiated primary and secondary actions.
+- Approved logo usage.
+- Professional visual that communicates remote recruitment and international teams.
+- Avoid generic call-center stock photography.
 
-### 3.1.3 Trust / Markets Bar
+### User Goal
 
-عرض الأسواق:
+Within the first few seconds, visitors should understand:
+
+- VActives is a recruitment agency.
+- The company recruits remote professionals.
+- The business serves international clients.
+- Visitors can begin the hiring process immediately.
+
+---
+
+## 3.1.3 Trust / Markets Bar
+
+Display the markets served:
 
 - USA
 - UK
 - Canada
 - Australia
 
-ممكن إضافة:
+Optional supporting text:
 
 > Remote recruitment from Egypt for global teams.
 
-### 3.1.4 About VActives
+Purpose: provide immediate international positioning and remove uncertainty about geographic coverage.
 
-النقاط التي يجب أن تظهر:
+---
 
-- VActives وكالة توظيف افتراضي.
-- مقرها مصر.
-- تعمل مع شركات دولية.
-- تركز على نتائج الأعمال، وليس مجرد إرسال CVs.
-- عملية التوظيف تشمل Role clarification, Sourcing, Screening, Communication check, Practical assessment, Interview coordination, Replacement support.
+## 3.1.4 About VActives
 
-### 3.1.5 Who We Serve
+The section should explain that:
 
-Cards للعملاء المستهدفين:
+- VActives is a virtual recruitment agency.
+- The company is based in Egypt.
+- It supports international businesses.
+- The service is focused on business outcomes, not simply sending CVs.
+- The recruitment process may include:
+  - Role clarification
+  - Targeted sourcing
+  - Screening
+  - English and communication checks
+  - Practical assessment
+  - Interview coordination
+  - Replacement support
 
-1. Real Estate
-2. B2B / Sales
-3. Property Management
-4. Startups
-5. Small Businesses
+Purpose: position VActives as a recruitment partner rather than a generic candidate supplier.
 
-### 3.1.6 Roles We Recruit
+---
 
-سيتم عمل Responsive Grid / Cards للأدوار:
+## 3.1.5 Who We Serve
+
+Show target client segments using cards, panels, or another responsive visual system.
+
+### Real Estate
+
+Examples:
+
+- Wholesalers
+- Investors
+- Broker teams
+- Acquisition teams
+- Disposition teams
+- Lead-generation companies
+
+### B2B & Agencies
+
+Examples:
+
+- Founders
+- Sales teams
+- Service companies
+- SaaS companies
+- Marketing agencies
+- Appointment-setting teams
+
+### Property Management
+
+Examples:
+
+- Portfolio managers
+- Leasing teams
+- Maintenance coordinators
+- Tenant-support teams
+- Property administrators
+
+### Startups & Small Businesses
+
+Lean teams that need skilled remote support without maintaining a large internal recruitment department.
+
+---
+
+## 3.1.6 Roles We Recruit
+
+The website should display the supported roles in a responsive grid, list, or interactive catalogue.
+
+Roles:
 
 1. Cold Caller / Appointment Setter
 2. Lead Manager / CRM Manager
@@ -172,16 +238,18 @@ Cards للعملاء المستهدفين:
 9. Executive Assistant
 10. Property Management VA
 
-كل عنصر يحتوي على:
+Each item should include:
 
 - Role title.
-- Short outcome statement.
+- Short business-outcome statement.
 
-والتفاصيل الأكبر تكون في Services & Pricing.
+The more detailed responsibilities, KPIs, and role context will be shown on the Services & Pricing page.
 
-### 3.1.7 How It Works
+---
 
-العملية مكونة من 6 خطوات:
+## 3.1.7 How It Works
+
+The recruitment process contains six steps:
 
 1. Discovery
 2. Role Brief
@@ -190,140 +258,260 @@ Cards للعملاء المستهدفين:
 5. Assessment
 6. Shortlist & Hire
 
-**Desktop:** Horizontal Process / Stepper.  
-**Mobile:** Vertical Timeline.
+### Desktop
 
-#### Discovery
-فهم Business goal, Daily tasks, Tools, Schedule, Budget, Success measures.
+Recommended: horizontal process, interactive stepper, or scroll-based timeline.
 
-#### Role Brief
-تحويل الاحتياج إلى Role scorecard وCandidate profile.
+### Mobile
 
-#### Sourcing
-البحث في قنوات المواهب المناسبة.
+Recommended: vertical timeline.
 
-#### Screening
-فحص Experience, English, Reliability, Availability, Compensation fit.
+### Step Details
 
-#### Assessment
-اختبارات عملية مثل Scenario, Writing test, Tool check, Call simulation.
+#### 1. Discovery
 
-#### Shortlist & Hire
-العميل يقابل أفضل المرشحين ويختار الأنسب.
+VActives learns:
 
-### 3.1.8 Why Choose VActives
+- Business objective
+- Daily tasks
+- Required tools
+- Work schedule
+- Budget
+- Success measures
 
-- Outcome-Based Hiring
-- Role-Specific Screening
-- English & Communication Checks
-- Practical Assessments
-- International Time-Zone Coverage
-- Replacement Support
+#### 2. Role Brief
 
-### 3.1.9 Testimonials
+The business need is translated into:
 
-- 3 إلى 6 Testimonials.
-- لا يتم نشر Testimonials وهمية.
-- يجب اعتمادها من العميل.
-- أثناء Staging يمكن استخدام Placeholder واضح.
+- Clear role scorecard
+- Candidate profile
 
-يفضل أن يحتوي كل Testimonial على:
+#### 3. Sourcing
+
+VActives searches targeted talent channels and activates relevant candidate pools.
+
+#### 4. Screening
+
+Candidates are evaluated for:
+
+- Relevant experience
+- English
+- Reliability
+- Availability
+- Compensation fit
+
+#### 5. Assessment
+
+Candidates may complete practical tasks such as:
+
+- Scenario-based exercises
+- Writing checks
+- Tool checks
+- Call simulations
+
+#### 6. Shortlist & Hire
+
+The client interviews the strongest candidates, chooses the best fit, and prepares onboarding.
+
+---
+
+## 3.1.8 Why Choose VActives
+
+Main value points:
+
+### Outcome-Based Hiring
+
+Start from the business result the hire must improve, then define the role.
+
+### Role-Specific Screening
+
+Different positions receive different assessment methods.
+
+### English & Communication Checks
+
+Evaluate:
+
+- Clarity
+- Tone
+- Confidence
+- Writing
+- Professional communication
+
+### Practical Assessments
+
+Use realistic role-specific tasks before presenting candidates.
+
+### International Time-Zone Coverage
+
+Recruit candidates who can support required US, UK, Canadian, and Australian working hours.
+
+### Replacement Support
+
+Restart the search during the agreed replacement period when the final service conditions are met.
+
+---
+
+## 3.1.9 Testimonials
+
+Requirements:
+
+- Approximately 3–6 verified testimonials.
+- Do not publish fabricated testimonials.
+- Testimonials must be approved by the client.
+- During staging, clearly labeled placeholders may be used until approved content is provided.
+
+Recommended testimonial structure:
 
 - Client name
-- Role
+- Role/title
 - Company
-- Country
+- Country/market
 - Business problem
 - VActives contribution
-- Result
+- Business result
 
-### 3.1.10 Final CTA
+---
+
+## 3.1.10 Final Home CTA
+
+The page should end with a clear conversion action such as:
 
 - Start Hiring
 - Book a Discovery Call
 
+Purpose: never allow the Home page to end without a clear next step.
+
 ---
 
-## 3.2 Page 2 — Services & Pricing
+# 3.2 Page 2 — Services & Pricing
 
-### 3.2.1 Service Overview
+This page explains the recruitment service in more detail.
 
-توضيح أن VActives تدير عملية التوظيف من Intake حتى وصول Candidate جاهز للـOnboarding.
+## 3.2.1 Service Overview
 
-### 3.2.2 Role Catalogue
+Explain that VActives manages the recruitment process from client intake through presentation of onboarding-ready candidates.
 
-يفضل أن يظهر لكل وظيفة:
+---
+
+## 3.2.2 Role Catalogue
+
+Each role may include:
 
 - Role name
 - Main responsibilities
 - Typical KPIs
 - Ideal industries
-- Part-time / Full-time possibility
+- Typical part-time or full-time suitability
 
-### 3.2.3 What Is Included
+---
 
-الخدمة تشمل:
+## 3.2.3 What Is Included
+
+The service should explain that the recruitment process may include:
 
 - Role intake
 - Sourcing
 - Screening
 - English check
 - Practical assessment
-- Shortlist
+- Shortlist preparation
 - Interview coordination
 - Replacement support
 
-### 3.2.4 Pricing
+Purpose: make it clear what the client is paying for.
 
-الأسعار الموجودة في الـRequirements هي Indicative، ويجب أن يعتمد العميل الأسعار النهائية قبل Launch.
+---
 
-#### Part-Time Support
+## 3.2.4 Pricing
+
+The requirements brief contains indicative pricing. Final pricing must be approved by VActives before launch.
+
+### Part-Time Support
+
 - 20 hours/week
 - $600–$900/month
 
-#### Full-Time Dedicated Support
+### Full-Time Dedicated Support
+
 - 40 hours/week
 - $950–$1,900/month
 
-#### Recruitment Setup
-- One-time
+### Recruitment Setup
+
+- One-time fee
 - From $299
 
-#### Indicative Role Pricing
+### Indicative Role Pricing
 
-- Cold Caller / Appointment Setter: $950–$1,300
-- Lead Manager / CRM Manager: $1,100–$1,450
-- Acquisition Manager: $1,300–$1,800
-- Disposition Manager: $1,400–$1,900
-- Transaction Coordinator: $1,250–$1,700
-- Customer Service / Email Manager: $900–$1,200
-- Executive Assistant / General VA: $850–$1,250
-- Property Management VA: $1,000–$1,450
+- Cold Caller / Appointment Setter: $950–$1,300/month
+- Lead Manager / CRM Manager: $1,100–$1,450/month
+- Acquisition Manager: $1,300–$1,800/month
+- Disposition Manager: $1,400–$1,900/month
+- Transaction Coordinator: $1,250–$1,700/month
+- Customer Service / Email Manager: $900–$1,200/month
+- Executive Assistant / General VA: $850–$1,250/month
+- Property Management VA: $1,000–$1,450/month
 
-يتم إضافة Disclaimer أن السعر النهائي يعتمد على Seniority, Required working hours, Time zone, Tools, Commission structure, Training, Replacement terms.
+### Pricing Disclaimer
 
-### 3.2.5 Hiring Timeline
+Final pricing may depend on:
 
-المتوقع **7–14 Business Days** لمعظم الأدوار، مع توضيح أن المدة تعتمد على Complexity وClient response time وRole requirements.
+- Seniority
+- Working hours
+- Time-zone requirements
+- Tools
+- Commission structure
+- Training requirements
+- Replacement terms
 
-### 3.2.6 Replacement Support
+Pricing content should be editable without requiring a redesign.
 
-عرض فكرة 30-day replacement support مع توضيح أنها Subject to final service agreement وتعتمد على تعاون العميل والشروط النهائية.
+---
 
-### 3.2.7 Referral Program
+## 3.2.5 Hiring Timeline
 
-شرح:
+Display an expected hiring journey of approximately:
 
-- من يستطيع عمل Referral؟
-- كيف يرسل Referral؟
-- متى تصبح المكافأة مستحقة؟
-- كيف يتم الدفع؟
+**7–14 business days** for many roles.
 
-قيمة المكافأة وشروطها النهائية يجب أن يرسلها العميل.
+Clarify that timing can vary according to:
 
-### 3.2.8 FAQ
+- Role complexity
+- Client response speed
+- Specific requirements
 
-Accordion للأسئلة الأساسية:
+---
+
+## 3.2.6 Replacement Support
+
+Explain the proposed 30-day replacement support.
+
+The website should clarify that this is:
+
+- Subject to the final service agreement.
+- Dependent on client cooperation.
+- Dependent on documented performance concerns and agreed conditions.
+
+---
+
+## 3.2.7 Referral Program
+
+Explain:
+
+- Who may submit a referral.
+- How a referral is submitted.
+- When a reward becomes eligible.
+- How the reward is handled.
+
+The final reward amount, eligibility rules, payout trigger, duplicate-referral rule, payment method, and legal terms must be supplied or approved by VActives before launch.
+
+---
+
+## 3.2.8 FAQ
+
+Use a clean accordion or equivalent accessible interaction.
+
+Questions include:
 
 - Where is VActives based?
 - Which markets do you support?
@@ -334,69 +522,161 @@ Accordion للأسئلة الأساسية:
 - Are software and tools included?
 - Can you recruit a role not listed?
 
----
-
-## 3.3 Page 3 — Contact / Start Hiring
-
-### 3.3.1 Start Hiring Introduction
-
-شرح ما يحدث بعد إرسال الطلب:
-
-1. VActives تراجع البيانات.
-2. يتم التواصل مع العميل.
-3. يمكن حجز Discovery Call.
-4. تبدأ مرحلة Role Discovery.
-
-### 3.3.2 Client Hiring Inquiry Form
-
-#### Fields
-
-- Full Name — Required
-- Work Email — Required + Email validation
-- Phone / WhatsApp — حسب القرار النهائي
-- Company Name — Required
-- Company Website — Optional + URL validation
-- Country / Market — Required
-- Industry — Required
-- Role Needed — Required + Multi-select
-- Employment Schedule — Required
-- Required Time Zone / Shift — Required
-- Desired Start Date — Optional
-- Estimated Budget — Required
-- Main Business Problem — Required
-- Daily Tasks — Optional but recommended
-- Tools Currently Used — Optional
-- How Did You Hear About Us? — Optional
-- Preferred Contact Method — Required
-- Consent Checkbox — Required
+Purpose: reduce repetitive questions before the discovery call.
 
 ---
 
-# 4. Hiring Form — Submission Workflow
+# 3.3 Page 3 — Contact / Start Hiring
 
-عند الضغط على Submit:
+This page is the primary conversion page.
 
-1. Front-end validation.
-2. إرسال البيانات للـServerless API.
-3. Server-side validation.
-4. Spam check.
-5. رفض الطلب لو البيانات Invalid.
-6. إرسال Notification لـVActives.
-7. إرسال Confirmation للعميل.
-8. إظهار Success State.
-9. عرض CTA لحجز Discovery Call.
-10. Optional: تخزين الـLead إذا تم الاتفاق لاحقًا على ذلك.
+## 3.3.1 Start Hiring Introduction
+
+Briefly explain what happens after submission:
+
+1. VActives reviews the inquiry.
+2. The team contacts the prospect.
+3. The prospect may book a discovery call.
+4. Role discovery begins.
+
+---
+
+## 3.3.2 Client Hiring Inquiry Form
+
+### Full Name
+
+- Required
+- Text input
+
+### Work Email
+
+- Required
+- Email validation
+
+### Phone / WhatsApp
+
+- Optional or required depending on final VActives policy.
+
+### Company Name
+
+- Required
+
+### Company Website
+
+- Optional
+- URL validation
+
+### Country / Market
+
+- Required
+- Options:
+  - USA
+  - UK
+  - Canada
+  - Australia
+  - Other
+
+### Industry
+
+- Required
+- Options:
+  - Real Estate
+  - B2B / Sales
+  - Property Management
+  - Startup
+  - Other
+
+### Role Needed
+
+- Required
+- Multi-select from supported roles
+
+### Employment Schedule
+
+- Required
+- Part-Time
+- Full-Time
+- Not Sure
+
+### Required Time Zone / Shift
+
+- Required
+
+### Desired Start Date
+
+- Optional
+
+### Estimated Budget
+
+- Required
+- Select or range input
+
+### Main Business Problem
+
+- Required
+- Long-text input
+
+### Daily Tasks
+
+- Optional but recommended
+
+### Tools Currently Used
+
+- Optional
+
+### How Did You Hear About Us?
+
+- Optional
+- Referral
+- LinkedIn
+- Social Media
+- Search
+- Other
+
+### Preferred Contact Method
+
+- Required
+- Email
+- WhatsApp
+- Call
+
+### Consent Checkbox
+
+- Required
+- User must agree to contact and acknowledge the privacy policy.
+
+---
+
+# 4. Hiring Form Submission Workflow
+
+When the user submits the form:
+
+1. Run front-end validation.
+2. Send the request to a serverless API endpoint.
+3. Run server-side validation.
+4. Run spam protection.
+5. Reject invalid requests with a clear error message.
+6. Send the complete inquiry to the approved VActives inbox.
+7. Send a branded confirmation email to the prospect.
+8. Display a clear success state.
+9. Offer the option to book a discovery call.
+10. Optionally store the lead only if storage is explicitly approved.
 
 ---
 
 # 5. Referral Form
 
-الحقول:
+Fields:
 
 - Referrer Full Name — Required
 - Referrer Email — Required
 - Referrer Phone / WhatsApp — Optional
 - Relationship to VActives
+  - Client
+  - Candidate
+  - Partner
+  - Friend
+  - Other
 - Referred Person Name — Required
 - Referred Company — Required
 - Referred Email or Phone — At least one required
@@ -404,37 +684,44 @@ Accordion للأسئلة الأساسية:
 - Hiring Need / Context — Recommended
 - Consent / Confirmation — Required
 
+After submission:
+
+- Validate the data.
+- Run spam protection.
+- Send an internal referral notification.
+- Display a success state.
+- Optionally send a confirmation email to the referrer.
+
 ---
 
-# 6. Candidate Application
+# 6. Candidate Application Path
 
-**لن يتم إنشاء Candidate Portal.**
+A complete candidate portal will **not** be built in Phase One.
 
-سيكون هناك زر:
+The website will include a button such as:
 
 > Join Our Talent Network
 
-الزر يفتح External Form أو Existing ATS page، والرابط يرسله العميل.
+The button will open an external candidate application form or approved applicant-tracking page supplied by VActives.
 
 ---
 
-# 7. ما لن يتم تنفيذه في Phase One
+# 7. Phase-One Out of Scope
 
-هذه البنود خارج الـScope:
+The following are not included in the initial project:
 
-- Login
-- Signup
+- Login / Signup
 - Client accounts
 - Candidate accounts
-- Dashboard
-- Admin panel
-- Applicant Tracking System من الصفر
-- AI Candidate Matching
-- Payment Gateway
-- Subscription Checkout
-- Complex Salary Calculator
-- Live Chat staffed by agents
-- Large Job Board
+- Admin dashboard
+- Client dashboard
+- Applicant Tracking System built from scratch
+- AI candidate matching
+- Payment gateway
+- Subscription checkout
+- Complex salary calculator
+- Staffed live chat
+- Large searchable job board
 - Multi-language website
 - Employee monitoring
 - Payroll
@@ -443,17 +730,24 @@ Accordion للأسئلة الأساسية:
 - Large CMS
 - Blog migration
 
-أي طلب جديد من هذا النوع يحتاج Scope جديد وتكلفة جديدة ومدة جديدة واتفاق كتابي.
+Any new feature of this type requires a separate discussion regarding:
+
+- Scope
+- Cost
+- Timeline
+- Written approval
 
 ---
 
 # 8. Frontend Technical Stack
 
-## 8.1 متطلب رسمي
+## 8.1 Official Requirement
 
-الاتفاق ينص على استخدام **Vue.js**.
+The agreement specifies **Vue.js**.
 
-## 8.2 القرار التقني المعتمد
+## 8.2 Approved Technical Implementation
+
+The project will use:
 
 - Vue 3
 - Vite
@@ -465,27 +759,36 @@ Accordion للأسئلة الأساسية:
 
 ---
 
-# 9. لماذا Vue 3؟
+# 9. Why Vue 3
 
-- متفق عليه.
-- مناسب لموقع Marketing صغير.
+Vue 3 is appropriate because it is:
+
+- Explicitly agreed for the project.
+- Well suited to a small marketing website.
 - Component-based.
-- سريع.
-- سهل الصيانة.
-- مناسب للـReusable Components.
-- يتيح Form UX جيد بدون Framework ثقيل.
+- Fast and maintainable.
+- Suitable for reusable UI components.
+- Strong for interactive forms and motion-heavy UI without requiring a heavier framework.
 
 ---
 
-# 10. لماذا Vite؟
+# 10. Why Vite
 
-Vite مسؤول عن Development server, Build, Asset optimization, Fast HMR وProduction bundling.
+Vite will handle:
+
+- Local development server
+- Fast Hot Module Replacement
+- Production build
+- Asset bundling
+- Frontend optimization
+
+The project does not require a complex build pipeline.
 
 ---
 
 # 11. Vue Router
 
-Routes المقترحة:
+Suggested routes:
 
 ```text
 /
@@ -493,25 +796,25 @@ Routes المقترحة:
 /start-hiring
 ```
 
-مع Route للـ404.
+A fallback route will also be created for the custom 404 page.
 
 ---
 
 # 12. Tailwind CSS
 
-قرار تنفيذي وليس Requirement رسمي.
+Tailwind CSS is an implementation choice, not a source requirement.
 
-الهدف:
+Benefits:
 
-- سرعة تنفيذ UI.
-- Consistent spacing.
-- Responsive utilities.
-- تقليل CSS repetition.
-- سهولة بناء Design System.
+- Faster UI development.
+- Consistent spacing and responsive behavior.
+- Easier design-token usage.
+- Reduced repetitive CSS.
+- Easier implementation of a custom design system.
 
 ---
 
-# 13. Project Structure
+# 13. Proposed Project Structure
 
 ```text
 vactives-website/
@@ -526,21 +829,25 @@ vactives-website/
 │   │   ├── images/
 │   │   ├── icons/
 │   │   └── logo/
+│   │
 │   ├── components/
 │   │   ├── common/
 │   │   ├── forms/
 │   │   ├── cards/
 │   │   └── sections/
+│   │
 │   ├── data/
 │   │   ├── roles.js
 │   │   ├── pricing.js
 │   │   ├── faqs.js
 │   │   └── testimonials.js
+│   │
 │   ├── pages/
 │   │   ├── Home.vue
 │   │   ├── Services.vue
 │   │   ├── StartHiring.vue
 │   │   └── NotFound.vue
+│   │
 │   ├── router/
 │   ├── styles/
 │   ├── App.vue
@@ -558,6 +865,8 @@ vactives-website/
 ---
 
 # 14. Reusable Components
+
+Examples:
 
 - Navbar
 - Footer
@@ -582,7 +891,7 @@ vactives-website/
 
 # 15. Data-Driven Content
 
-يفضل تخزين الأدوار والأسعار والأسئلة والشهادات في:
+Roles, pricing, FAQs, and testimonials should preferably be stored in structured data files such as:
 
 ```text
 src/data/roles.js
@@ -591,18 +900,19 @@ src/data/faqs.js
 src/data/testimonials.js
 ```
 
-الفائدة:
+Benefits:
 
-- تعديل المحتوى بسهولة.
-- تقليل الأخطاء.
-- إعادة استخدام نفس البيانات.
-- عدم الحاجة إلى CMS في Phase One.
+- Easier editing.
+- Less duplication.
+- Fewer inconsistencies.
+- Same data can be reused across pages.
+- No CMS is required for Phase One.
 
 ---
 
 # 16. Design Direction
 
-الـRequirements تطلب Style:
+The official requirements describe the visual style as:
 
 - Modern
 - Clean
@@ -610,50 +920,82 @@ src/data/testimonials.js
 - Professional
 - Spacious
 
-مع تجنب:
+The interface should avoid:
 
 - Clutter
 - Excessive animation
-- Generic call-center appearance
+- Generic call-center styling
 - Heavy page builders
-- Visual noise
+- Repetitive AI-template appearance
 
 ---
 
-# 17. Brand
+# 17. Brand Implementation
 
-سيتم استخدام:
+Use:
 
-- Approved VActives Logo
-- Brand Colors
+- Approved VActives logo
+- Approved brand colors
 - Favicon
-- Social Preview Image
+- Social preview image
 
-يجب طلب SVG (الأفضل) أو Transparent PNG عالي الجودة.
+Preferred logo format:
 
-ممنوع Redraw, Recolor, Stretch, Crop أو Add effects بدون اعتماد.
+- SVG
+- High-resolution transparent PNG as fallback
+
+Do not:
+
+- Redraw
+- Recolor
+- Stretch
+- Crop
+- Add effects
+
+unless specifically approved by VActives.
 
 ---
 
 # 18. Brand Colors
 
-لو العميل يرسل HEX codes سيتم استخدامها.
+If VActives provides official HEX values, use them.
 
-إذا لم يكن لديهم Brand Guide، يتم استخراج الألوان من اللوجو وإرسال Palette لهم للاعتماد.
+If no brand guide exists, the implementation can:
+
+1. Extract colors from the approved logo.
+2. Build a proposed palette.
+3. Send it to VActives for approval.
+4. Apply the approved palette consistently.
 
 ---
 
 # 19. Typography
 
-يتم اختيار Font احترافي ومقروء ومناسب للـEnglish، مع تثبيت Heading scale, Body scale, Line height وFont weights ضمن Design System.
+The requirements do not specify a mandatory font.
+
+The final typography system should include:
+
+- A professional web font.
+- Strong display typography for headings.
+- Highly readable body text.
+- Defined heading scale.
+- Defined body scale.
+- Consistent line heights.
+- Consistent font weights.
+
+Typography will be treated as part of the design system.
 
 ---
 
 # 20. Responsive Design
 
-الموقع يعمل على Desktop, Tablet, Mobile.
+The website must work on:
 
-أحجام اختبار تقريبية:
+- Desktop
+- Tablet
+- Mobile
+
+Suggested test widths:
 
 - 1440px
 - 1280px
@@ -663,44 +1005,80 @@ src/data/testimonials.js
 - 390px
 - 375px
 
-لا يوجد Horizontal scroll, Overlap, Clipping, Unreadable text, Broken cards أو Broken forms.
+Acceptance expectations:
+
+- No horizontal scrolling.
+- No overlapping sections.
+- No clipped content.
+- No unreadable text.
+- No broken cards.
+- No broken forms.
 
 ---
 
 # 21. Mobile UX
 
-Mobile أولوية، مع مراعاة Touch targets, Button height, Form input size, Hamburger navigation, Single-column forms عند الحاجة, Vertical timeline وStacked pricing cards.
+Mobile is a priority.
+
+The design should account for:
+
+- Comfortable touch targets.
+- Appropriate button heights.
+- Mobile-friendly form inputs.
+- Hamburger navigation.
+- Single-column layouts where appropriate.
+- Vertical process timeline.
+- Stacked pricing/content layouts.
+- Lower visual density than desktop where necessary.
 
 ---
 
-# 22. Animations
+# 22. Motion and Animation
 
-مسموح:
+Allowed motion includes:
 
 - Light entrance effects.
 - Hover effects.
-- Smooth scrolling.
+- Smooth section scrolling.
 - Small transitions.
 
-مع تجنب Excessive motion, Heavy parallax, Long loading animations وAutoplay video، واحترام `prefers-reduced-motion`.
+The experience should avoid:
+
+- Excessive motion.
+- Heavy parallax everywhere.
+- Long blocking loading animations.
+- Autoplay background video.
+
+The site must respect:
+
+```css
+prefers-reduced-motion
+```
 
 ---
 
 # 23. Backend Architecture
 
-## متطلب رسمي
+## 23.1 Official Requirement
 
-Minimal Backend فقط للـForms.
+Only a **minimal backend** is required for form processing.
 
-## القرار التقني المعتمد
+The project does not need:
 
-**Serverless Architecture**.
+- Permanent Node/Express server
+- Authentication server
+- Complex database
+- Custom backend dashboard
+
+## 23.2 Approved Technical Direction
+
+Use a **serverless architecture**.
 
 ---
 
 # 24. Backend Hosting
 
-**الاقتراح المعتمد للتنفيذ: Vercel Serverless Functions**
+Recommended implementation: **Vercel Serverless Functions**.
 
 ```text
 User
@@ -720,36 +1098,45 @@ Email Service
 
 ---
 
-# 25. لماذا Serverless؟
+# 25. Why Serverless
 
-- المشروع صغير.
-- لا يحتاج Backend دائم.
-- لا يوجد Login.
-- لا يوجد Database requirement أساسي.
-- يحتاج فقط Form processing.
-- يحتاج Secret keys بعيدًا عن Frontend.
-- Deployment بسيط.
+Serverless is appropriate because:
+
+- The website is small.
+- There is no authentication system.
+- There is no required complex database.
+- Backend logic is primarily form processing.
+- Secrets can remain server-side.
+- Deployment is simpler.
+- It avoids unnecessary infrastructure.
 
 ---
 
 # 26. Email Service
 
-**قرار تقني مقترح: Resend**.
+Recommended implementation choice: **Resend**.
 
-Hiring Form يرسل:
+### Hiring Form
 
-1. Internal email إلى VActives.
-2. Confirmation email إلى صاحب الطلب.
+Send:
 
-Referral Form يرسل Internal notification وOptional confirmation.
+1. Internal notification to VActives.
+2. Branded confirmation to the prospect.
+
+### Referral Form
+
+Send:
+
+1. Internal referral notification.
+2. Optional confirmation to the referrer.
 
 ---
 
 # 27. Environment Variables
 
-Secret keys لا توضع في Frontend.
+Secrets must not be placed in frontend source code.
 
-مثال:
+Example:
 
 ```text
 RESEND_API_KEY=
@@ -757,104 +1144,154 @@ VACTIVES_FORM_EMAIL=
 TURNSTILE_SECRET_KEY=
 ```
 
+Only safe public configuration may be exposed client-side when necessary.
+
 ---
 
 # 28. Form Security
+
+Requirements include:
 
 - Front-end validation.
 - Server-side validation.
 - Spam protection.
 - HTTPS.
 - No exposed secrets.
-- Clear error messages.
-- Clear success messages.
+- Clear error states.
+- Clear success states.
+- Avoid collecting unnecessary sensitive information.
 
 ---
 
 # 29. Spam Protection
 
-الـRequirement يسمح بـHoneypot أو CAPTCHA أو Rate limiting.
+The requirements allow solutions such as:
 
-**القرار المقترح:** Cloudflare Turnstile + basic server-side protections.
+- Honeypot
+- CAPTCHA
+- Rate limiting
+
+Recommended implementation:
+
+**Cloudflare Turnstile + basic server-side abuse protection**.
 
 ---
 
 # 30. Rate Limiting
 
-الهدف منع Form spam, Repeated submissions وAbuse بدون بناء Enterprise Security System.
+If added, rate limiting will help reduce:
+
+- Spam submissions.
+- Automated abuse.
+- Repeated rapid requests.
+
+The project does not require enterprise-grade anti-abuse infrastructure.
 
 ---
 
-# 31. Database
+# 31. Database / Lead Storage
 
-Storage اختياري في Phase One.
+Lead storage is optional in the requirements.
 
-الشكل المبدئي:
+Default Phase-One flow:
 
 ```text
 Form → API → Email → Success
 ```
 
-إذا طلب العميل Lead Storage لاحقًا يمكن استخدام Supabase أو Approved CRM أو Spreadsheet بعد تحديد الـScope.
+No database is required initially.
+
+If VActives later requests searchable lead history, possible options include:
+
+- Supabase
+- Approved CRM
+- Spreadsheet-based storage
+
+Any additional storage must also consider:
+
+- Access restrictions
+- Data retention
+- Consent timestamp
+- Privacy-policy version
+- Deletion process
 
 ---
 
 # 32. Domain
 
-الدومين هو اسم الموقع، مثال:
+A domain is the public website name, for example:
 
 ```text
 vactives.com
 ```
 
-الدومين ليس Hosting.
+A domain is **not** the hosting platform.
 
-العميل مسؤول عن شراء الدومين، تكلفته وملكية حساب الـRegistrar.
+The client should own:
+
+- Domain purchase.
+- Registrar account.
+- Domain renewal responsibility.
 
 ---
 
 # 33. Hosting
 
-الـHosting هو المكان الذي يعمل عليه الموقع.
+Hosting is the infrastructure where the website runs.
 
-**الاقتراح:** Vercel.
+Recommended platform: **Vercel**.
 
-يمكن أن يعمل الموقع مبدئيًا على `project-name.vercel.app`، لكن الأفضل للـProduction استخدام Custom Domain.
+During development or staging, the website may be accessible through a temporary address such as:
 
----
+```text
+project-name.vercel.app
+```
 
-# 34. Vercel vs Domain
-
-- Vercel يستضيف الموقع.
-- Domain هو اسم الموقع الاحترافي.
-
-يمكن تشغيل الموقع بدون Domain خاص، لكنه غير مفضل كـProduction Brand.
+For production, a custom VActives-owned domain is strongly preferred.
 
 ---
 
-# 35. Google Search
+# 34. Vercel vs Custom Domain
 
-وجود Custom Domain ليس وحده ما يجعل الموقع يظهر في Google.
+### Vercel
 
-سيتم تجهيز الموقع تقنيًا للـIndexing، لكن لا توجد ضمانات Ranking ولا يجوز وعد العميل بأنه سيكون النتيجة الأولى.
+Hosts and deploys the website.
+
+### Domain
+
+Provides the professional branded URL.
+
+A Vercel subdomain is technically sufficient for a working website, but it is not recommended as the long-term public brand address.
 
 ---
 
-# 36. SEO
+# 35. Search Engine Visibility
 
-سيتم تنفيذ:
+A custom domain alone does not guarantee Google ranking.
 
-- Unique title لكل صفحة.
-- Meta description.
+The website will be technically prepared for indexing, but:
+
+- Search ranking cannot be guaranteed.
+- The developer should not promise first-position results.
+- SEO scope is primarily technical and on-page basics.
+
+---
+
+# 36. SEO Implementation
+
+Implement:
+
+- Unique page titles.
+- Meta descriptions.
 - One H1 per page.
-- H2/H3 hierarchy.
+- Logical H2/H3 structure.
 - Clean URLs.
-- Open Graph tags.
+- Open Graph metadata.
 - Canonical URLs.
 - XML sitemap.
 - robots.txt.
 - Structured data.
-- Alt text.
+- Image alt text.
 - Semantic HTML.
 
 ---
@@ -867,21 +1304,21 @@ vactives.com
 /start-hiring
 ```
 
+URLs should remain short and readable.
+
 ---
 
 # 38. Structured Data
 
-Schema مناسب مثل:
+Use suitable schemas where appropriate, such as:
 
 - Organization
 - ProfessionalService
 - EmploymentAgency
 
-حيث يكون مناسبًا.
-
 ---
 
-# 39. SEO Keyword Themes
+# 39. Suggested SEO Keyword Themes
 
 - Virtual recruitment agency
 - Hire virtual assistants
@@ -892,54 +1329,70 @@ Schema مناسب مثل:
 - Executive assistant recruitment
 - Remote customer service hiring
 
-بدون Keyword Stuffing.
+SEO copy should remain natural. Avoid keyword stuffing.
 
 ---
 
 # 40. Performance
 
+Implementation should include:
+
 - Image optimization.
-- WebP / AVIF حيث مناسب.
-- Lazy loading.
-- Minimize unused CSS.
-- Minimize unused JS.
-- Avoid autoplay video.
-- Avoid giant background assets.
-- Mobile performance priority.
+- Modern image formats such as WebP/AVIF where appropriate.
+- Lazy loading for below-the-fold media.
+- Reduced unused CSS.
+- Reduced unused JavaScript.
+- No unnecessary autoplay video.
+- No oversized background assets.
+- Strong mobile loading performance.
 
 ---
 
-# 41. Images
+# 41. Imagery
 
-الصور تمثل Remote work, Recruitment, International teams وBusiness operations، مع تجنب صور Call Center cliché والAssets الثقيلة.
+Preferred imagery should communicate:
+
+- Remote work
+- Recruitment
+- International teams
+- Business operations
+
+Avoid:
+
+- Repetitive call-center clichés.
+- Poor-quality stock images.
+- Decorative images with no purpose.
+- Unnecessarily large media assets.
 
 ---
 
 # 42. Accessibility
 
+The implementation should include common accessibility best practices:
+
 - Keyboard navigation.
 - Visible focus states.
-- Form labels.
-- Alt text.
+- Correct form labels.
+- Image alt text.
 - Semantic headings.
-- Contrast.
+- Acceptable contrast.
 - Logical heading order.
-- Reduced motion.
-- Accessible buttons/links.
+- Reduced-motion support.
+- Accessible buttons and links.
 
 ---
 
 # 43. Footer
 
-يحتوي على:
+The footer should include:
 
 - Logo
-- Brief description
+- Short company description
 - Navigation
 - Contact details
 - Markets served
 - Social links
-- Privacy link
+- Privacy Policy link
 - Terms link
 - Copyright
 
@@ -947,89 +1400,148 @@ Schema مناسب مثل:
 
 # 44. WhatsApp
 
-يمكن إضافة CTA داخل Contact وFloating WhatsApp button بشرط ألا يغطي المحتوى أو يضر Accessibility.
+Possible implementation:
+
+- WhatsApp CTA in Contact section.
+- Floating WhatsApp button.
+
+Conditions:
+
+- Must not cover content.
+- Must not harm accessibility.
+- Must work correctly on mobile.
 
 ---
 
 # 45. Discovery Call
 
-لن يتم بناء Calendar System.
+A custom calendar system will not be built.
 
-العميل يرسل Calendly أو Cal.com أو Google Scheduling أو أي Scheduling Tool معتمد، ويتم ربطه كـLink أو Embed.
+VActives should provide an approved scheduling link, for example:
+
+- Calendly
+- Cal.com
+- Google Appointment Scheduling
+- Another approved scheduling platform
+
+The website will either:
+
+- Link to the scheduling page, or
+- Embed it if that improves the final UX.
 
 ---
 
 # 46. Analytics
 
-يتم تركيب Analytics بعد أن يحدد العميل الحساب.
+Analytics will be installed after VActives approves the account/platform.
 
-**اقتراح التنفيذ:** GA4.
+Recommended implementation: **Google Analytics 4 (GA4)**.
 
-Events:
+Suggested conversion events:
 
 - Start Hiring clicks
 - Discovery booking clicks
 - WhatsApp clicks
 - Email clicks
-- Referral form start
-- Referral form submit
-- Hiring form start
-- Hiring form submit
+- Referral form starts
+- Referral submissions
+- Hiring form starts
+- Hiring form submissions
 
 ---
 
 # 47. Analytics Ownership
 
-الحساب يجب أن يكون Client-owned أو يتم نقله للعميل بالكامل.
+The analytics account should be:
+
+- Owned by VActives, or
+- Fully transferred to VActives during handover.
 
 ---
 
 # 48. Cookie Consent
 
-إذا تم استخدام Tracking غير ضروري يتطلب Consent، يتم إضافة Cookie Notice / Consent Mechanism حسب الـSetup النهائي.
+If non-essential tracking technologies are used and consent is required for the target markets, a suitable cookie notice/consent mechanism must be implemented.
+
+The developer implements the mechanism but does not provide legal advice.
 
 ---
 
 # 49. Legal Content
 
-العميل يجب أن يوفر/يعتمد:
+VActives should provide or legally approve:
 
 - Privacy Policy
 - Terms of Use
 - Referral Program Terms
 - Required disclaimers
 
-المطور مسؤول عن Implementation وLinking وCorrect display، وليس عن كتابة أو اعتماد Legal Advice.
+The developer is responsible for:
+
+- Technical implementation.
+- Linking.
+- Correct presentation.
+
+The developer is **not** responsible for writing or approving legal advice.
 
 ---
 
-# 50. Pages vs Legal Documents
+# 50. Legal Pages vs Main Page Limit
 
-لأن الاتفاق يحدد 2–3 صفحات رئيسية، لا يتم افتراض تلقائي أن Privacy وTerms وReferral Terms ستتحول إلى 3 صفحات إضافية كاملة بدون اتفاق.
+The main agreement defines a 2–3 page website.
 
-يمكن تنفيذها بحسب الاتفاق النهائي كـSimple legal routes أو Modal أو External legal pages.
+Therefore, Privacy Policy, Terms of Use, and Referral Terms should not automatically be treated as three additional full marketing pages without clarification.
+
+Possible implementation options:
+
+- Simple legal routes.
+- Modal/legal overlay.
+- External approved legal pages.
+
+The final approach should be approved before launch.
 
 ---
 
-# 51. GitHub
+# 51. GitHub Repository
 
-سيتم استخدام GitHub لإدارة Source Code.
+GitHub will be used for source control.
 
-المقترح Repo باسم `vactives-website` أو نفس الـRepository الحالي.
+During development, the repository may remain under the developer's account.
 
-أثناء التطوير يمكن أن يكون Repo على حساب المطور، وعند Handover يتم نقل الملكية أو توفير الوصول الكامل للعميل حسب الاتفاق.
+At handover, repository ownership/access should be handled so that VActives owns or fully controls the source code as required by the project documents.
+
+Possible handover options:
+
+- Transfer repository ownership.
+- Transfer to a VActives GitHub organization.
+- Provide full access and ownership according to the agreed handover process.
 
 ---
 
 # 52. Git Workflow
 
-المشروع صغير، لذلك يمكن الاكتفاء بـ`main` أو استخدام `main` + `develop` إذا احتجنا Staging منفصل.
+The project is small, so a lightweight workflow is sufficient.
+
+Option A:
+
+```text
+main
+```
+
+Option B:
+
+```text
+main
+develop
+```
+
+Use the simpler option unless a separate staging branch becomes useful.
 
 ---
 
-# 53. Commit Style
+# 53. Suggested Commit Style
 
-أمثلة:
+Examples:
 
 ```text
 feat: build home hero section
@@ -1042,16 +1554,18 @@ chore: configure SEO metadata
 
 ---
 
-# 54. Client Assets Required
+# 54. Assets and Information Required From VActives
 
 ## Brand
-- Approved Logo SVG
-- Transparent PNG
-- Favicon source إن وجد
-- Brand colors / HEX codes إن وجدت
+
+- Approved SVG logo (preferred)
+- Transparent PNG logo
+- Favicon source if available
+- Brand HEX colors if available
 - Logo usage preferences
 
 ## Contact
+
 - Business email
 - Phone / WhatsApp
 - LinkedIn
@@ -1059,109 +1573,125 @@ chore: configure SEO metadata
 - Business hours
 
 ## Domain / Hosting
-- Domain registrar decision
-- Domain
+
+- Domain decision
+- Registrar decision
 - Hosting approval
 
 ## Scheduling
-- Discovery call link
+
+- Discovery-call scheduling link
 - Meeting availability
 
 ## Pricing
+
 - Final plans
-- Final price ranges
+- Final ranges
 - Inclusions
 - Exclusions
 - Currency
-- Taxes if applicable
+- Applicable taxes, if any
 
-## Referral
-- Reward
-- Eligibility
+## Referral Program
+
+- Reward amount/percentage
+- Eligibility rules
 - Payout trigger
 - Payment method
-- Duplicate referral rule
+- Duplicate-referral rule
 - Legal terms
 
 ## Testimonials
+
 - Approved wording
-- Name
+- Client name
 - Company
-- Role
-- Country
-- Photo/logo permission
+- Role/title
+- Country/market
+- Photo/logo permission where applicable
 - Written permission
 
 ## Legal
+
 - Privacy Policy
-- Terms
-- Referral Terms
-- Disclaimers
+- Terms of Use
+- Referral Program Terms
+- Required disclaimers
 
-## Forms
-- Destination inbox
+## Form Inbox
 
-## Candidate
-- External Candidate Form link
+- Email address that receives hiring and referral submissions
+
+## Candidate Application
+
+- External candidate application link
 
 ## Analytics
+
 - Approved analytics account/access
 
-## Approval
-- One decision-maker for final approval
+## Approval Process
+
+- One responsible decision-maker for final copy and design approval
 
 ---
 
-# 55. ما يمكن للمطور البدء فيه بدون العميل
+# 55. Work That Can Start Before Client Assets Are Finalized
 
-- GitHub repo.
-- Vue setup.
-- Vite.
-- Router.
-- Tailwind.
-- Folder structure.
-- Reusable components.
-- 3-page routing.
-- Placeholder content.
+The developer can safely begin:
+
+- GitHub repository setup.
+- Vue 3 setup.
+- Vite setup.
+- Vue Router setup.
+- Tailwind setup.
+- Project folder structure.
+- Reusable component structure.
+- Three-page routing.
+- Placeholder content structure.
 - Form UI.
-- Front-end validation structure.
+- Front-end validation architecture.
 - FAQ component.
-- Cards.
-- Responsive grid.
-- 404.
+- Role/industry UI components.
+- Responsive grid system.
+- 404 page.
 - Base SEO architecture.
 - Accessibility structure.
-- Local development.
+- Local development environment.
 
 ---
 
-# 56. ما لا يفضل إقفاله قبل استلام بيانات العميل
+# 56. Items That Should Not Be Finalized Before Client Input
 
-- Logo usage.
+Do not finalize:
+
+- Final logo files.
 - Brand colors.
 - Final pricing.
 - Testimonials.
 - Contact details.
-- WhatsApp.
+- WhatsApp number.
 - Business email.
-- Discovery call link.
-- Referral reward.
+- Discovery-call link.
+- Referral reward and terms.
 - Legal copy.
 - Candidate application link.
-- Analytics.
+- Analytics account.
 - Production domain.
-- Production email sender setup.
+- Production email-sender setup.
 
 ---
 
 # 57. Design Approval Workflow
 
-1. Structure approval.
-2. Desktop visual direction.
-3. Mobile visual direction.
-4. Component consistency.
-5. Content hierarchy.
-6. CTA placement.
+Recommended approval sequence:
+
+1. Confirm page structure.
+2. Confirm desktop visual direction.
+3. Confirm mobile visual direction.
+4. Confirm component consistency.
+5. Confirm content hierarchy.
+6. Confirm CTA placement.
 
 ---
 
@@ -1169,143 +1699,234 @@ chore: configure SEO metadata
 
 ## Stage 1 — Discovery
 
-تأكيد Logo, Colors, Domain, Content, Pricing, Forms, Referral terms وTechnical approach.
+Confirm:
+
+- Logo files
+- Brand colors
+- Domain
+- Content
+- Pricing
+- Forms
+- Referral terms
+- Technical approach
 
 ## Stage 2 — Wireframe
 
-اعتماد Navigation, Page order, Section order, Content hierarchy وCTA placement.
+Approve:
+
+- Navigation
+- Page order
+- Section order
+- Content hierarchy
+- CTA placement
 
 ## Stage 3 — Visual Design
 
-اعتماد Desktop direction, Mobile direction, Colors, Typography, Cards, Buttons وForms.
+Approve:
+
+- Desktop direction
+- Mobile direction
+- Colors
+- Typography
+- Cards/components
+- Buttons
+- Forms
 
 ## Stage 4 — Development
 
-تنفيذ Vue structure, Components, Routing, Data files, Responsive UI, Forms وAPI endpoints.
+Build:
+
+- Vue architecture
+- Components
+- Routing
+- Data files
+- Responsive UI
+- Forms
+- API endpoints
 
 ## Stage 5 — Content Review
 
-العميل يراجع Copy, Prices, Testimonials, Contact details وLegal links.
+VActives verifies:
 
-## Stage 6 — QA
+- Copy
+- Prices
+- Testimonials
+- Contact details
+- Legal links
 
-اختبار Responsive, Accessibility, Forms, SEO, Speed وBrowser compatibility.
+## Stage 6 — Quality Assurance
+
+Test:
+
+- Responsiveness
+- Accessibility
+- Forms
+- SEO
+- Speed
+- Browser compatibility
 
 ## Stage 7 — Launch & Handover
 
-Deploy, Connect domain, Verify forms, Verify analytics, Transfer credentials, Provide source وProvide notes.
+- Deploy production build.
+- Connect domain.
+- Verify forms.
+- Verify analytics.
+- Transfer credentials/ownership.
+- Provide source code.
+- Provide maintenance/deployment notes.
 
 ---
 
 # 59. Testing Plan
 
-## Brand Test
+## Brand Testing
 
-- Logo clear.
-- Correct proportions.
-- Correct colors.
-- No distortion.
+Verify:
 
-## Navigation Test
+- Approved logo is used.
+- Logo proportions are correct.
+- Brand colors are correct.
+- No distortion or unintended effects.
 
-اختبار Header links, Footer links, Anchor links, CTA وSocial links على Desktop, Tablet وMobile.
+## Navigation Testing
 
-## Responsive Test
+Test:
 
-التأكد من عدم وجود Clipping, Overlap, Horizontal scroll, Tiny text أوBroken controls.
+- Header links
+- Footer links
+- Anchor links
+- CTAs
+- Social links
 
-## Form Test
+Across:
 
-### Hiring Form
-- Required fields.
-- Invalid email.
-- Invalid URL.
-- Empty fields.
-- Spam test.
-- Successful submission.
-- API error.
-- Email notification.
-- Confirmation email.
+- Desktop
+- Tablet
+- Mobile
 
-### Referral Form
-نفس السيناريوهات المناسبة.
+## Responsive Testing
+
+Verify there is no:
+
+- Clipping
+- Overlap
+- Horizontal scrolling
+- Tiny/unreadable text
+- Broken buttons
+- Broken cards
+- Broken forms
+
+## Hiring Form Testing
+
+Test:
+
+- Required fields
+- Invalid email
+- Invalid URL
+- Empty fields
+- Spam protection
+- Successful submission
+- API failure
+- Internal email notification
+- Prospect confirmation email
+
+## Referral Form Testing
+
+Test equivalent scenarios for the referral form.
 
 ---
 
-# 60. Email Test
+# 60. Email Testing
 
-التأكد أن:
+Verify:
 
-- VActives inbox يستقبل.
-- Prospect confirmation يصل.
-- Secrets لا تظهر.
-- Subject واضح.
-- Content readable.
-
----
-
-# 61. SEO Test
-
-اختبار Titles, Descriptions, H1, Canonical, Sitemap, robots.txt, Open Graph وStructured data.
+- VActives inbox receives notifications.
+- Prospect confirmation emails are delivered.
+- Referrer confirmation works if enabled.
+- Secrets are never exposed.
+- Subject lines are clear.
+- Email body is readable on common clients.
 
 ---
 
-# 62. Performance Test
+# 61. SEO Testing
 
-- Large images.
+Verify:
+
+- Page titles.
+- Meta descriptions.
+- H1 usage.
+- Canonical URLs.
+- Sitemap.
+- robots.txt.
+- Open Graph metadata.
+- Structured data.
+
+---
+
+# 62. Performance Testing
+
+Check:
+
+- Oversized images.
 - Image formats.
 - Lazy loading.
-- JS size.
-- CSS.
-- Mobile loading.
+- JavaScript bundle size.
+- CSS size.
+- Mobile loading performance.
 
 ---
 
-# 63. Accessibility Test
+# 63. Accessibility Testing
 
-- Tab navigation.
+Check:
+
+- Keyboard navigation.
 - Focus visibility.
 - Form labels.
 - Alt text.
 - Heading order.
 - Color contrast.
+- Reduced-motion behavior.
 
 ---
 
-# 64. Security Test
+# 64. Security Testing
 
-- HTTPS.
-- Secrets server-side.
-- Spam protection.
-- Server validation.
-- Environment variables.
-- No API keys in Git.
+Verify:
+
+- HTTPS is enabled.
+- Secrets are server-side only.
+- Spam protection works.
+- Server-side validation works.
+- Environment variables are configured correctly.
+- API keys are not committed to Git.
 
 ---
 
 # 65. Browser Testing
 
-اختبار الإصدارات الحديثة قدر الإمكان من:
+Test current common versions where practical:
 
 - Chrome
 - Safari
 - Edge
 - Firefox
 - Mobile Safari
-- Chrome Android
+- Chrome on Android
 
 ---
 
 # 66. Deployment
 
-**المقترح:** Vercel.
+Recommended production platform: **Vercel**.
 
 ```text
-GitHub Repo
+GitHub Repository
    ↓
 Vercel Project
    ↓
-Build Vue App
+Build Vue Application
    ↓
 Deploy Frontend + Serverless APIs
    ↓
@@ -1316,170 +1937,209 @@ Attach Custom Domain
 
 # 67. Domain Connection
 
-العميل يملك Domain، ويتم ضبط DNS ليشير إلى Vercel.
+The client should own the domain.
 
-بعدها يعمل الموقع على Custom Domain بدل رابط `vercel.app`.
+DNS records will be configured to point the domain to the production Vercel project.
+
+Example final production address:
+
+```text
+https://vactives.com
+```
+
+instead of relying permanently on:
+
+```text
+https://vactives.vercel.app
+```
 
 ---
 
 # 68. HTTPS
 
-يتم التأكد من:
+Verify:
 
-- HTTPS شغال.
+- HTTPS works correctly.
 - HTTP redirects to HTTPS.
-- Forms تستخدم HTTPS.
+- Forms submit over HTTPS.
+- No insecure resources are loaded.
 
 ---
 
 # 69. Ownership
 
-في نهاية المشروع يجب أن تكون ملكية Domain, Hosting, Analytics, Code repository وThird-party service accounts للعميل أو يتم نقلها إليه بالكامل.
+At project completion, the following should be owned by or fully transferred to VActives:
+
+- Domain
+- Hosting
+- Analytics
+- Code repository
+- Relevant third-party service accounts
 
 ---
 
-# 70. Handover
+# 70. Handover Deliverables
 
-التسليم يشمل:
+Handover includes:
 
-- Working website.
+- Working production website.
 - Source code.
 - Deployment notes.
-- Access ownership.
+- Access/ownership transfer.
 - Basic content-editing guide.
-- Credentials transfer.
-- 30-day bug-fix support.
+- Relevant credentials transfer.
+- Start of the agreed bug-fix support period.
 
 ---
 
 # 71. Support Period
 
-طبقًا للاتفاق: **30 يوم بعد التسليم لإصلاح أخطاء البرمجة الناتجة عن التنفيذ.**
+According to the agreement, the developer provides **30 days of bug-fix support after delivery** for programming issues caused by the implementation.
 
-لا تشمل:
+The support period does **not** include:
 
 - New pages.
 - New features.
 - New integrations.
 - New content production.
-- Redesign.
+- Redesign requests.
 - Scope expansion.
 
 ---
 
 # 72. Revisions
 
-السعر يشمل **جولتين تعديلات بسيطة** داخل الـScope.
+The project price includes **two rounds of minor revisions** within the approved scope.
 
-أمثلة تعديل بسيط:
+Examples of minor revisions:
 
-- Text adjustment.
-- Spacing.
-- Minor colors.
-- Button wording.
-- ترتيب محدود داخل Section.
+- Text adjustments.
+- Spacing adjustments.
+- Minor color refinements.
+- Button wording changes.
+- Small section-order refinements.
 
-أمثلة تعديل كبير:
+Examples of major changes:
 
-- إضافة صفحة.
-- إضافة Dashboard.
-- تغيير Architecture.
-- إضافة Job Board.
-- إعادة تصميم الموقع بالكامل.
-- إضافة Login.
-- Integration جديد كبير.
+- Adding a new page.
+- Adding a dashboard.
+- Changing the architecture significantly.
+- Adding a job board.
+- Full redesign.
+- Adding authentication.
+- Adding a major new integration.
 
-التعديل الكبير يحتاج اتفاق جديد.
+Major changes require a new cost/timeline agreement.
 
 ---
 
 # 73. Timeline
 
-طبقًا للاتفاق:
+According to the agreement:
 
-- Start date: 22 August 2026.
-- Target: حوالي شهر.
-- Maximum target: شهر ونصف.
-- بشرط استلام العميل للمواد والملاحظات في الوقت.
+- Project start date: 22 August 2026.
+- Target implementation period: approximately one month.
+- Maximum target period: approximately one and a half months.
+- This assumes the client provides required content, feedback, and approvals on time.
 
-إذا تأخر العميل في Content أوFeedback أوApproval أوAssets، فمدة المشروع تمتد بنفس مدة التأخير.
+If the client delays:
+
+- Content delivery
+- Assets
+- Feedback
+- Approval
+
+then the project timeline extends by the corresponding delay period.
 
 ---
 
 # 74. Project Payment
 
-إجمالي قيمة المشروع: **15,000 EGP**.
+Total project value:
 
-1. 5,000 EGP عند بدء العمل.
-2. 5,000 EGP عند الانتهاء وقبل التسليم النهائي.
-3. 5,000 EGP خلال 30 يومًا كحد أقصى من تاريخ التسليم.
+**15,000 EGP**
+
+Payment structure:
+
+1. 5,000 EGP at project start.
+2. 5,000 EGP when implementation is complete and before final handover.
+3. 5,000 EGP within a maximum of 30 days from delivery.
 
 ---
 
 # 75. Client Responsibilities
 
-العميل مسؤول عن:
+The client is responsible for providing:
 
 - Logo
-- Text
+- Text content
 - Images
 - Pricing
-- Contact details
-- Account links
+- Contact information
+- Required account links
 - Feedback
 - Approvals
-- Domain cost
-- Hosting cost
+
+The client is also responsible for the cost of:
+
+- Domain
+- Hosting
 - Paid third-party services
 
-إلا إذا تم الاتفاق كتابيًا على غير ذلك.
+unless otherwise agreed in writing.
 
 ---
 
 # 76. Developer Responsibilities
 
-المطور مسؤول عن:
+The developer is responsible for:
 
-- Design implementation.
+- Website design and implementation.
 - Vue development.
-- Responsive UI.
-- Basic SEO.
-- Basic performance.
+- Responsive behavior.
+- Basic technical SEO.
+- Basic performance optimization.
 - Forms.
 - Secure form processing.
-- Linking client-provided content.
+- Client-provided content integration.
 - Deployment.
-- Source code.
-- Bug-fix support.
+- Source-code delivery.
+- Agreed bug-fix support.
 
 ---
 
-# 77. Important Scope Rule
+# 77. Scope Protection Rule
 
-أي Feature غير موجود في Requirements أوAgreement أوWritten approval يعتبر **Out of Scope**.
+Any page, feature, or integration not included in:
+
+- The Requirements Brief,
+- The Agreement, or
+- A later written approval
+
+must be treated as **Out of Scope** until separately approved.
 
 ---
 
-# 78. Features Summary
+# 78. Implementation Feature Groups
 
-يمكن تلخيص التنفيذ إلى Feature Groups:
+For development planning, the project can be divided into these implementation groups:
 
 1. Responsive Navbar
 2. Sticky Header
 3. Mobile Menu
 4. Hero
 5. CTA System
-6. Market/Trust Bar
+6. Market / Trust Bar
 7. About Section
-8. Audience/Industry Cards
-9. Roles Grid
+8. Audience / Industry Presentation
+9. Roles Presentation
 10. How It Works
 11. Why Choose Us
 12. Testimonials
-13. Services Overview
+13. Service Overview
 14. Role Catalogue
 15. Pricing
-16. Timeline
+16. Hiring Timeline
 17. Replacement Support
 18. Referral Program
 19. FAQ Accordion
@@ -1488,11 +2148,11 @@ Attach Custom Domain
 22. Discovery Call Link
 23. Direct Contact Links
 24. Candidate External Link
-25. Form Validation
+25. Client-Side Validation
 26. Server-Side Form Handler
 27. Anti-Spam
 28. Email Notifications
-29. Success/Error States
+29. Success / Error States
 30. SEO Metadata
 31. Sitemap
 32. robots.txt
@@ -1500,16 +2160,16 @@ Attach Custom Domain
 34. Analytics Events
 35. Accessibility Basics
 36. Performance Optimization
-37. 404 Page
+37. Custom 404 Page
 38. Deployment
 39. Domain Connection
 40. Handover
 
-**مهم:** هذه قائمة تنفيذية وليست 40 Feature تعاقدية مستقلة.
+**Important:** this is an implementation breakdown, not a claim that the contract contains forty separate features.
 
 ---
 
-# 79. Final Architecture
+# 79. Final Technical Architecture
 
 ```text
                         ┌────────────────────────┐
@@ -1542,7 +2202,7 @@ Attach Custom Domain
 
 # 80. Optional Future Architecture
 
-إذا تم طلب Lead Storage لاحقًا:
+If lead storage is later requested:
 
 ```text
 Form
@@ -1552,27 +2212,32 @@ Serverless API
  └── Database / CRM
 ```
 
-مثل Supabase أوApproved CRM، لكن هذا ليس شرطًا أساسيًا في Phase One.
+Possible options:
+
+- Supabase
+- Approved CRM
+
+This is not required for the initial phase unless explicitly added to scope.
 
 ---
 
 # 81. Launch Approval Checklist
 
-- [ ] Logo approved
+- [ ] Approved logo received
 - [ ] Brand colors approved
 - [ ] Domain confirmed
 - [ ] Hosting confirmed
 - [ ] Business email confirmed
 - [ ] WhatsApp confirmed
-- [ ] Discovery call link confirmed
+- [ ] Discovery-call link confirmed
 - [ ] Pricing approved
 - [ ] Referral reward approved
 - [ ] Referral terms approved
 - [ ] Testimonials verified
 - [ ] Privacy Policy approved
-- [ ] Terms approved
+- [ ] Terms of Use approved
 - [ ] Forms tested
-- [ ] Inbox tested
+- [ ] Real inbox tested
 - [ ] Mobile layout approved
 - [ ] Analytics verified
 - [ ] SEO verified
@@ -1585,6 +2250,7 @@ Serverless API
 # 82. Developer Implementation Checklist
 
 ## Setup
+
 - [ ] Create GitHub repository
 - [ ] Initialize Vue 3 + Vite
 - [ ] Install Vue Router
@@ -1593,6 +2259,7 @@ Serverless API
 - [ ] Create base layout
 
 ## Global UI
+
 - [ ] Navbar
 - [ ] Mobile menu
 - [ ] Footer
@@ -1603,17 +2270,19 @@ Serverless API
 - [ ] Focus states
 
 ## Home
+
 - [ ] Hero
 - [ ] Trust bar
 - [ ] About
-- [ ] Who we serve
+- [ ] Who We Serve
 - [ ] Roles
-- [ ] How it works
-- [ ] Why choose us
+- [ ] How It Works
+- [ ] Why Choose Us
 - [ ] Testimonials
 - [ ] Final CTA
 
-## Services
+## Services & Pricing
+
 - [ ] Service overview
 - [ ] Role catalogue
 - [ ] Included services
@@ -1623,19 +2292,21 @@ Serverless API
 - [ ] Referral section
 - [ ] FAQ
 
-## Contact
-- [ ] Start Hiring intro
+## Contact / Start Hiring
+
+- [ ] Start Hiring introduction
 - [ ] Hiring Form
 - [ ] Discovery Call
-- [ ] Contact links
+- [ ] Direct contact links
 - [ ] Referral Form
 - [ ] Candidate CTA
 - [ ] Consent UI
 
 ## Backend
+
 - [ ] Hiring API
 - [ ] Referral API
-- [ ] Server validation
+- [ ] Server-side validation
 - [ ] Email integration
 - [ ] Anti-spam
 - [ ] Error handling
@@ -1643,6 +2314,7 @@ Serverless API
 - [ ] Environment variables
 
 ## SEO
+
 - [ ] Titles
 - [ ] Meta descriptions
 - [ ] H1 structure
@@ -1653,21 +2325,24 @@ Serverless API
 - [ ] Structured Data
 
 ## Performance
+
 - [ ] Optimize images
-- [ ] Lazy load
-- [ ] Check bundle
+- [ ] Lazy loading
+- [ ] Review bundle size
 - [ ] Mobile performance
 
 ## Accessibility
-- [ ] Keyboard
-- [ ] Focus
-- [ ] Labels
+
+- [ ] Keyboard navigation
+- [ ] Focus states
+- [ ] Form labels
 - [ ] Alt text
 - [ ] Heading order
 - [ ] Contrast
 - [ ] Reduced motion
 
 ## QA
+
 - [ ] Desktop
 - [ ] Tablet
 - [ ] Mobile
@@ -1677,26 +2352,28 @@ Serverless API
 - [ ] Links
 - [ ] SEO
 - [ ] Analytics
-- [ ] Browser test
+- [ ] Browser testing
 
 ## Launch
+
 - [ ] Vercel deployment
 - [ ] Connect custom domain
 - [ ] HTTPS
-- [ ] Production env vars
+- [ ] Production environment variables
 - [ ] Production form test
 - [ ] Production analytics test
 
 ## Handover
+
 - [ ] Source code
-- [ ] Repo ownership
+- [ ] Repository ownership/access
 - [ ] Hosting access
 - [ ] Domain confirmed
 - [ ] Analytics ownership
-- [ ] Third-party services ownership
+- [ ] Third-party service ownership
 - [ ] Deployment notes
-- [ ] Content editing notes
-- [ ] 30-day bug support starts
+- [ ] Content-editing notes
+- [ ] 30-day bug-fix support starts
 
 ---
 
@@ -1726,34 +2403,34 @@ Serverless API
 - [ ] Domain decision
 - [ ] Hosting approval
 - [ ] Analytics account/access
-- [ ] Final content approver
+- [ ] Final content/design approver
 
 ---
 
 # 84. Definition of Done
 
-المشروع يعتبر مكتملًا عندما:
+The project is considered complete when:
 
-1. الصفحات الثلاث تعمل.
-2. الـResponsive سليم.
-3. كل الـSections المطلوبة موجودة.
-4. Hiring Form يعمل.
-5. Referral Form يعمل.
-6. Emails تصل.
-7. Spam protection يعمل.
-8. لا توجد Secrets في Frontend.
-9. SEO الأساسي موجود.
-10. Analytics المتفق عليه يعمل.
-11. روابط التواصل صحيحة.
-12. الأسعار والمحتوى معتمدة.
-13. Legal links موجودة.
-14. Domain/Hosting Production يعمل.
-15. Source code جاهز للتسليم.
-16. Client review تمت.
-17. الملاحظات داخل الجولتين تم تنفيذها.
-18. Handover تم.
-19. Ownership نقلت للعميل بعد استكمال شروط التسليم والدفع.
-20. يبدأ بعدها 30-day bug-fix support.
+1. The three main pages are implemented.
+2. Responsive behavior is correct.
+3. All agreed sections are present.
+4. Hiring Inquiry Form works.
+5. Referral Form works.
+6. Required email notifications work.
+7. Spam protection works.
+8. No secrets are exposed in frontend code.
+9. Basic SEO is implemented.
+10. Approved analytics works.
+11. Contact links are correct.
+12. Pricing and content are approved.
+13. Legal links are present.
+14. Production hosting/domain works.
+15. Source code is ready for handover.
+16. Client review is completed.
+17. Agreed revisions are completed.
+18. Handover is completed.
+19. Ownership is transferred according to the agreement and payment status.
+20. The 30-day bug-fix support period begins.
 
 ---
 
@@ -1799,61 +2476,71 @@ CRM:                None in Phase One
 Repository:         GitHub
 Production Domain:  Client-owned custom domain
 Support:            30 days bug fixes
-Revisions:          2 simple revision rounds
+Revisions:          2 minor revision rounds
 ```
 
 ---
 
 # 86. Scope Protection Note
 
-هذا الملف لا يضيف التزامات جديدة على الاتفاق الأصلي.
+This specification does not create new obligations beyond the original project agreement and requirements.
 
-الهدف منه هو **تحويل المتطلبات والاتفاق إلى خطة تنفيذ واضحة**.
+Its purpose is to convert the approved documents into a clear implementation plan.
 
-أي قرار تقني مثل Tailwind CSS, Vercel, Resend, Cloudflare Turnstile أوSupabase كحل اختياري هو وسيلة لتنفيذ الـScope وليس توسيعًا للـScope.
+Technical choices such as:
 
-وفي حالة ظهور Requirement جديد غير موجود في المستندات الأصلية، يتم تقييمه منفصلًا قبل تنفيذه.
+- Tailwind CSS
+- Vercel
+- Resend
+- Cloudflare Turnstile
+- Optional Supabase storage
+
+are implementation methods, not automatic scope expansion.
+
+If a new requirement appears that is not included in the source documents, it should be evaluated separately before implementation.
 
 ---
 
 # 87. Source Reference Map
 
 ## Website Requirements Brief
-يحدد:
 
-- هدف الموقع.
-- الجمهور.
-- 2–3 صفحات.
-- الأقسام.
-- الأدوار.
-- النصوص.
-- الأسعار المبدئية.
-- الـForms.
-- Minimal Backend.
-- Security.
-- UX.
-- SEO.
-- Analytics.
-- Testing.
-- Client inputs.
-- Out of Scope.
+Defines:
+
+- Website purpose
+- Target audience
+- 2–3 page limit
+- Required sections
+- Supported roles
+- Initial website copy
+- Indicative pricing
+- Forms
+- Minimal backend
+- Security requirements
+- UX requirements
+- SEO
+- Analytics
+- Testing
+- Client-provided inputs
+- Out-of-scope items
 
 ## Website Agreement
-يحدد:
 
-- Vue.js.
-- Responsive.
-- 2–3 صفحات.
-- Forms.
-- Basic SEO / performance.
-- Source code.
-- Out-of-scope protection.
-- Timeline.
-- Payment.
-- Revisions.
-- Support.
-- Client responsibilities.
-- Ownership.
+Defines:
+
+- Vue.js implementation
+- Responsive website requirement
+- 2–3 page scope
+- Forms
+- Basic SEO and performance work
+- Source-code delivery
+- Out-of-scope protection
+- Timeline
+- Payment terms
+- Revision rounds
+- Support period
+- Client responsibilities
+- Ownership and handover
 
 ---
 
@@ -1861,4 +2548,4 @@ Revisions:          2 simple revision rounds
 
 **VActives Website — Full Project Implementation Specification**
 
-هذا المستند هو المرجع التنفيذي التفصيلي أثناء بناء المشروع، ويُستخدم للتأكد أن التنفيذ يظل داخل نطاق الاتفاق والمتطلبات المعتمدة.
+This document is the working implementation reference for the project and should be used throughout development to keep the final website aligned with the approved requirements and agreement.
