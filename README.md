@@ -1,104 +1,233 @@
-# Program Designer
+# VActives Website
 
-Program Designer is an interactive Vue.js frontend prototype for building, validating, previewing, and publishing academic programs.
+Official website for **VActives**, a virtual recruitment agency connecting businesses with skilled remote professionals across the United States, United Kingdom, Canada, and Australia.
 
-The experience covers the full program-design workflow: a product-level Home page, first-time onboarding, program structure editing, nested and choice groups, prerequisites, participant-path simulation, validation, and review before publishing.
+The website is designed to present VActives' recruitment services, available roles, pricing, hiring process, referral program, and contact options through a modern, responsive, and conversion-focused experience.
 
-![Program Designer Home](frontend/home-implementation-final.png)
+## Project Overview
 
-## Highlights
+The VActives website is a small marketing and lead-generation website focused on helping potential clients:
 
-- Home launchpad with recent programs, progress, and activity
-- Dedicated loading and no-program onboarding states
-- Hierarchical program structure with collapsible nested groups
-- Sequential and choice-group configuration
-- Overview and Rules editing modes
-- Add Group and Add Step workflows
-- Prerequisite selection, impact review, and circular-dependency errors
-- Participant-path simulation for AI, IT, and Programming
-- Validation warnings and review-before-publish flow
-- Responsive desktop layout with keyboard-focus states
+- Learn about VActives and its recruitment services
+- Explore available remote roles
+- Understand the recruitment process
+- Review service pricing
+- Submit a hiring inquiry
+- Book a discovery call
+- Refer potential clients
+- Contact VActives directly
+
+## Website Structure
+
+The website is planned as a **3-page experience**:
+
+### Home
+
+- Hero section
+- Markets served
+- About VActives
+- Industries served
+- Roles VActives recruits
+- How the recruitment process works
+- Why choose VActives
+- Testimonials
+- Call-to-action sections
+
+### Services & Pricing
+
+- Service overview
+- Role catalogue
+- Services included
+- Pricing
+- Recruitment timeline
+- Replacement support
+- Referral program
+- Frequently asked questions
+
+### Contact / Start Hiring
+
+- Hiring inquiry form
+- Discovery call booking
+- Direct contact options
+- Referral form
+- Candidate application link
+- Consent and privacy information
 
 ## Tech Stack
 
-- [Vue 3](https://vuejs.org/)
-- [Vite](https://vite.dev/)
-- [Phosphor Icons](https://phosphoricons.com/)
-- Urbanist and Instrument Sans via Fontsource
-- A lightweight Worker for static hosting compatibility
+### Frontend
 
-## Getting Started
+- Vue 3
+- Vite
+- Vue Router
+- Tailwind CSS
+- JavaScript
 
-Requirements:
+### Backend
 
-- Node.js 18 or newer
-- npm
+The project uses a lightweight serverless architecture for form processing.
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+Planned services:
 
-Open the local address printed by Vite. The default entry shows the loading state briefly and then opens Home.
+- Vercel Serverless Functions
+- Resend for email notifications
+- Cloudflare Turnstile for spam protection
+- Server-side form validation
 
-## Available States
+No traditional backend server, authentication system, or complex database is required for the initial release.
 
-The prototype uses hash-based navigation so its main states can be opened directly:
+## Deployment
 
-| State | Route |
-| --- | --- |
-| Home | `#/home` |
-| Program editor | `#/program` |
-| No programs | `#/empty-programs` |
-| Loading | `#/loading` |
-
-The primary interactions also connect these states naturally:
-
-- Select **Continue designing** to open the existing program.
-- Select **Create Program** to create a named program and enter its empty editor.
-- Select the Program Designer logo to return Home.
-
-## Build and Test
-
-```bash
-cd frontend
-npm run build
-npm run test:sites
-```
-
-The production build is generated in `frontend/dist/`. Generated dependencies and build output are excluded from Git.
-
-## Project Structure
+The production website will be deployed using **Vercel** and connected to the official VActives domain.
 
 ```text
-frontend/
-├── public/
-│   └── assets/                 # Brand assets
-├── src/
-│   ├── App.vue                 # Product UI and interactions
-│   ├── main.js                 # Vue entry point
-│   └── styles.css              # Design system and responsive layout
-├── tests/                      # Hosting worker tests
-├── worker/                     # Static hosting worker
-├── audit/                      # UX audit evidence
-├── design-qa.md                # Final visual QA report
-├── ux-audit.md                 # Product experience audit
-└── package.json
+User
+  ↓
+VActives Website
+  ↓
+Vue Frontend
+  ↓
+Vercel Serverless Functions
+  ↓
+Email / Form Processing
 ```
 
-## Design Sources and QA
+## Forms
 
-The implementation was grounded in the supplied Figma design and supporting product-design references. The selected Home direction and final comparison are included in the repository:
+The website includes two main forms:
 
-- [Selected Home reference](frontend/home-option-3-reference.png)
-- [Final Home implementation](frontend/home-implementation-final.png)
-- [Home QA comparison](frontend/home-qa-comparison-final.png)
-- [Design QA report](frontend/design-qa.md)
-- [UX audit](frontend/ux-audit.md)
+### Hiring Inquiry
 
-The final design-QA result is **passed**, and the hosting test suite passes 4/4 tests.
+Used by companies interested in hiring remote professionals.
 
-## Scope
+### Referral Form
 
-This repository currently contains a frontend mock with realistic local interactions and mock data. Authentication, persistent storage, backend APIs, and external integrations are intentionally outside the current scope.
+Used by clients, partners, candidates, and professional contacts to refer potential businesses to VActives.
+
+Forms will include:
+
+- Client-side validation
+- Server-side validation
+- Spam protection
+- Success and error states
+- Email notifications
+- Consent handling
+
+## SEO
+
+The website will include basic technical and on-page SEO implementation:
+
+- Unique page titles
+- Meta descriptions
+- Semantic HTML
+- Structured heading hierarchy
+- Open Graph metadata
+- Canonical URLs
+- XML sitemap
+- robots.txt
+- Structured data
+- Optimized URLs
+- Image alt text
+
+## Responsive Design
+
+The website will be fully responsive across:
+
+- Desktop
+- Tablet
+- Mobile
+
+Mobile usability and performance are a priority.
+
+## Accessibility
+
+The project will follow common accessibility best practices including:
+
+- Keyboard navigation
+- Visible focus states
+- Proper form labels
+- Accessible color contrast
+- Semantic HTML
+- Alternative text for images
+- Reduced-motion support where appropriate
+
+## Performance
+
+Performance considerations include:
+
+- Optimized images
+- Modern image formats
+- Lazy loading
+- Minimal unnecessary JavaScript
+- Reusable Vue components
+- Mobile-first performance optimization
+
+## Project Scope
+
+The initial release does **not** include:
+
+- User authentication
+- Client accounts
+- Candidate accounts
+- Admin dashboard
+- Client portal
+- Full job board
+- Applicant tracking system
+- AI candidate matching
+- Online payments
+- Subscription system
+- Payroll system
+- Employee monitoring
+- Time tracking
+- Custom CRM
+- Large CMS
+- Multi-language support
+
+These may be considered as future enhancements.
+
+## Project Status
+
+🚧 **Currently in development**
+
+Development stages:
+
+1. Project setup
+2. UI/UX implementation
+3. Vue development
+4. Form integration
+5. SEO and analytics
+6. Responsive testing
+7. Performance optimization
+8. Deployment
+9. Final QA
+10. Production launch
+
+## Repository
+
+This repository contains the source code for the VActives website.
+
+```text
+vactives-website/
+│
+├── public/
+│
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── data/
+│   ├── pages/
+│   ├── router/
+│   └── styles/
+│
+├── api/
+│
+└── README.md
+```
+
+## Developer
+
+Developed by **Marwan Ashraf**
+
+---
+
+© VActives. All rights reserved.
