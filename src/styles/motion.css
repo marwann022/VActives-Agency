@@ -1,0 +1,60 @@
+/* ==========================================================================
+   VActives Agency — Motion & Accessibility Architecture (Phase 1C)
+   ========================================================================== */
+
+:root {
+  /* --------------------------------------------------------------------------
+     1. DURATION TOKENS
+     -------------------------------------------------------------------------- */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-medium: 400ms;
+  --duration-slow: 650ms;
+  --duration-page: 700ms;
+
+  /* --------------------------------------------------------------------------
+     2. EASING TOKENS
+     -------------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ==========================================================================
+   SCROLL MOTION & PERFORMANCE PRINCIPLES
+   ==========================================================================
+   1. Page Entrance Sequence:
+      Heading clip/lift -> Supporting Copy -> CTAs -> Visual/Decorative Accents.
+   
+   2. Performance Constraints:
+      - Primary animated properties MUST be limited to `transform`, `opacity`, and `clip-path`.
+      - NEVER animate layout geometry properties (`width`, `height`, `top`, `left`, `margin`, `padding`).
+      - Avoid heavy box-shadow or blur filter animations during scroll.
+
+   3. Responsive Motion Adaptations:
+      - Desktop (>= 1024px): Full reveal choreography and staggered timelines.
+      - Tablet (768px - 1023px): Reduced stagger delays and shorter travel distances (12-16px max).
+      - Mobile (< 768px): Minimal lift distances (8-12px max), short durations (300-400ms), zero hover-dependent triggers, no horizontal overflow.
+
+   4. Storytelling over Distraction:
+      - Animations must reinforce editorial narrative flow.
+      - Avoid scroll-jacking or artificial scroll delays.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   3. ACCESSIBILITY — REDUCED MOTION
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

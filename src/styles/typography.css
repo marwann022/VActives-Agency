@@ -1,0 +1,57 @@
+/* ==========================================================================
+   VActives Agency — Structural Typography Tokens (Phase 1C)
+   ========================================================================== */
+
+:root {
+  /* --------------------------------------------------------------------------
+     1. FONT STACKS (Plus Jakarta Sans — Premium Editorial Sans-Serif)
+     -------------------------------------------------------------------------- */
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* --------------------------------------------------------------------------
+     2. FLUID TYPOGRAPHY SCALE
+     -------------------------------------------------------------------------- */
+  --text-display-xl: clamp(5.5rem, 4.8rem + 3.5vw, 6.5rem);    /* 88px - 104px */
+  --text-display-lg: clamp(4.5rem, 4rem + 2.5vw, 5.5rem);      /* 72px - 88px */
+  --text-h1: clamp(4rem, 3.5rem + 2.5vw, 5rem);                /* 64px - 80px */
+  --text-h2: clamp(3rem, 2.5rem + 2.5vw, 4rem);                /* 48px - 64px */
+  --text-h3: clamp(2rem, 1.75rem + 1.25vw, 2.5rem);            /* 32px - 40px */
+  --text-h4: clamp(1.5rem, 1.375rem + 0.625vw, 1.75rem);       /* 24px - 28px */
+  --text-body-lg: clamp(1.25rem, 1.1875rem + 0.3125vw, 1.375rem); /* 20px - 22px */
+  --text-body: clamp(1rem, 0.9375rem + 0.3125vw, 1.125rem);    /* 16px - 18px */
+  --text-sm: 0.9375rem;                                        /* 15px */
+  --text-xs: 0.8125rem;                                        /* 13px */
+
+  /* --------------------------------------------------------------------------
+     3. LINE HEIGHTS
+     -------------------------------------------------------------------------- */
+  --leading-tight: 1.1;
+  --leading-heading: 1.2;
+  --leading-body: 1.5;
+
+  /* --------------------------------------------------------------------------
+     4. FONT WEIGHTS
+     -------------------------------------------------------------------------- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+}
+
+/* Base Typography Reset */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+p {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
