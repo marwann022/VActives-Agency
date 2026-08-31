@@ -3,8 +3,7 @@
     <!-- Global Sticky/Fixed Header -->
     <SiteHeader />
 
-    <!-- Main Content Area with Top Offset for Fixed Header -->
-    <main class="flex-grow pt-20">
+    <main class="flex-grow pt-[86px] max-[900px]:pt-[72px]">
       <router-view />
     </main>
 

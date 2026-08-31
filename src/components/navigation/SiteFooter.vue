@@ -1,95 +1,12 @@
 <template>
-  <footer class="bg-bg-dark text-text-inverse border-t border-border-dark pt-16 pb-12">
-    <BaseContainer class="space-y-16">
-      <!-- Top Call-To-Action Block -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-        <div class="lg:col-span-8 space-y-4">
-          <p class="text-xs uppercase tracking-wider font-semibold text-text-muted">
-            START HIRING TODAY
-          </p>
-          <h2 class="font-display text-h1 font-bold tracking-tight text-text-inverse leading-heading max-w-2xl">
-            Ready to build your remote team?
-          </h2>
-          <p class="font-body text-body-lg text-text-muted max-w-xl">
-            VActives connects growing businesses with screened remote professionals across sales, operations, administration, and customer support.
-          </p>
-        </div>
-        <div class="lg:col-span-4 lg:text-right">
-          <BaseButton
-            variant="primary"
-            size="lg"
-            to="/start-hiring"
-            show-arrow
-          >
-            Start Hiring
-          </BaseButton>
-        </div>
+  <footer id="contact" class="site-footer">
+    <BaseContainer>
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-logo-plate"><BrandLogo /></div><h2>Ready to build your remote team?</h2></div>
+        <div><h3>Services &amp; Pricing</h3><nav><a href="/#roles">Explore roles</a><a href="/#about">How we work</a><router-link to="/start-hiring">Start hiring</router-link></nav></div>
+        <div><h3>Contact</h3><nav><span>Let’s talk about your next hire.</span><a href="mailto:hello@vactives.com">hello@vactives.com</a><a href="#">LinkedIn</a></nav></div>
       </div>
-
-      <!-- Structural Divider Line -->
-      <div class="w-full h-px bg-border-dark/60"></div>
-
-      <!-- Footer Columns Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <!-- Column 1: Brand Wordmark & positioning statement -->
-        <div class="space-y-3">
-          <span class="font-display text-h4 font-bold tracking-tight text-text-inverse block">
-            VACTIVES
-          </span>
-          <p class="text-xs text-text-muted leading-body max-w-xs">
-            Virtual recruitment agency connecting global companies with elite remote talent across sales, operations, and support roles.
-          </p>
-        </div>
-
-        <!-- Column 2: Quick Links -->
-        <div class="space-y-3">
-          <h3 class="text-xs uppercase tracking-wider font-semibold text-text-muted">
-            NAVIGATION
-          </h3>
-          <ul class="space-y-2 text-sm text-text-muted">
-            <li>
-              <router-link to="/" class="hover:text-text-inverse transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded-xs">
-                Home
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/services" class="hover:text-text-inverse transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded-xs">
-                Services &amp; Pricing
-              </router-link>
-            </li>
-            <li>
-              <router-link to="/start-hiring" class="hover:text-text-inverse transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded-xs">
-                Start Hiring
-              </router-link>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Column 3: Contact & Market Placeholders (Non-clickable text placeholders until client details provided) -->
-        <div class="space-y-3">
-          <h3 class="text-xs uppercase tracking-wider font-semibold text-text-muted">
-            CONTACT &amp; MARKETS
-          </h3>
-          <ul class="space-y-2 text-sm text-text-muted">
-            <li>[Contact Details TBD]</li>
-            <li>[Official Social Channels TBD]</li>
-            <li class="font-mono text-xs text-text-muted pt-1">USA &middot; UK &middot; CANADA &middot; AUSTRALIA</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Lower Copyright & Legal Row -->
-      <div class="border-t border-border-dark/40 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted gap-4">
-        <p>&copy; {{ currentYear }} VActives Agency. All rights reserved.</p>
-        <div class="flex items-center space-x-6">
-          <span class="text-text-muted hover:text-text-inverse transition-colors cursor-pointer" @click.prevent>
-            Privacy Policy
-          </span>
-          <span class="text-text-muted hover:text-text-inverse transition-colors cursor-pointer" @click.prevent>
-            Terms of Use
-          </span>
-        </div>
-      </div>
+      <div class="footer-bottom"><span>© {{ currentYear }} VActives. All rights reserved.</span><span>Virtual Recruitment Agency</span></div>
     </BaseContainer>
   </footer>
 </template>
@@ -97,7 +14,11 @@
 <script setup>
 import { computed } from 'vue'
 import BaseContainer from '@/components/base/BaseContainer.vue'
-import BaseButton from '@/components/base/BaseButton.vue'
-
+import BrandLogo from '@/components/brand/BrandLogo.vue'
 const currentYear = computed(() => new Date().getFullYear())
 </script>
+
+<style scoped>
+.site-footer{padding:60px 0 25px;background:#082f28;color:#fff}.footer-grid{display:grid;grid-template-columns:1.5fr .8fr .9fr;gap:80px;padding-bottom:43px}.footer-brand h2{max-width:340px;margin-top:20px;color:#fff;font-size:27px;line-height:1.1;letter-spacing:-.04em}.footer-logo-plate{width:230px;height:82px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(0,0,0,.14)}.footer-logo-plate :deep(.brand-logo){display:block;flex:none}.footer-grid h3{margin-bottom:18px;color:#b9ed75;font-size:13px;letter-spacing:.1em;text-transform:uppercase}.footer-grid nav{display:grid;gap:10px}.footer-grid nav a,.footer-grid nav span{color:#b8cbc5;font-size:14px;transition:color .2s ease,transform .2s ease}.footer-grid nav a:hover{color:#fff;transform:translateX(4px)}.footer-bottom{display:flex;justify-content:space-between;padding-top:22px;border-top:1px solid rgba(255,255,255,.13);color:#8da69f;font-size:12px}
+@media(max-width:760px){.footer-grid{grid-template-columns:1fr 1fr;gap:45px}.footer-brand{grid-column:1/-1}.footer-bottom{flex-direction:column;gap:8px}}@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+</style>

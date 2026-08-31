@@ -38,10 +38,12 @@
               v-for="(item, index) in navItems"
               :key="item.path"
               class="mobile-nav-item border-b border-border-dark/40 pb-4"
+              :class="{ 'mobile-nav-item--active': activeNav === item.id }"
             >
               <router-link
                 :to="item.path"
                 class="group flex items-baseline gap-4 py-2"
+                :aria-current="activeNav === item.id ? (item.id === 'contact' ? 'location' : 'page') : undefined"
                 @click="closeMenu"
               >
                 <span class="font-mono text-xs text-text-muted group-hover:text-primary transition-colors">
@@ -50,6 +52,7 @@
                 <span class="font-display text-h3 font-bold tracking-tight text-text-inverse group-hover:text-primary transition-colors">
                   {{ item.name }}
                 </span>
+                <span v-if="activeNav === item.id" class="active-dot ml-auto" aria-hidden="true"></span>
               </router-link>
             </div>
           </nav>
@@ -90,6 +93,10 @@ const props = defineProps({
   isOpen: {
     type: Boolean,
     required: true
+  },
+  activeNav: {
+    type: String,
+    default: ''
   }
 })
 
@@ -97,9 +104,9 @@ const emit = defineEmits(['close'])
 const route = useRoute()
 
 const navItems = [
-  { name: 'Home', path: '/' },
-  { name: 'Services', path: '/services' },
-  { name: 'Start Hiring', path: '/start-hiring' }
+  { id: 'home', name: 'Home', path: '/' },
+  { id: 'services', name: 'Services & Pricing', path: '/services' },
+  { id: 'contact', name: 'Contact', path: '/#contact' }
 ]
 
 function closeMenu() {
@@ -187,3 +194,7 @@ function onLeave(el, done) {
   gsap.to(el, { opacity: 0, y: -10, duration: 0.25, ease: 'power2.in', onComplete: done })
 }
 </script>
+
+<style scoped>
+.mobile-nav-item--active .font-display,.mobile-nav-item--active .font-mono{color:#a7e85b}.active-dot{width:9px;height:9px;flex:0 0 auto;border-radius:999px;background:#a7e85b;box-shadow:0 0 0 5px rgba(167,232,91,.12)}
+</style>

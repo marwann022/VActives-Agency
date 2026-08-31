@@ -21,9 +21,9 @@ export function useGsap(animationCallback, scopeRef) {
   onMounted(() => {
     const scope = scopeRef && 'value' in scopeRef ? scopeRef.value : scopeRef
 
-    ctx = gsap.context(() => {
+    ctx = gsap.context((context) => {
       if (animationCallback) {
-        animationCallback(ctx, gsap, ScrollTrigger)
+        animationCallback(context, gsap, ScrollTrigger)
       }
       isReady.value = true
     }, scope || undefined)

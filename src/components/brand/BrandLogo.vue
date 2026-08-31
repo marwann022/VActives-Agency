@@ -11,8 +11,8 @@ defineProps({ compact: { type: Boolean, default: false } })
 <style scoped>
 .brand-logo { position: relative; display: inline-block; width: 190px; height: 52px; overflow: hidden; flex: 0 0 auto; }
 .brand-logo__image { position: absolute; width: 212px; max-width: none; height: auto; left: -10px; top: -35px; }
-.brand-logo--compact { width: 162px; height: 46px; }
-.brand-logo--compact .brand-logo__image { width: 181px; left: -9px; top: -30px; }
+.brand-logo--compact { width: 112px; height: 42px; }
+.brand-logo--compact .brand-logo__image { width: 126px; left: -6px; top: -21px; }
 @media (max-width: 640px) {
   .brand-logo { width: 150px; height: 43px; }
   .brand-logo__image { width: 168px; left: -8px; top: -28px; }

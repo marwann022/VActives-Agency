@@ -1,140 +1,70 @@
 <template>
-  <header
-    ref="headerRef"
-    :class="[
-      'fixed top-0 left-0 right-0 z-[var(--z-header)] transition-all duration-normal ease-standard',
-      isScrolled
-        ? 'py-3 bg-bg-main border-b border-border shadow-sm'
-        : 'py-5 bg-bg-main border-b border-border/40'
-    ]"
-  >
-    <BaseContainer class="flex items-center justify-between">
-      <router-link
-        to="/"
-        class="group flex items-center focus-visible:outline-2 focus-visible:outline-primary rounded-xs"
-        aria-label="VActives Home"
-      >
-        <BrandLogo compact />
-        <span class="hidden lg:inline-flex ml-4 pl-4 border-l border-border text-[10px] uppercase tracking-[.12em] text-muted font-semibold">
-          Virtual Recruitment Agency
-        </span>
-      </router-link>
-
-      <!-- Desktop Navigation Items (Home, Services — Start Hiring is rendered as dedicated CTA button) -->
-      <nav class="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
-        <router-link
-          v-for="item in navLinks"
-          :key="item.path"
-          :to="item.path"
-          v-slot="{ isActive }"
-          class="focus-visible:outline-2 focus-visible:outline-primary rounded-xs"
-        >
-          <span
-            :class="[
-              'relative py-1 text-sm font-medium transition-colors duration-normal ease-standard',
-              isActive ? 'text-main font-semibold' : 'text-secondary hover:text-main'
-            ]"
-          >
-            {{ item.name }}
-            <span
-              :class="[
-                'absolute bottom-0 left-0 w-full h-[2px] bg-primary transition-transform duration-normal ease-standard origin-left',
-                isActive ? 'scale-x-100' : 'scale-x-0'
-              ]"
-              aria-hidden="true"
-            ></span>
-          </span>
-        </router-link>
+  <header ref="headerRef" class="site-header" :class="{ 'site-header--scrolled': isScrolled, 'site-header--hidden': isHidden }">
+    <span ref="progressRef" class="scroll-progress" aria-hidden="true"></span>
+    <BaseContainer class="header-inner">
+      <router-link to="/" class="brand-link" aria-label="VActives Home"><BrandLogo compact /></router-link>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <router-link to="/" :class="{ 'nav-item--active': activeNav === 'home' }" :aria-current="activeNav === 'home' ? 'page' : undefined">Home</router-link>
+        <router-link to="/services" :class="{ 'nav-item--active': activeNav === 'services' }" :aria-current="activeNav === 'services' ? 'page' : undefined">Services &amp; Pricing</router-link>
+        <router-link :to="{ path: '/', hash: '#contact' }" :class="{ 'nav-item--active': activeNav === 'contact' }" :aria-current="activeNav === 'contact' ? 'location' : undefined">Contact</router-link>
       </nav>
-
-      <!-- Right Desktop CTA & Mobile Toggle -->
-      <div class="flex items-center space-x-4">
-        <!-- Desktop Primary CTA -->
-        <div class="hidden md:block">
-          <BaseButton
-            variant="primary"
-            size="sm"
-            to="/start-hiring"
-            show-arrow
-          >
-            Start Hiring
-          </BaseButton>
-        </div>
-
-        <!-- Mobile Menu Hamburger Trigger -->
-        <button
-          type="button"
-          class="md:hidden p-2 text-main hover:text-primary transition-colors focus-visible:outline-2 focus-visible:outline-primary rounded-xs min-h-[44px] min-w-[44px] flex items-center justify-center"
-          :aria-expanded="isMobileMenuOpen"
-          aria-controls="mobile-menu"
-          aria-label="Toggle navigation menu"
-          @click="toggleMobileMenu"
-        >
-          <IconX v-if="isMobileMenuOpen" :size="24" :stroke-width="2" aria-hidden="true" />
-          <IconMenu2 v-else :size="24" :stroke-width="2" aria-hidden="true" />
-        </button>
-      </div>
+      <BaseButton class="header-cta" to="/start-hiring" size="sm" show-arrow>Start Hiring</BaseButton>
+      <button class="menu-button" type="button" :aria-expanded="isMobileMenuOpen" aria-label="Toggle navigation menu" @click="isMobileMenuOpen = !isMobileMenuOpen"><IconX v-if="isMobileMenuOpen" :size="25" /><IconMenu2 v-else :size="25" /></button>
     </BaseContainer>
-
-    <!-- Mobile Navigation Overlay -->
-    <MobileMenu
-      :is-open="isMobileMenuOpen"
-      @close="isMobileMenuOpen = false"
-    />
+    <MobileMenu :is-open="isMobileMenuOpen" :active-nav="activeNav" @close="isMobileMenuOpen = false" />
   </header>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { gsap } from 'gsap'
 import { IconMenu2, IconX } from '@tabler/icons-vue'
-import BaseContainer from '@/components/base/BaseContainer.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import BaseContainer from '@/components/base/BaseContainer.vue'
 import BrandLogo from '@/components/brand/BrandLogo.vue'
 import MobileMenu from '@/components/navigation/MobileMenu.vue'
-import { useGsap } from '@/composables/useGsap'
 import { isReducedMotionActive } from '@/utils/motion/reveal'
 
 const headerRef = ref(null)
+const progressRef = ref(null)
 const isScrolled = ref(false)
+const isHidden = ref(false)
 const isMobileMenuOpen = ref(false)
+const activeNav = ref('home')
+const route = useRoute()
+let lastY = 0
+let rafId = 0
 
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'Services', path: '/services' }
-]
-
-function toggleMobileMenu() {
-  isMobileMenuOpen.value = !isMobileMenuOpen.value
+function updateHeader() {
+  const y = window.scrollY
+  const directionDown = y > lastY
+  isScrolled.value = y > 18
+  isHidden.value = !isReducedMotionActive() && directionDown && y > 240 && !isMobileMenuOpen.value
+  const max = document.documentElement.scrollHeight - window.innerHeight
+  if (progressRef.value) progressRef.value.style.transform = `scaleX(${max > 0 ? y / max : 0})`
+  if (route.path === '/services') activeNav.value = 'services'
+  else if (route.path === '/') {
+    const contactSection = document.querySelector('#contact')
+    activeNav.value = contactSection && contactSection.getBoundingClientRect().top <= window.innerHeight * .62 ? 'contact' : 'home'
+  } else activeNav.value = ''
+  lastY = y
+  rafId = 0
 }
-
-// Lightweight Passive Scroll Handler
-function handleScroll() {
-  if (typeof window !== 'undefined') {
-    isScrolled.value = window.scrollY > 20
-  }
-}
-
-// Header Entrance GSAP Animation
-useGsap((ctx, gsap) => {
-  if (headerRef.value && !isReducedMotionActive()) {
-    gsap.fromTo(
-      headerRef.value,
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
-    )
-  }
-}, headerRef)
+function handleScroll() { if (!rafId) rafId = window.requestAnimationFrame(updateHeader) }
 
 onMounted(() => {
-  if (typeof window !== 'undefined') {
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-  }
+  gsap.fromTo(headerRef.value, { opacity: 0, y: -22 }, { opacity: 1, y: 0, duration: isReducedMotionActive() ? 0 : .55, ease: 'power3.out' })
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  updateHeader()
 })
-
-onUnmounted(() => {
-  if (typeof window !== 'undefined') {
-    window.removeEventListener('scroll', handleScroll)
-  }
-})
+watch(() => [route.path, route.hash], async () => { await nextTick(); updateHeader() })
+onUnmounted(() => { window.removeEventListener('scroll', handleScroll); if (rafId) cancelAnimationFrame(rafId) })
 </script>
+
+<style scoped>
+.site-header{position:fixed;inset:0 0 auto;z-index:var(--z-header);height:82px;background:rgba(255,255,255,.96);border-bottom:1px solid rgba(232,222,208,.62);transition:transform .48s cubic-bezier(.22,1,.36,1),height .3s ease,box-shadow .3s ease}.site-header--scrolled{height:70px;box-shadow:0 8px 28px rgba(16,44,38,.07)}.site-header--hidden{transform:translateY(-105%)}.header-inner{height:100%;display:flex;align-items:center;gap:30px}.brand-link{display:flex;align-items:center;border-radius:6px}.desktop-nav{display:flex;align-items:center;gap:28px;margin-left:auto}.desktop-nav a{position:relative;padding:9px 0;font-size:13px;font-weight:700;color:#60736e;transition:color .25s ease}.desktop-nav a::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:2px;border-radius:999px;background:#08735b;transform:scaleX(0);transform-origin:right;transition:transform .3s ease}.desktop-nav a:hover,.desktop-nav a:focus-visible,.desktop-nav a.nav-item--active{color:#102c26}.desktop-nav a:hover::after,.desktop-nav a:focus-visible::after,.desktop-nav a.nav-item--active::after{transform:scaleX(1);transform-origin:left}.header-cta{margin-left:4px}.menu-button{display:none;margin-left:auto;width:44px;height:44px;border:0;background:transparent;color:#102c26;align-items:center;justify-content:center}.scroll-progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#08735b;transform:scaleX(0);transform-origin:left;will-change:transform}
+@media(max-width:900px){.desktop-nav,.header-cta{display:none}.menu-button{display:flex}.site-header{height:72px}}
+.site-header{height:86px}
+@media(max-width:900px){.site-header{height:72px}}
+</style>

@@ -136,6 +136,7 @@ useGsap((ctx, gsap) => {
 
 <style scoped>
 .journey-story {
+  overflow: clip;
   padding: clamp(86px, 9vw, 150px) 0 clamp(90px, 10vw, 170px);
   background: #fff;
 }

@@ -61,7 +61,7 @@
   /* --------------------------------------------------------------------------
      3. CONTAINER & GUTTER TOKENS
      -------------------------------------------------------------------------- */
-  --container-max: 1320px;
+  --container-max: 1180px;
   --page-gutter-desktop: 4rem;   /* 64px */
   --page-gutter-laptop: 2.5rem;  /* 40px */
   --page-gutter-tablet: 2rem;    /* 32px */
