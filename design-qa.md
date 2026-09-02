@@ -9,6 +9,9 @@
 - Footer correction comparison: `work/design-qa/footer-logo-fix-comparison.jpg`
 - Story-number correction comparison: `work/design-qa/story-number-fix-comparison.jpg`
 - Navbar active-state evidence: `work/design-qa/navbar-services-active.jpg`
+- Mobile audience-border correction: `work/design-qa/mobile-serve-border-fix.png`
+- Mobile role-selector correction: `work/design-qa/mobile-role-select-fix.png`
+- Standalone Contact page: `work/design-qa/mobile-contact-page.png`, `work/design-qa/desktop-contact-page.png`
 - Viewport: 1440 × 900 CSS px, device density 1.
 - Source pixels: 1440 × 4899. Implementation pixels: 1440 × 4954.
 - State: desktop home, real images loaded, entrance animations settled.
@@ -60,9 +63,16 @@
 
 - Reduced the primary navigation to exactly three destinations: Home, Services & Pricing, and Contact. Start Hiring remains a separate conversion CTA.
 - Added a persistent emerald underline and accessible `aria-current` state for the active desktop destination, plus a matching lime marker in the mobile menu.
-- Verified Home at the top of `/`, Contact at the footer and through cross-page `/#contact` navigation, and Services & Pricing on `/services`.
-- Verified that Services → Contact lands on the homepage contact section and updates the active indicator correctly.
+- Initial implementation used the homepage footer anchor for Contact; this behavior was replaced by the standalone `/contact` route in Iteration 5.
 - Browser reload returned no page errors and `npm run build` passes.
+
+### Iteration 5 — Mobile form/card fixes and Contact route
+
+- P2: the native mobile role selector was oversized and its arrow alignment depended on browser rendering.
+- P2: the one-column audience list retained desktop right borders on the first three rows, creating the broken vertical edge shown in the client screenshot.
+- P2: Contact still targeted the homepage/footer anchor instead of the requested standalone page.
+- Fixes: replaced the native arrow with the project’s Tabler chevron in a measured 52 px mobile control with a 15 px right inset; removed all side borders in the one-column audience layout and retained consistent horizontal separators; added `/contact` with a responsive contact form and updated desktop navigation, mobile navigation, hero CTA, footer link, and active-state logic.
+- Verification: all four mobile audience rows report a 0 px right border; the final row reports no bottom border; the role selector reports 52 px height, 16 px text, and 15 px arrow inset; role selection works; Contact is the active third mobile item and active desktop link on `/contact`; browser console reports no errors; `npm run build` passes.
 
 ## Findings
 

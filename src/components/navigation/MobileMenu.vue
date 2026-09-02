@@ -43,7 +43,7 @@
               <router-link
                 :to="item.path"
                 class="group flex items-baseline gap-4 py-2"
-                :aria-current="activeNav === item.id ? (item.id === 'contact' ? 'location' : 'page') : undefined"
+                :aria-current="activeNav === item.id ? 'page' : undefined"
                 @click="closeMenu"
               >
                 <span class="font-mono text-xs text-text-muted group-hover:text-primary transition-colors">
@@ -106,7 +106,7 @@ const route = useRoute()
 const navItems = [
   { id: 'home', name: 'Home', path: '/' },
   { id: 'services', name: 'Services & Pricing', path: '/services' },
-  { id: 'contact', name: 'Contact', path: '/#contact' }
+  { id: 'contact', name: 'Contact', path: '/contact' }
 ]
 
 function closeMenu() {

@@ -6,7 +6,7 @@
       <nav class="desktop-nav" aria-label="Main navigation">
         <router-link to="/" :class="{ 'nav-item--active': activeNav === 'home' }" :aria-current="activeNav === 'home' ? 'page' : undefined">Home</router-link>
         <router-link to="/services" :class="{ 'nav-item--active': activeNav === 'services' }" :aria-current="activeNav === 'services' ? 'page' : undefined">Services &amp; Pricing</router-link>
-        <router-link :to="{ path: '/', hash: '#contact' }" :class="{ 'nav-item--active': activeNav === 'contact' }" :aria-current="activeNav === 'contact' ? 'location' : undefined">Contact</router-link>
+        <router-link to="/contact" :class="{ 'nav-item--active': activeNav === 'contact' }" :aria-current="activeNav === 'contact' ? 'page' : undefined">Contact</router-link>
       </nav>
       <BaseButton class="header-cta" to="/start-hiring" size="sm" show-arrow>Start Hiring</BaseButton>
       <button class="menu-button" type="button" :aria-expanded="isMobileMenuOpen" aria-label="Toggle navigation menu" @click="isMobileMenuOpen = !isMobileMenuOpen"><IconX v-if="isMobileMenuOpen" :size="25" /><IconMenu2 v-else :size="25" /></button>
@@ -44,10 +44,9 @@ function updateHeader() {
   const max = document.documentElement.scrollHeight - window.innerHeight
   if (progressRef.value) progressRef.value.style.transform = `scaleX(${max > 0 ? y / max : 0})`
   if (route.path === '/services') activeNav.value = 'services'
-  else if (route.path === '/') {
-    const contactSection = document.querySelector('#contact')
-    activeNav.value = contactSection && contactSection.getBoundingClientRect().top <= window.innerHeight * .62 ? 'contact' : 'home'
-  } else activeNav.value = ''
+  else if (route.path === '/contact') activeNav.value = 'contact'
+  else if (route.path === '/') activeNav.value = 'home'
+  else activeNav.value = ''
   lastY = y
   rafId = 0
 }

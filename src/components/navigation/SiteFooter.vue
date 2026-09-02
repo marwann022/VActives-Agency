@@ -4,7 +4,7 @@
       <div class="footer-grid">
         <div class="footer-brand"><div class="footer-logo-plate"><BrandLogo /></div><h2>Ready to build your remote team?</h2></div>
         <div><h3>Services &amp; Pricing</h3><nav><a href="/#roles">Explore roles</a><a href="/#about">How we work</a><router-link to="/start-hiring">Start hiring</router-link></nav></div>
-        <div><h3>Contact</h3><nav><span>Let’s talk about your next hire.</span><a href="mailto:hello@vactives.com">hello@vactives.com</a><a href="#">LinkedIn</a></nav></div>
+        <div><h3>Contact</h3><nav><span>Let’s talk about your next hire.</span><router-link to="/contact">Contact us</router-link><a href="mailto:hello@vactives.com">hello@vactives.com</a><a href="#">LinkedIn</a></nav></div>
       </div>
       <div class="footer-bottom"><span>© {{ currentYear }} VActives. All rights reserved.</span><span>Virtual Recruitment Agency</span></div>
     </BaseContainer>
