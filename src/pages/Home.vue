@@ -9,10 +9,10 @@
           </h1>
           <p class="hero-summary">VActives connects growing businesses with screened, English-speaking professionals — and stays involved beyond the hire.</p>
           <div class="hero-actions">
-            <BaseButton class="magnetic-button" to="/start-hiring" size="lg" show-arrow>Start Hiring</BaseButton>
+            <BaseButton class="magnetic-button" :to="{ path: '/', hash: '#hire' }" size="lg" show-arrow>Start Hiring</BaseButton>
             <router-link class="outline-button magnetic-button" to="/contact">Contact Us</router-link>
           </div>
-          <div class="markets" aria-label="Markets served"><span>Trusted across</span><strong>USA</strong><i></i><strong>UK</strong><i></i><strong>Canada</strong><i></i><strong>Australia</strong></div>
+          <div class="markets" aria-label="Markets served"><span>Serving teams across</span><strong>USA</strong><i></i><strong>UK</strong><i></i><strong>Canada</strong><i></i><strong>Australia</strong></div>
         </div>
         <div class="hero-visual motion-media">
           <img class="hero-image" :src="images.hero" alt="A real team collaborating at work" />
@@ -38,11 +38,11 @@
           <div class="story-copy motion-copy">
             <span class="story-number" aria-hidden="true">02</span><p class="eyebrow">Beyond recruitment</p>
             <h2>We stay involved after the hire.</h2>
-            <p>Placement is only the beginning. VActives supports onboarding, communication and ongoing coordination so your new remote professional can become part of the way your business works.</p>
+            <p>Placement is only the beginning. VActives helps organize onboarding, early check-ins and agreed communication support so your new remote professional can settle into the way your business works.</p>
             <ul class="check-list"><li><IconCheck :size="18" />Smooth onboarding support</li><li><IconCheck :size="18" />Clear ongoing communication</li><li><IconCheck :size="18" />A long-term business partner</li></ul>
           </div>
         </article>
-        <div class="center-link section-reveal"><a class="text-link magnetic-button" href="#serve">Know More About Us <IconArrowRight :size="18" /></a></div>
+        <div class="center-link section-reveal"><a class="text-link magnetic-button" href="#serve">See Who We Serve <IconArrowRight :size="18" /></a></div>
       </BaseContainer>
     </section>
 
@@ -79,8 +79,9 @@
             <label>Role needed<div class="select-wrap"><select v-model="form.role" required><option disabled value="">Select a role</option><option v-for="role in roleOptions" :key="role">{{ role }}</option></select><IconChevronDown class="select-icon" :size="20" aria-hidden="true" /></div></label>
             <label class="form-wide">What does your team need help with?<textarea v-model.trim="form.message" required placeholder="Tell us about the work, goals and timing..."></textarea></label>
             <button class="submit-button magnetic-button" type="submit" :disabled="formState === 'submitting'">
-              <span v-if="formState === 'success'"><IconCheck :size="18" /> Brief received — we’ll be in touch</span><span v-else-if="formState === 'submitting'">Sending…</span><span v-else>Start Hiring <IconArrowRight :size="18" /></span>
+              <span v-if="formState === 'email-ready'"><IconCheck :size="18" /> Email draft opened</span><span v-else>Continue in your email app <IconArrowRight :size="18" /></span>
             </button>
+            <p class="form-note form-wide">This opens a prepared email to <a :href="`mailto:${siteDetails.email}`">{{ siteDetails.email }}</a>. Review it and press Send in your email app.</p>
           </form>
         </div>
       </BaseContainer>
@@ -96,6 +97,8 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import BaseContainer from '@/components/base/BaseContainer.vue'
 import { useGsap } from '@/composables/useGsap'
 import { isReducedMotionActive } from '@/utils/motion/reveal'
+import { siteDetails } from '@/data/site'
+import { openEmailDraft } from '@/utils/contact'
 
 const pageRef = ref(null)
 const formState = ref('idle')
@@ -106,9 +109,9 @@ const images = {
   support: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1300&q=88'
 }
 const audiences = [
-  { label: 'Real estate', title: 'Real Estate Teams', description: 'From lead follow-up to transaction and portfolio support.' },
+  { label: 'Real estate', title: 'Real Estate Investors', description: 'Acquisition, disposition and transaction support for investor and wholesale teams.' },
   { label: 'Sales', title: 'B2B & Sales Teams', description: 'People who keep conversations and pipelines moving.' },
-  { label: 'Property', title: 'Property Managers', description: 'Reliable support for tenants, records and operations.' },
+  { label: 'Property', title: 'Property Managers', description: 'Tenant communication, maintenance follow-up and portfolio administration.' },
   { label: 'Growth', title: 'Growing Businesses', description: 'Flexible administration and customer support as you scale.' }
 ]
 const roles = [
@@ -119,8 +122,18 @@ const roles = [
 const roleOptions = [...roles.map((role) => role.title), 'Virtual Assistant', 'Customer Service Representative', 'Other']
 
 function submitForm() {
-  formState.value = 'submitting'
-  window.setTimeout(() => { formState.value = 'success' }, 650)
+  openEmailDraft({
+    to: siteDetails.email,
+    subject: `Hiring brief from ${form.company}`,
+    fields: [
+      ['Name', form.name],
+      ['Work email', form.email],
+      ['Company', form.company],
+      ['Role needed', form.role],
+      ['Team needs', form.message]
+    ]
+  })
+  formState.value = 'email-ready'
 }
 function tiltCard(event) {
   if (isReducedMotionActive() || window.matchMedia('(pointer: coarse)').matches) return
@@ -135,20 +148,20 @@ function resetTilt(event) { gsap.to(event.currentTarget, { rotateX: 0, rotateY: 
 useGsap((ctx, gsapInstance, ScrollTrigger) => {
   if (isReducedMotionActive()) return
   const heroTimeline = gsapInstance.timeline({ defaults: { ease: 'power3.out' } })
-  heroTimeline.from('.hero-eyebrow', { opacity: 0, y: 16, duration: 0.45 })
-    .from('.hero-title span', { opacity: 0, yPercent: 105, rotate: 1.5, duration: 0.72, stagger: 0.075 }, '-=.2')
-    .from('.hero-summary, .hero-actions, .markets', { opacity: 0, y: 22, duration: 0.55, stagger: 0.1 }, '-=.38')
-    .from('.hero-visual', { opacity: 0, x: 58, scale: 0.96, duration: 0.9 }, '-=.82')
-    .from('.fit-badge, .hero-note', { opacity: 0, scale: 0.7, duration: 0.5, stagger: 0.12 }, '-=.38')
+  heroTimeline.from('.hero-eyebrow', { opacity: 0, y: 12, duration: 0.28 })
+    .from('.hero-title span', { opacity: 0, yPercent: 80, rotate: 1, duration: 0.42, stagger: 0.035 }, '-=.16')
+    .from('.hero-summary, .hero-actions, .markets', { opacity: 0, y: 15, duration: 0.32, stagger: 0.04 }, '-=.28')
+    .from('.hero-visual', { opacity: 0, x: 35, scale: 0.975, duration: 0.52 }, '-=.5')
+    .from('.fit-badge, .hero-note', { opacity: 0, scale: 0.82, duration: 0.28, stagger: 0.05 }, '-=.24')
   gsapInstance.to('.hero-image', { yPercent: 10, ease: 'none', scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 0.7 } })
   gsapInstance.utils.toArray('.section-reveal').forEach((section) => {
     const copy = section.querySelectorAll('.motion-copy, .roles-heading, .serve-heading')
     const media = section.querySelectorAll('.motion-media, .role-card, .serve-item, .hire-form')
-    gsapInstance.set(copy, { opacity: 0, y: 34 })
-    gsapInstance.set(media, { opacity: 0, y: 24, scale: 0.985 })
+    if (copy.length) gsapInstance.set(copy, { opacity: 0, y: 34 })
+    if (media.length) gsapInstance.set(media, { opacity: 0, y: 24, scale: 0.985 })
     const animateIn = () => {
-      gsapInstance.to(copy, { opacity: 1, y: 0, duration: 0.72, stagger: 0.08, ease: 'power3.out', overwrite: true })
-      gsapInstance.to(media, { opacity: 1, y: 0, scale: 1, duration: 0.82, stagger: 0.09, ease: 'power3.out', overwrite: true })
+      if (copy.length) gsapInstance.to(copy, { opacity: 1, y: 0, duration: 0.72, stagger: 0.08, ease: 'power3.out', overwrite: true })
+      if (media.length) gsapInstance.to(media, { opacity: 1, y: 0, scale: 1, duration: 0.82, stagger: 0.09, ease: 'power3.out', overwrite: true })
     }
     ScrollTrigger.create({ trigger: section, start: 'top 82%', once: true, onEnter: animateIn })
   })
@@ -164,6 +177,7 @@ useGsap((ctx, gsapInstance, ScrollTrigger) => {
 </script>
 
 <style scoped>
+.home-page :deep(.max-w-container){max-width:1340px!important;padding-left:32px!important;padding-right:32px!important}
 .home-page{overflow:clip;background:#fff}.hero-section{min-height:760px;padding:74px 0 80px;background:#f8f5ed;display:flex;align-items:center}.hero-grid{display:grid;grid-template-columns:.9fr 1.1fr;align-items:center;gap:68px}.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:17px;color:#08745d;font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.eyebrow::before{content:"";width:24px;height:2px;background:#c9ad7c}.hero-title{font-size:clamp(3.8rem,5.65vw,5.45rem);line-height:.97;letter-spacing:-.06em;margin-bottom:25px}.hero-title span{display:block;overflow:hidden}.hero-summary{max-width:550px;font-size:18px;line-height:1.58;color:#536b65;margin-bottom:29px}.hero-actions{display:flex;align-items:center;gap:12px;margin-bottom:38px}.outline-button{min-height:56px;padding:0 24px;border:1px solid #08745d;border-radius:10px;background:#fff;color:#102c26;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:700;transition:color .25s ease,background .25s ease,border-color .25s ease,box-shadow .25s ease}.outline-button:hover{color:#fff;background:#0a4035;border-color:#0a4035;box-shadow:0 14px 30px rgba(10,64,53,.16)}.markets{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#73847f}.markets strong{color:#102c26}.markets i{width:4px;height:4px;background:#c9ad7c;border-radius:50%}.hero-visual{position:relative;height:535px;isolation:isolate}.hero-image{width:100%;height:100%;object-fit:cover;border-radius:145px 26px 26px 26px;will-change:transform}.fit-badge{position:absolute;left:-37px;top:47px;width:96px;height:96px;border-radius:50%;display:grid;place-content:center;text-align:center;background:#b9ed75;color:#102c26;font-size:15px;font-weight:800;line-height:1.08;text-transform:uppercase;transform:rotate(-8deg);box-shadow:0 12px 30px rgba(10,64,53,.12)}.hero-note{position:absolute;right:-22px;bottom:33px;padding:18px 22px;border-radius:14px;background:#fff;display:flex;align-items:center;gap:12px;font-weight:800;box-shadow:0 18px 42px rgba(16,44,38,.16)}.status-icon{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#e1f1ea;color:#08745d}
 .story-section{padding:116px 0 108px}.story-row{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:96px;margin-bottom:106px}.story-copy{position:relative}.story-copy h2{max-width:560px;font-size:clamp(2.7rem,4vw,3.75rem);line-height:1.02;letter-spacing:-.052em;margin-bottom:23px}.story-copy>p:not(.eyebrow){max-width:510px;font-size:17px;color:#647b75}.story-number{display:block;margin-bottom:-28px;color:#eee9dc;font-size:118px;font-weight:800;line-height:1;letter-spacing:-.08em;will-change:transform}.check-list{list-style:none;padding:0;margin:25px 0 0;display:grid;gap:12px;font-size:15px;font-weight:700}.check-list li{display:flex;align-items:center;gap:9px}.check-list svg{color:#08745d}.story-image-wrap{position:relative;height:470px;border-radius:18px;overflow:hidden}.story-image-wrap img{width:100%;height:110%;object-fit:cover;will-change:transform}.center-link{text-align:center;margin-top:-20px}.text-link{display:inline-flex;align-items:center;gap:10px;padding-bottom:6px;border-bottom:2px solid #c9ad7c;font-weight:800}.text-link svg{transition:transform .25s ease}.text-link:hover svg{transform:translateX(5px)}
 .serve-section{padding:91px 0 88px;background:#0a4035;color:#fff}.serve-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:50px;margin-bottom:55px}.serve-heading h2{max-width:600px;color:#fff;font-size:clamp(2.7rem,4vw,3.8rem);line-height:1.02;letter-spacing:-.05em}.serve-heading p{max-width:420px;color:#bed1cb}.serve-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.18)}.serve-item{min-height:207px;padding:34px 27px 15px;border-right:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:space-between;transition:background .3s ease,transform .3s ease}.serve-item:first-child{padding-left:0}.serve-item:last-child{border-right:0}.serve-item:hover{background:rgba(255,255,255,.055);transform:translateY(-8px)}.serve-item>span{font-size:11px;font-weight:800;color:#b9ed75;text-transform:uppercase}.serve-item h3{color:#fff;font-size:21px;line-height:1.15;margin-bottom:10px}.serve-item p{font-size:14px;color:#b9ccc6}
@@ -178,4 +192,6 @@ useGsap((ctx, gsapInstance, ScrollTrigger) => {
 @media(max-width:520px){.hero-title span{white-space:normal}}
 .story-copy{padding-top:56px}.story-number{position:absolute;top:-74px;left:-8px;margin:0;z-index:0}.story-copy>.eyebrow,.story-copy>h2,.story-copy>p,.story-copy>.check-list{position:relative;z-index:1}
 @media(max-width:767px){.story-copy{padding-top:46px}.story-number{top:-46px;left:0}}
+.form-note{margin:1px 0 0;color:#60736e;font-size:10px!important;font-weight:600!important;line-height:1.55;text-align:center}.form-note a{color:#08745d;font-weight:800}
+@media(max-width:767px){.home-page :deep(.max-w-container){padding-left:20px!important;padding-right:20px!important}}
 </style>

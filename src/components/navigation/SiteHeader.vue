@@ -8,7 +8,7 @@
         <router-link to="/services" :class="{ 'nav-item--active': activeNav === 'services' }" :aria-current="activeNav === 'services' ? 'page' : undefined">Services &amp; Pricing</router-link>
         <router-link to="/contact" :class="{ 'nav-item--active': activeNav === 'contact' }" :aria-current="activeNav === 'contact' ? 'page' : undefined">Contact</router-link>
       </nav>
-      <BaseButton class="header-cta" to="/start-hiring" size="sm" show-arrow>Start Hiring</BaseButton>
+      <BaseButton class="header-cta" :to="{ path: '/', hash: '#hire' }" size="sm" show-arrow>Start Hiring</BaseButton>
       <button class="menu-button" type="button" :aria-expanded="isMobileMenuOpen" aria-label="Toggle navigation menu" @click="isMobileMenuOpen = !isMobileMenuOpen"><IconX v-if="isMobileMenuOpen" :size="25" /><IconMenu2 v-else :size="25" /></button>
     </BaseContainer>
     <MobileMenu :is-open="isMobileMenuOpen" :active-nav="activeNav" @close="isMobileMenuOpen = false" />

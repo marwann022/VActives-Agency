@@ -84,3 +84,117 @@ No actionable P0, P1, or P2 findings remain.
 - P3: connect the hiring form to the final submission destination when the client confirms it.
 
 final result: passed
+
+---
+
+# VActives Shared Gutters and Pricing Spacing QA
+
+## Visual target
+
+- Pricing spacing reference: `/var/folders/xn/l06_hkbn6mdbfbj6vnhn4m380000gn/T/codex-clipboard-53f7c774-6e0e-40ee-9054-99d82814cd1a.png`
+- Existing Services page gutter treatment is the approved reference for Home and Contact.
+
+## Verified result
+
+- Home, Contact, and Services now share a 1340 px maximum content width with 32 px desktop and 20 px mobile side gutters.
+- The pricing explanation is separated from the cards by 48 px on desktop and 30 px on mobile instead of touching their lower edge.
+- The pricing explanation now spans the complete content width and uses a contained border/radius treatment.
+- The promotion row follows the explanation by 24 px on desktop and 18 px on mobile, creating a clear but connected sequence.
+- Long price labels remain on one line at narrower desktop widths.
+- Desktop 1280 px and mobile 390 × 844 views were inspected. Home, Contact, and Services report no horizontal overflow.
+- Production build passes.
+
+final result: passed
+
+---
+
+# VActives Approved UX Audit — Implementation QA
+
+## Visual references
+
+- Pre-footer CTA to remove: `/var/folders/xn/l06_hkbn6mdbfbj6vnhn4m380000gn/T/codex-clipboard-878298cb-4396-4cfa-b4c2-f33707551d8f.png`
+- Services breadcrumb to remove: `/var/folders/xn/l06_hkbn6mdbfbj6vnhn4m380000gn/T/codex-clipboard-9e49c4b0-c861-40a6-8576-54ad898e0aab.png`
+
+## Verified result
+
+- Services breadcrumbs are absent and the hero copy/actions are vertically centered within the photographic banner.
+- The large green CTA before the footer is removed; the FAQ now meets the compact site footer directly.
+- All Start Hiring links target the Home hiring brief and the legacy `/start-hiring` path redirects to `/#hire`.
+- Home and Contact forms no longer claim that an unsent enquiry was received. They identify the destination and prepare an email draft the visitor must review and send.
+- Pricing explains the relationship between monthly support and the separately quoted setup fee. Savings, referral, and replacement messaging is visibly qualified pending final written terms.
+- The Services catalogue defaults to six roles, supports category filters, expands role details, and can reveal all ten roles.
+- Home audience labels distinguish real-estate investor workflows from property-management workflows; market and business-hours language is accurate.
+- Desktop and 390 × 844 mobile layouts were visually inspected. Mobile document width matches the viewport with no horizontal overflow.
+- Hero entrance timing is shorter, scroll entrances remain one-time, and reduced-motion handling is preserved.
+- Production build passes.
+
+final result: passed
+
+---
+
+# VActives Services & Pricing — Layout and Footer Polish QA
+
+## Verified result
+
+- Services content and footer now use a wider 1340 px container with 32 px desktop and 20 px mobile gutters.
+- The hero photograph extends beyond both vertical edges and the overlay clips to the full hero, removing the uncovered bottom strip.
+- The text-only post-hero section is now a compact 2 × 2 proof panel highlighting timing, process stages, markets, and proposed replacement support.
+- Footer contact information is grouped into visual email and business-hours cards; Instagram and Facebook use dedicated icon controls.
+- Desktop and 390 × 844 mobile layouts were visually inspected. Mobile document width equals viewport width, with no horizontal overflow.
+- Production build passes.
+
+final result: passed
+
+---
+
+# VActives Services & Pricing — Visual Redesign QA
+
+## Visual target
+
+- Hero reference: `/var/folders/xn/l06_hkbn6mdbfbj6vnhn4m380000gn/T/codex-clipboard-189c0810-4c69-4375-96ed-907c9d27eb60.png`
+- Services/cards/pricing reference: `/var/folders/xn/l06_hkbn6mdbfbj6vnhn4m380000gn/T/codex-clipboard-03e22c95-2677-4fc7-aa11-9cc569655716.png`
+- Brand source: existing VActives Home design system.
+
+## Verified result
+
+- The Services hero is now a distinct full-width photographic banner rather than a repeat of the Home split hero.
+- Hero, all ten role cards and supporting photography use real Pexels/Unsplash photographs; all 11 image assets loaded at 1200–2200 px natural width.
+- Role cards use a responsive 3/2/1-column grid, image zoom, lift, shadow and interactive expandable details.
+- Pricing is presented as three balanced plan cards with a clearly featured full-time plan and separate promotion/referral strip.
+- Scroll entrances are one-time and staggered; reversible hero parallax remains smooth.
+- Desktop and 390 × 844 mobile layouts were inspected. Mobile document width equals viewport width (390 px), with no horizontal overflow.
+- Role detail interaction expands and collapses correctly; FAQ and navigation remain accessible.
+- Featured pricing card copy passes the visible dark-surface contrast check.
+- Production build passes.
+
+final result: passed
+
+---
+
+# VActives Services & Pricing — Design QA
+
+## Implementation checked
+
+- Desktop viewport: 1280 × 720.
+- Mobile viewport: 390 × 844.
+- Route: `/services`.
+- Source of truth: approved VActives visual system and the pricing/role content in `VActives_Project_Specification.md`.
+
+## Results
+
+- Desktop and mobile hero layouts render without horizontal overflow or clipped copy.
+- The active navigation indicator correctly identifies Services & Pricing.
+- All 10 requested roles are present in an accessible accordion catalogue.
+- Accordion state changes correctly and exposes responsibilities, KPIs, ideal industries, schedule and indicative pricing.
+- Pricing is clearly labeled as indicative; no unapproved final-price claim is shown.
+- 7–14 business-day timing, proposed replacement support, referral discount and up-to-35%-off messaging include appropriate qualification.
+- Mobile navigation opens, identifies the active page and closes correctly.
+- Candidate application, email, Instagram and Facebook destinations are present.
+- Browser console reports no errors or warnings.
+- `npm run build` passes.
+
+## Content held back pending approval
+
+- WhatsApp / phone, Discovery Call URL, final pricing, final promotion/referral terms, Privacy Policy, Terms and analytics identifiers.
+
+final result: passed

@@ -62,7 +62,7 @@
             <BaseButton
               variant="primary"
               size="lg"
-              to="/start-hiring"
+              :to="{ path: '/', hash: '#hire' }"
               show-arrow
               class="w-full justify-center"
               @click="closeMenu"

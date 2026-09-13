@@ -21,7 +21,7 @@
             </p>
 
             <div ref="ctaRef" class="home-hero__actions">
-              <BaseButton variant="primary" size="lg" to="/start-hiring" show-arrow>
+              <BaseButton variant="primary" size="lg" :to="{ path: '/', hash: '#hire' }" show-arrow>
                 Start Hiring
               </BaseButton>
               <BaseButton variant="secondary" size="lg" to="/services">
@@ -32,7 +32,7 @@
             <div ref="marketRef" class="home-hero__markets">
               <div class="home-hero__markets-label">
                 <IconWorld :size="18" :stroke-width="1.8" aria-hidden="true" />
-                <span>Trusted across growing markets</span>
+                <span>Serving teams across growing markets</span>
               </div>
               <div class="home-hero__market-list" aria-label="Markets served">
                 <span>USA</span><i></i><span>UK</span><i></i><span>Canada</span><i></i><span>Australia</span>
