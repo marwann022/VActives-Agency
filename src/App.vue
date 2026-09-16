@@ -9,10 +9,14 @@
 
     <!-- Global Editorial Footer -->
     <SiteFooter />
+
+    <!-- Global Go to Top Button -->
+    <ScrollToTop />
   </div>
 </template>
 
 <script setup>
 import SiteHeader from '@/components/navigation/SiteHeader.vue'
 import SiteFooter from '@/components/navigation/SiteFooter.vue'
+import ScrollToTop from '@/components/navigation/ScrollToTop.vue'
 </script>

@@ -52,7 +52,7 @@
             <Transition name="card-detail"><div v-if="openRole === role.name" class="role-detail"><div><small>Responsibilities</small><ul><li v-for="item in role.responsibilities" :key="item"><IconCheck :size="14" />{{ item }}</li></ul></div><div><small>Typical KPIs</small><p>{{ role.kpis.join(' · ') }}</p></div><div class="role-meta"><span>{{ role.schedule }}</span><strong>{{ role.price }}<small>/ month</small></strong></div></div></Transition>
           </article>
         </div>
-        <div v-if="activeRoleGroup === 'All'" class="roles-more"><button type="button" @click="showAllRoles = !showAllRoles">{{ showAllRoles ? 'Show fewer roles' : `Show all ${roles.length} roles` }} <IconPlus v-if="!showAllRoles" :size="18" /><IconMinus v-else :size="18" /></button></div>
+        <div v-if="activeRoleGroup === 'All'" class="roles-more pt-8"><button type="button" @click="showAllRoles = !showAllRoles">{{ showAllRoles ? 'Show fewer roles' : `Show all ${roles.length} roles` }} <IconPlus v-if="!showAllRoles" :size="18" /><IconMinus v-else :size="18" /></button></div>
       </BaseContainer>
     </section>
 
