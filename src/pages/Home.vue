@@ -28,7 +28,7 @@
           <div class="story-copy motion-copy">
             <span class="story-number" aria-hidden="true">01</span><p class="eyebrow">Recruitment, done properly</p>
             <h2>The right person. Not just another résumé.</h2>
-            <p>We learn the role, source carefully, screen for communication and capability, then present a focused shortlist that is ready for your interview.</p>
+            <p>VActives Agency connects growing businesses with screened remote professionals. We learn the role, source carefully, check communication and capability, then present an interview-ready shortlist.</p>
             <ul class="check-list"><li><IconCheck :size="18" />Role-focused sourcing</li><li><IconCheck :size="18" />English and practical screening</li><li><IconCheck :size="18" />Interview-ready shortlist</li></ul>
           </div>
           <div class="story-image-wrap motion-media"><img :src="images.recruitment" alt="A recruiter reviewing a candidate résumé" /></div>
@@ -78,10 +78,7 @@
             <label class="form-wide">Company<input v-model.trim="form.company" required placeholder="Company name" /></label>
             <label class="role-select-field form-wide">Role needed<CustomSelect v-model="form.role" :options="roleOptions" placeholder="Select a role" required /></label>
             <label class="form-wide">What does your team need help with?<textarea v-model.trim="form.message" required placeholder="Tell us about the work, goals and timing..."></textarea></label>
-            <button class="submit-button magnetic-button" type="submit" :disabled="formState === 'submitting'">
-              <span v-if="formState === 'email-ready'"><IconCheck :size="18" /> Email draft opened</span><span v-else>Continue in your email app <IconArrowRight :size="18" /></span>
-            </button>
-            <p class="form-note form-wide">This opens a prepared email to <a :href="`mailto:${siteDetails.email}`">{{ siteDetails.email }}</a>. Review it and press Send in your email app.</p>
+            <FormDelivery ref="delivery" />
           </form>
         </div>
       </BaseContainer>
@@ -98,11 +95,10 @@ import BaseContainer from '@/components/base/BaseContainer.vue'
 import CustomSelect from '@/components/forms/CustomSelect.vue'
 import { useGsap } from '@/composables/useGsap'
 import { isReducedMotionActive } from '@/utils/motion/reveal'
-import { siteDetails } from '@/data/site'
-import { openEmailDraft } from '@/utils/contact'
+import FormDelivery from '@/components/forms/FormDelivery.vue'
 
 const pageRef = ref(null)
-const formState = ref('idle')
+const delivery = ref(null)
 const form = reactive({ name: '', email: '', company: '', role: '', message: '' })
 const images = {
   hero: 'https://images.unsplash.com/photo-1522071901873-411886a10004?auto=format&fit=crop&w=1600&q=88',
@@ -132,18 +128,7 @@ const roleOptions = [
 ]
 
 function submitForm() {
-  openEmailDraft({
-    to: siteDetails.email,
-    subject: `Hiring brief from ${form.company}`,
-    fields: [
-      ['Name', form.name],
-      ['Work email', form.email],
-      ['Company', form.company],
-      ['Role needed', form.role],
-      ['Team needs', form.message]
-    ]
-  })
-  formState.value = 'email-ready'
+  delivery.value.submit({ type: 'hiring', ...form })
 }
 function tiltCard(event) {
   if (isReducedMotionActive() || window.matchMedia('(pointer: coarse)').matches) return

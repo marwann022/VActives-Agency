@@ -1,11 +1,12 @@
-import { createApp } from 'vue'
+import { createSSRApp, createApp } from 'vue'
 import '@fontsource-variable/plus-jakarta-sans'
 import App from './App.vue'
-import router from './router'
+import { makeRouter } from './router'
 import './styles/globals.css'
 
-const app = createApp(App)
+const app = (document.querySelector('#app').hasChildNodes() ? createSSRApp : createApp)(App)
+const router = makeRouter()
 
 app.use(router)
 
-app.mount('#app')
+router.isReady().then(() => app.mount('#app'))

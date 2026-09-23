@@ -18,12 +18,7 @@
           <label>Work email<input v-model.trim="form.email" required type="email" placeholder="you@company.com" /></label>
           <label><span class="label-copy">Company <small>(optional)</small></span><input v-model.trim="form.company" placeholder="Company name" /></label>
           <label>Message<textarea v-model.trim="form.message" required placeholder="Tell us about your team, role or question..."></textarea></label>
-          <button type="submit">
-            <span v-if="formState === 'email-ready'"><IconCheck :size="19" /> Email draft opened</span>
-            <span v-else>Continue in your email app <IconArrowRight :size="19" /></span>
-          </button>
-          <p class="form-note">This prepares an email to <a :href="`mailto:${siteDetails.email}`">{{ siteDetails.email }}</a>. Review it and press Send in your email app.</p>
-          <p v-if="formState === 'email-ready'" class="success-note" role="status">Your email app should now be open. Nothing is sent until you press Send there.</p>
+          <FormDelivery ref="delivery" />
         </form>
       </BaseContainer>
     </section>
@@ -38,24 +33,14 @@ import BaseContainer from '@/components/base/BaseContainer.vue'
 import { useGsap } from '@/composables/useGsap'
 import { isReducedMotionActive } from '@/utils/motion/reveal'
 import { siteDetails } from '@/data/site'
-import { openEmailDraft } from '@/utils/contact'
+import FormDelivery from '@/components/forms/FormDelivery.vue'
 
 const pageRef = ref(null)
-const formState = ref('idle')
+const delivery = ref(null)
 const form = reactive({ name: '', email: '', company: '', message: '' })
 
 function submitForm() {
-  openEmailDraft({
-    to: siteDetails.email,
-    subject: `Website enquiry from ${form.name}`,
-    fields: [
-      ['Name', form.name],
-      ['Work email', form.email],
-      ['Company', form.company || 'Not provided'],
-      ['Message', form.message]
-    ]
-  })
-  formState.value = 'email-ready'
+  delivery.value.submit({ type: 'contact', ...form })
 }
 
 useGsap(() => {

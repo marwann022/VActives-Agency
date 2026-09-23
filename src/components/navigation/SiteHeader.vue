@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { gsap } from 'gsap'
 import { IconMenu2, IconX } from '@tabler/icons-vue'
@@ -31,8 +31,8 @@ const progressRef = ref(null)
 const isScrolled = ref(false)
 const isHidden = ref(false)
 const isMobileMenuOpen = ref(false)
-const activeNav = ref('home')
 const route = useRoute()
+const activeNav = computed(() => ({ '/': 'home', '/services': 'services', '/contact': 'contact' })[route.path] || '')
 let lastY = 0
 let rafId = 0
 
@@ -43,10 +43,6 @@ function updateHeader() {
   isHidden.value = !isReducedMotionActive() && directionDown && y > 240 && !isMobileMenuOpen.value
   const max = document.documentElement.scrollHeight - window.innerHeight
   if (progressRef.value) progressRef.value.style.transform = `scaleX(${max > 0 ? y / max : 0})`
-  if (route.path === '/services') activeNav.value = 'services'
-  else if (route.path === '/contact') activeNav.value = 'contact'
-  else if (route.path === '/') activeNav.value = 'home'
-  else activeNav.value = ''
   lastY = y
   rafId = 0
 }

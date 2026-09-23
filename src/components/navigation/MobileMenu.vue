@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport to="#overlays">
     <Transition
       @before-enter="onBeforeEnter"
       @enter="onEnter"

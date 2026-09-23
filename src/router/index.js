@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
+import { updateHead } from '@/data/seo'
 import Home from '@/pages/Home.vue'
 import Services from '@/pages/Services.vue'
 import Contact from '@/pages/Contact.vue'
@@ -31,8 +32,9 @@ const routes = [
   }
 ]
 
+export function makeRouter() {
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
@@ -40,5 +42,6 @@ const router = createRouter({
     return { top: 0 }
   }
 })
-
-export default router
+if (!import.meta.env.SSR) router.afterEach((to) => updateHead(to.path))
+return router
+}

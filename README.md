@@ -6,6 +6,10 @@ The website is designed to present VActives' recruitment services, available rol
 
 ## Project Overview
 
+### SEO and email setup (implemented, activation pending)
+
+Run `npm ci`, then `npm run build && npm test`. The build prerenders the three pages and generates metadata, brand images, sitemap and robots.txt. Home and Contact use `/api/inquiry` with Resend and Turnstile; account credentials and a production delivery test are still required. See [the launch checklist](docs/seo-email-launch.md) for environment variables, domain verification and Google Search Console steps. The feature lists below describe the original scope, not a completed acceptance checklist.
+
 The VActives website is a small marketing and lead-generation website focused on helping potential clients:
 
 - Learn about VActives and its recruitment services
