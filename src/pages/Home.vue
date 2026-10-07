@@ -15,7 +15,7 @@
           <div class="markets" aria-label="Markets served"><span>Serving teams across</span><strong>USA</strong><i></i><strong>UK</strong><i></i><strong>Canada</strong><i></i><strong>Australia</strong></div>
         </div>
         <div class="hero-visual motion-media">
-          <img class="hero-image" :src="images.hero" alt="A real team collaborating at work" />
+          <img class="hero-image" :src="images.hero" alt="A real team collaborating at work" fetchpriority="high" decoding="async" />
           <div class="fit-badge" aria-hidden="true">People<br />who fit</div>
           <div class="hero-note"><span class="status-icon"><IconCheck :size="18" :stroke-width="2.4" /></span><span>Screened. Ready. Reliable.</span></div>
         </div>
@@ -31,10 +31,10 @@
             <p>VActives Agency connects growing businesses with screened remote professionals. We learn the role, source carefully, check communication and capability, then present an interview-ready shortlist.</p>
             <ul class="check-list"><li><IconCheck :size="18" />Role-focused sourcing</li><li><IconCheck :size="18" />English and practical screening</li><li><IconCheck :size="18" />Interview-ready shortlist</li></ul>
           </div>
-          <div class="story-image-wrap motion-media"><img :src="images.recruitment" alt="A recruiter reviewing a candidate résumé" /></div>
+          <div class="story-image-wrap motion-media"><img :src="images.recruitment" alt="A recruiter reviewing a candidate résumé" loading="lazy" decoding="async" /></div>
         </article>
         <article class="story-row story-row--image-first section-reveal">
-          <div class="story-image-wrap motion-media"><img :src="images.support" alt="A team meeting during onboarding" /></div>
+          <div class="story-image-wrap motion-media"><img :src="images.support" alt="A team meeting during onboarding" loading="lazy" decoding="async" /></div>
           <div class="story-copy motion-copy">
             <span class="story-number" aria-hidden="true">02</span><p class="eyebrow">Beyond recruitment</p>
             <h2>We stay involved after the hire.</h2>
@@ -60,7 +60,7 @@
         <div class="roles-heading motion-copy"><p class="eyebrow eyebrow--center">Popular roles</p><h2>Start with the people your business needs most.</h2><p>Three high-impact roles for sales, follow-up and dependable day-to-day support.</p></div>
         <div class="role-grid">
           <article v-for="role in roles" :key="role.title" class="role-card tilt-card" @pointermove="tiltCard" @pointerleave="resetTilt">
-            <div class="role-image-wrap"><img :src="role.image" :alt="role.alt" /></div>
+            <div class="role-image-wrap"><img :src="role.image" :alt="role.alt" loading="lazy" decoding="async" /></div>
             <div class="role-body"><span>{{ role.kicker }}</span><h3>{{ role.title }}</h3><p>{{ role.description }}</p><IconArrowUpRight class="role-arrow" :size="21" /></div>
           </article>
         </div>

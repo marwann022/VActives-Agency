@@ -19,6 +19,11 @@ export default defineConfig({
     }
   }],
   ssr: { noExternal: ['gsap'] },
+  build: {
+    assetsInlineLimit: (filePath) => {
+      if (/\.(woff2?|eot|ttf|otf)$/i.test(filePath)) return false
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')

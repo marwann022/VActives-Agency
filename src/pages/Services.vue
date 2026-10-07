@@ -1,7 +1,7 @@
 <template>
   <div ref="pageRef" class="services-page">
     <section class="service-hero">
-      <img class="hero-photo" :src="heroImage" alt="Business professionals meeting in a modern office" />
+      <img class="hero-photo" :src="heroImage" alt="Business professionals meeting in a modern office" fetchpriority="high" decoding="async" />
       <div class="hero-shade" aria-hidden="true"></div>
       <BaseContainer class="hero-content">
         <p class="eyebrow eyebrow--light">Virtual recruitment, built around outcomes</p>
@@ -46,7 +46,7 @@
         </div>
         <div class="role-grid">
           <article v-for="role in visibleRoles" :key="role.name" class="role-card" :class="{ open: openRole === role.name }">
-            <div class="role-image"><img :src="role.image" :alt="`${role.name} professional at work`" loading="lazy" /><span>{{ String(roles.indexOf(role) + 1).padStart(2, '0') }}</span></div>
+            <div class="role-image"><img :src="role.image" :alt="`${role.name} professional at work`" loading="lazy" decoding="async" /><span>{{ String(roles.indexOf(role) + 1).padStart(2, '0') }}</span></div>
             <div class="role-body"><small>{{ role.category }}</small><h3>{{ role.name }}</h3><p>{{ role.outcome }}</p></div>
             <button type="button" :aria-expanded="openRole === role.name" @click="toggleRole(role.name)"><span>{{ openRole === role.name ? 'Close details' : 'View role details' }}</span><IconMinus v-if="openRole === role.name" :size="19" /><IconArrowUpRight v-else :size="19" /></button>
             <Transition name="card-detail"><div v-if="openRole === role.name" class="role-detail"><div><small>Responsibilities</small><ul><li v-for="item in role.responsibilities" :key="item"><IconCheck :size="14" />{{ item }}</li></ul></div><div><small>Typical KPIs</small><p>{{ role.kpis.join(' · ') }}</p></div><div class="role-meta"><span>{{ role.schedule }}</span><strong>{{ role.price }}<small>/ month</small></strong></div></div></Transition>

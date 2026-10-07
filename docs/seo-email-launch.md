@@ -1,5 +1,7 @@
 # SEO and enquiry email launch
 
+> **Status Notice**: Email delivery configuration, Resend verification, and mailbox DNS records are **DEFERRED** until the final launch phase per project plan. The application frontend, serverless API logic, security headers, routing, and Turnstile integration are verified independently.
+
 ## Implemented in the repository
 
 - Build-time HTML rendering for Home, Services & Pricing, Contact and the 404 page. Search engines receive page content without executing JavaScript.
@@ -18,9 +20,15 @@
 4. Confirm that `info@vactives.com` is an existing, working inbox with their mail provider. Purchasing a domain alone does not create it.
 5. Create a Resend API key with sending access limited to the verified domain. Put it directly into Vercel environment variables, never source code or chat.
 
-## 2. Spam protection
+## 2. Spam protection and rate limiting
 
-Create a Cloudflare Turnstile widget (Managed), allowing `www.vactives.com` and `vactives.com`. Website DNS can stay at Vercel. Obtain the public site key and private secret key. Keep hostname validation enabled. For preview/local testing use separate test credentials and explicitly allowed origins; never deploy test keys to production. Add a Vercel firewall rate-limit rule for POST `/api/inquiry` before launch as an additional abuse control.
+Create a Cloudflare Turnstile widget (Managed), allowing `www.vactives.com` and `vactives.com`. Website DNS can stay at Vercel. Obtain the public site key and private secret key. Keep hostname validation enabled. For preview/local testing use separate test credentials and explicitly allowed origins; never deploy test keys to production.
+
+Add a Vercel Firewall rate-limit rule for `POST /api/inquiry` before launch as an additional abuse control:
+- **Target**: Path equals `/api/inquiry`, Method equals `POST`.
+- **Threshold**: 5 requests per 10 minutes per client IP (`x-forwarded-for`).
+- **Initial Mode**: Configure in **Log (Observation)** mode first to audit legitimate traffic and corporate proxy/NAT behavior without false positives.
+- **Enforcement**: Transition to **Deny (429)** or **Challenge** after validating log patterns. Activation must be done directly in the Vercel Dashboard by authorized team members.
 
 ## 3. Vercel project environment variables
 
@@ -32,8 +40,12 @@ Create a Cloudflare Turnstile widget (Managed), allowing `www.vactives.com` and 
 | `TURNSTILE_SECRET_KEY` | Turnstile secret | Server only |
 | `VITE_TURNSTILE_SITE_KEY` | Turnstile public site key | Public, compiled into frontend |
 | `FORM_ALLOWED_ORIGINS` | Optional comma-separated exact staging/local origins | Server only |
+| `VITE_ENABLE_REFERRALS` | `false` (keep disabled until referral terms approved) | Public, compiled into frontend |
+| `ENABLE_REFERRALS` | `false` (keep disabled until referral terms approved) | Server only |
 
 Set Production variables and redeploy. Public `VITE_` values require a rebuild. Do not prefix any secret with `VITE_`. For local backend testing use Vercel's development environment; `vite` and `vite preview` alone do not run Vercel API functions.
+
+Browser test builds inject a mock Turnstile key (`1x00000000000000000000AA`). Never deploy `dist/` directly from a browser-test run; always perform a clean `npm run build` with production environment variables before deploying.
 
 ## 4. Production acceptance checks
 
