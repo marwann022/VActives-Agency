@@ -350,3 +350,18 @@ Three GitHub Actions Dependabot PRs were opened for [`.github/workflows/verify.y
    - *Rationale*: Safe to adopt. Strengthens git credential scrubbing.
 - **Preferred Engineering Action**: Close all three isolated Dependabot PRs and apply a single unified update to [`.github/workflows/verify.yml`](file:///Users/marwan/Documents/GitHub/VActives-Agency/.github/workflows/verify.yml) (`actions/checkout@v7`, `actions/setup-node@v7`, `actions/upload-artifact@v6`) once local commit `1562c76` is pushed to `main`. Alternatively, if merging via PR is preferred, **DEFER** all three until `main` is pushed, then sequentially rebase and merge.
 
+### 6. Consolidation Implementation & Verification
+Following approval, [`.github/workflows/verify.yml`](file:///Users/marwan/Documents/GitHub/VActives-Agency/.github/workflows/verify.yml) was updated to consolidate all three official actions in a single modification:
+- `actions/checkout@v7`
+- `actions/setup-node@v7` (`node-version: 22`, `cache: npm`)
+- `actions/upload-artifact@v6` (`if: failure()`, `path: test-results/`, `retention-days: 7`)
+- **YAML Syntax Validation**: Verified via parser; syntax is 100% compliant.
+- **Runner Compatibility**: Fully compatible with GitHub-hosted `ubuntu-latest` runners, executing natively on Node 24 and eliminating deprecation warnings.
+- **Verification Run Results**:
+  - `npm test`: 10/10 passed.
+  - `npm run test:browser`: 36/36 passed across Chromium Desktop, WebKit Mobile, and Chromium Tablet.
+  - `npm run build`: Production bundle built and prerendered cleanly.
+  - `npm run check:security`: 0 secrets, private artifacts, or credentials detected.
+  - `npm audit --omit=dev`: 0 runtime vulnerabilities.
+  - Turnstile production key check: 0 test keys present in `dist/`.
+
