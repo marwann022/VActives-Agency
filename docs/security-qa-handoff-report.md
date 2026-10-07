@@ -308,3 +308,45 @@ Updated [`.github/dependabot.yml`](file:///Users/marwan/Documents/GitHub/VActive
 - **Main Production Branch Impact: NONE**. The failure is isolated entirely to the Dependabot preview branch.
 - **Recommended Action**: **Close the Dependabot pull request for `vue-router-5.3.1` without merging**.
 
+---
+
+## 15. GitHub Actions Dependabot PR Audit (PR #1, PR #2, PR #3)
+
+### 1. Overview of Open Actions PRs
+Three GitHub Actions Dependabot PRs were opened for [`.github/workflows/verify.yml`](file:///Users/marwan/Documents/GitHub/VActives-Agency/.github/workflows/verify.yml):
+1. **PR #1**: `actions/upload-artifact` v4 → v6 (Branch: `dependabot/github_actions/actions/upload-artifact-6`)
+2. **PR #2**: `actions/setup-node` v4 → v7 (Branch: `dependabot/github_actions/actions/setup-node-7`)
+3. **PR #3**: `actions/checkout` v4 → v7 (Branch: `dependabot/github_actions/actions/checkout-7`)
+
+### 2. CI Check Failure Root Cause Analysis
+- **Observed Behavior**: All three PR branches reported `verify` workflow failures in GitHub Actions.
+- **Root Cause**: The failures were **NOT** caused by the updated actions. In each PR run, the action under test downloaded, initialized, and ran with 100% success.
+- **Culprit**: Each PR was branched from `origin/main` (`3c9a38b`), which predates the local fix in [`vite.config.js`](file:///Users/marwan/Documents/GitHub/VActives-Agency/vite.config.js) (`build.assetsInlineLimit` returning `false` for font formats). In the old commit, Vite inlined small Cyrillic woff2 fonts as base64 data URIs, triggering `font-src: data` CSP violations during Playwright tests (`window.__cspViolations = ["font-src: data"]`).
+- **Runner Deprecation Context**: GitHub Actions runners emit a deprecation warning on v4 actions:
+  `Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4`. The v6 and v7 action releases natively target Node.js 24, permanently resolving this warning.
+
+### 3. Detailed Action Assessment
+
+| Action & Version | Runner Compatibility | Breaking Changes | Security & Runtime Analysis |
+|---|---|---|---|
+| **`actions/upload-artifact` (v4 → v6)** | Fully compatible with `ubuntu-latest` | None for existing inputs (`name`, `path`, `retention-days`). | Upgrades internal client to `@actions/artifact@5.0.1`, eliminates punycode warnings, improves upload throughput. Confirmed working in run `37697951987` (uploaded 20.26 MB debug artifacts in 1.9s). |
+| **`actions/setup-node` (v4 → v7)** | Fully compatible with `ubuntu-latest` | None for existing inputs (`node-version: 22`, `cache: npm`). | Upgrades internal action runtime to Node 24. Updates `@actions/cache` to 5.1.0 with security patches for `undici` and `fast-xml-parser` plus cache poisoning mitigations. Confirmed working in run `37697958443` (provisioned Node 22.23.3 & npm 10.9.9). |
+| **`actions/checkout` (v4 → v7)** | Fully compatible with `ubuntu-latest` | None for default checkout usage. | Upgrades action runtime to Node 24. Hardens post-job credentials cleanup (sanitizes includeIf configs, SSH credentials, and extraheaders). Confirmed working in run `37697967766`. |
+
+### 4. Build Artifact & Turnstile Security Audit
+- **Artifact Isolation**: [`/.github/workflows/verify.yml`](file:///Users/marwan/Documents/GitHub/VActives-Agency/.github/workflows/verify.yml) only executes `actions/upload-artifact` on failure (`if: failure()`) targeting `test-results/` (Playwright traces and failure screenshots).
+- **No Production Exposure**: The `dist/` directory generated during `npm run test:browser` (which injects the mock Turnstile key `1x00000000000000000000AA`) is **never** uploaded as an artifact, committed to the repository, or deployed. Deployments are handled exclusively by Vercel's independent build environment from repository source.
+
+### 5. Individual PR Recommendations
+
+1. **PR #1 (`actions/upload-artifact v4 → v6`)**:
+   - **Recommendation**: **CLOSE (Consolidate into single commit)**
+   - *Rationale*: Safe to adopt, but merging independently causes file conflicts with PR #2 and PR #3 on `.github/workflows/verify.yml`.
+2. **PR #2 (`actions/setup-node v4 → v7`)**:
+   - **Recommendation**: **CLOSE (Consolidate into single commit)**
+   - *Rationale*: Safe to adopt. Directly benefits security by updating `@actions/cache@5.1.0`. Best applied alongside checkout and upload-artifact in one clean commit.
+3. **PR #3 (`actions/checkout v4 → v7`)**:
+   - **Recommendation**: **CLOSE (Consolidate into single commit)**
+   - *Rationale*: Safe to adopt. Strengthens git credential scrubbing.
+- **Preferred Engineering Action**: Close all three isolated Dependabot PRs and apply a single unified update to [`.github/workflows/verify.yml`](file:///Users/marwan/Documents/GitHub/VActives-Agency/.github/workflows/verify.yml) (`actions/checkout@v7`, `actions/setup-node@v7`, `actions/upload-artifact@v6`) once local commit `1562c76` is pushed to `main`. Alternatively, if merging via PR is preferred, **DEFER** all three until `main` is pushed, then sequentially rebase and merge.
+
