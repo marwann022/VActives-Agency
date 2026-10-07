@@ -14,14 +14,15 @@
 
         <form class="contact-form" @submit.prevent="submitForm">
           <div class="form-heading"><span>Start a conversation</span><h2>How can we help?</h2></div>
-          <label>Full name<input v-model.trim="form.name" required placeholder="Your name" /></label>
-          <label>Work email<input v-model.trim="form.email" required type="email" placeholder="you@company.com" /></label>
-          <label><span class="label-copy">Company <small>(optional)</small></span><input v-model.trim="form.company" placeholder="Company name" /></label>
-          <label>Message<textarea v-model.trim="form.message" required placeholder="Tell us about your team, role or question..."></textarea></label>
+          <label>Full name<input v-model.trim="form.name" required autocomplete="name" maxlength="120" placeholder="Your name" /></label>
+          <label>Work email<input v-model.trim="form.email" required type="email" autocomplete="email" maxlength="254" placeholder="you@company.com" /></label>
+          <label><span class="label-copy">Company <small>(optional)</small></span><input v-model.trim="form.company" autocomplete="organization" maxlength="160" placeholder="Company name" /></label>
+          <label>Message<textarea v-model.trim="form.message" required maxlength="5000" placeholder="Tell us about your team, role or question..."></textarea></label>
           <FormDelivery ref="delivery" />
         </form>
       </BaseContainer>
     </section>
+    <ReferralForm v-if="referralsEnabled" />
   </div>
 </template>
 
@@ -34,6 +35,8 @@ import { useGsap } from '@/composables/useGsap'
 import { isReducedMotionActive } from '@/utils/motion/reveal'
 import { siteDetails } from '@/data/site'
 import FormDelivery from '@/components/forms/FormDelivery.vue'
+import ReferralForm from '@/components/forms/ReferralForm.vue'
+const referralsEnabled = import.meta.env.VITE_ENABLE_REFERRALS === 'true'
 
 const pageRef = ref(null)
 const delivery = ref(null)

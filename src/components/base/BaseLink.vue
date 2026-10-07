@@ -1,8 +1,7 @@
 <template>
   <component
     :is="isComponent"
-    :to="to"
-    :href="href"
+    v-bind="navigationProps"
     :target="target"
     :rel="isExternalLink ? 'noopener noreferrer' : undefined"
     :aria-disabled="disabled ? 'true' : undefined"
@@ -57,6 +56,7 @@ const props = defineProps({
 })
 
 const isExternalLink = computed(() => props.href && (props.target === '_blank' || props.href.startsWith('http')))
+const navigationProps = computed(() => props.to ? { to: props.to } : props.href ? { href: props.href } : {})
 
 const isComponent = computed(() => {
   if (props.to) return 'router-link'

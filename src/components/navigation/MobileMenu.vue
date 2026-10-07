@@ -83,7 +83,7 @@
 </template>
 
 <script setup>
-import { watch, onMounted, onUnmounted } from 'vue'
+import { nextTick, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { gsap } from 'gsap'
 import BaseButton from '@/components/base/BaseButton.vue'
@@ -102,6 +102,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 const route = useRoute()
+let previousFocus
 
 const navItems = [
   { id: 'home', name: 'Home', path: '/' },
@@ -119,9 +120,17 @@ watch(
   (open) => {
     if (typeof document !== 'undefined') {
       if (open) {
+        previousFocus = document.activeElement
         document.body.style.overflow = 'hidden'
+        nextTick(() => {
+          if (!props.isOpen) return
+          document.getElementById('app')?.setAttribute('inert', '')
+          document.querySelector('#mobile-menu button')?.focus()
+        })
       } else {
+        document.getElementById('app')?.removeAttribute('inert')
         document.body.style.overflow = ''
+        previousFocus?.focus?.()
       }
     }
   }
@@ -139,6 +148,12 @@ watch(
 
 // Keyboard Escape key handler
 function onKeydown(event) {
+  if (event.key === 'Tab' && props.isOpen) {
+    const items = [...document.querySelectorAll('#mobile-menu a[href], #mobile-menu button:not([disabled])')]
+    const first = items[0], last = items.at(-1)
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+  }
   if (event.key === 'Escape' && props.isOpen) {
     closeMenu()
   }
@@ -152,6 +167,7 @@ onUnmounted(() => {
   window.removeEventListener('keydown', onKeydown)
   if (typeof document !== 'undefined') {
     document.body.style.overflow = ''
+    document.getElementById('app')?.removeAttribute('inert')
   }
 })
 

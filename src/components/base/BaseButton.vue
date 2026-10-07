@@ -1,8 +1,7 @@
 <template>
   <component
     :is="isComponent"
-    :to="to"
-    :href="href"
+    v-bind="navigationProps"
     :target="target"
     :rel="isExternalLink ? 'noopener noreferrer' : undefined"
     :type="isButton ? type : undefined"
@@ -70,6 +69,7 @@ const props = defineProps({
 })
 
 const isButton = computed(() => !props.to && !props.href)
+const navigationProps = computed(() => props.to ? { to: props.to } : props.href ? { href: props.href } : {})
 const isExternalLink = computed(() => props.href && (props.target === '_blank' || props.href.startsWith('http')))
 
 const isComponent = computed(() => {

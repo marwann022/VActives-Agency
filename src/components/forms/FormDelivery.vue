@@ -1,17 +1,17 @@
 <template>
-  <div class="form-delivery">
+  <div class="form-delivery" :aria-busy="busy">
     <label class="consent"><input v-model="consent" type="checkbox" required :disabled="busy || sent" /><span>I agree that VActives may contact me about this enquiry.</span></label>
     <div class="honeypot" aria-hidden="true"><label>Leave this field empty<input v-model="website" tabindex="-1" autocomplete="off" /></label></div>
     <div v-if="siteKey && !sent" ref="challengeElement" class="security-check"></div>
     <button type="submit" :disabled="busy || sent || !siteKey || !token">{{ busy ? 'Sending…' : sent ? 'Enquiry sent' : 'Send enquiry' }}</button>
-    <p v-if="sent" class="result success" role="status">Thanks — your enquiry has been submitted. Our team will review it during business hours.</p>
+    <p v-if="sent" class="result success" role="status" tabindex="-1" ref="resultElement">Thanks — your enquiry has been submitted. Our team will review it during business hours.<span v-if="!confirmationSent"> Your enquiry reached our team, but we could not send your confirmation email. Please do not resubmit.</span></p>
     <p v-else-if="error" class="result error" role="alert">{{ error }}</p>
     <p v-if="!sent" class="email-option">{{ !siteKey ? 'Please contact our team by email:' : 'Prefer email?' }} <a href="mailto:info@vactives.com">info@vactives.com</a></p>
   </div>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { loadTurnstile } from '@/utils/turnstile'
 const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || ''
 const consent = ref(false)
@@ -19,6 +19,8 @@ const website = ref('')
 const token = ref('')
 const busy = ref(false)
 const sent = ref(false)
+const confirmationSent = ref(true)
+const resultElement = ref(null)
 const error = ref('')
 const challengeElement = ref(null)
 let widgetId, disposed = false, submissionId
@@ -29,7 +31,7 @@ onMounted(async () => {
     if (disposed) return
     widgetId = window.turnstile.render(challengeElement.value, {
       sitekey: siteKey, action: 'inquiry', theme: 'light', size: 'flexible',
-      callback: value => { token.value = value; error.value = '' },
+      callback: value => { token.value = value },
       'expired-callback': () => { token.value = '' },
       'error-callback': () => { token.value = ''; error.value = 'The security check could not load. Please refresh or email our team.' }
     })
@@ -51,6 +53,9 @@ async function submit(fields) {
     const result = await response.json().catch(() => ({}))
     if (!response.ok || result.ok !== true) throw new Error(result.error || 'We could not send your enquiry. Please try again or email info@vactives.com.')
     sent.value = true
+    confirmationSent.value = result.confirmationSent !== false
+    await nextTick()
+    resultElement.value?.focus()
   } catch (reason) { error.value = reason.name === 'TimeoutError' ? 'We could not confirm submission. Try again or email info@vactives.com.' : reason instanceof TypeError ? 'Connection failed. Please try again or email info@vactives.com.' : reason.message }
   finally { busy.value = false; token.value = ''; if (widgetId !== undefined && !disposed && !sent.value) window.turnstile?.reset(widgetId) }
 }

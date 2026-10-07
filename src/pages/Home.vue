@@ -73,11 +73,11 @@
         <div class="hire-panel">
           <div class="hire-copy motion-copy"><p class="eyebrow">Start hiring</p><h2>Tell us who your team needs.</h2><p>Share a few details and we’ll start with a focused conversation about the role, your goals and the right next step.</p><strong>Simple brief. Clear next step. No noise.</strong></div>
           <form class="hire-form" @submit.prevent="submitForm">
-            <label>Full name<input v-model.trim="form.name" required placeholder="Your name" /></label>
-            <label>Work email<input v-model.trim="form.email" required type="email" placeholder="you@company.com" /></label>
-            <label class="form-wide">Company<input v-model.trim="form.company" required placeholder="Company name" /></label>
+            <label>Full name<input v-model.trim="form.name" required autocomplete="name" maxlength="120" placeholder="Your name" /></label>
+            <label>Work email<input v-model.trim="form.email" required type="email" autocomplete="email" maxlength="254" placeholder="you@company.com" /></label>
+            <label class="form-wide">Company<input v-model.trim="form.company" required autocomplete="organization" maxlength="160" placeholder="Company name" /></label>
             <label class="role-select-field form-wide">Role needed<CustomSelect v-model="form.role" :options="roleOptions" placeholder="Select a role" required /></label>
-            <label class="form-wide">What does your team need help with?<textarea v-model.trim="form.message" required placeholder="Tell us about the work, goals and timing..."></textarea></label>
+            <label class="form-wide">What does your team need help with?<textarea v-model.trim="form.message" required maxlength="5000" placeholder="Tell us about the work, goals and timing..."></textarea></label>
             <FormDelivery ref="delivery" />
           </form>
         </div>

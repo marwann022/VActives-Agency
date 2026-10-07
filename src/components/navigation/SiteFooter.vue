@@ -9,6 +9,7 @@
           <a class="contact-item" :href="`mailto:${siteDetails.email}`"><IconMail :size="19" /><span><small>Email</small><strong>{{ siteDetails.email }}</strong></span></a>
           <div class="contact-item"><IconClockHour4 :size="19" /><span><small>Business hours</small><strong>{{ siteDetails.hours }}</strong></span></div>
           <router-link class="contact-link" to="/contact">Contact us <IconArrowUpRight :size="16" /></router-link>
+          <router-link v-if="referralsEnabled" class="contact-link" to="/contact#referral">Refer a business <IconArrowUpRight :size="16" /></router-link>
           <div class="social-block"><small>Follow VActives</small><div><a :href="siteDetails.instagram" target="_blank" rel="noopener noreferrer" aria-label="VActives on Instagram"><IconBrandInstagram :size="19" /></a><a :href="siteDetails.facebook" target="_blank" rel="noopener noreferrer" aria-label="VActives on Facebook"><IconBrandFacebook :size="19" /></a></div></div>
         </div>
       </div>
@@ -24,6 +25,7 @@ import BaseContainer from '@/components/base/BaseContainer.vue'
 import BrandLogo from '@/components/brand/BrandLogo.vue'
 import { siteDetails } from '@/data/site'
 const currentYear = computed(() => new Date().getFullYear())
+const referralsEnabled = import.meta.env.VITE_ENABLE_REFERRALS === 'true'
 </script>
 
 <style scoped>

@@ -38,7 +38,7 @@ const router = createRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
-    if (to.hash) return { el: to.hash, top: 86, behavior: 'smooth' }
+    if (to.hash) return { el: to.hash, top: 86, behavior: typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }
     return { top: 0 }
   }
 })

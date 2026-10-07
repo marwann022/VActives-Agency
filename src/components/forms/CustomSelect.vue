@@ -14,10 +14,14 @@
 
     <!-- Select Trigger -->
     <button
+      ref="triggerRef"
       type="button"
       class="custom-select__trigger"
       :class="{ 'has-value': Boolean(modelValue), 'is-invalid': isInvalid }"
       :aria-expanded="isOpen"
+      :aria-controls="listboxId"
+      :aria-activedescendant="isOpen && highlightedIndex >= 0 ? `${listboxId}-${highlightedIndex}` : undefined"
+      :aria-invalid="isInvalid || undefined"
       aria-haspopup="listbox"
       :aria-labelledby="id"
       @click="toggleDropdown"
@@ -34,6 +38,7 @@
       <div
         v-if="isOpen"
         ref="listboxRef"
+        :id="listboxId"
         class="custom-select__menu"
         role="listbox"
         tabindex="-1"
@@ -42,6 +47,7 @@
         <div
           v-for="(option, idx) in formattedOptions"
           :key="option.value"
+          :id="`${listboxId}-${idx}`"
           class="custom-select__option"
           :class="{
             'is-selected': option.value === modelValue,
@@ -63,7 +69,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue'
 import { IconChevronDown } from '@tabler/icons-vue'
 
 const props = defineProps({
@@ -90,6 +96,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue', 'change'])
+const listboxId = useId()
+const triggerRef = ref(null)
 
 const rootRef = ref(null)
 const hiddenInputRef = ref(null)
@@ -172,6 +180,8 @@ function onTriggerKeydown(event) {
   } else if (event.key === 'Escape' && isOpen.value) {
     event.preventDefault()
     closeDropdown()
+  } else if (event.key === 'Tab') {
+    closeDropdown()
   }
 }
 
@@ -210,8 +220,10 @@ function highlightPrev() {
   scrollToHighlighted()
 }
 
-function onInvalid() {
+function onInvalid(event) {
+  event.preventDefault()
   isInvalid.value = true
+  triggerRef.value?.focus()
 }
 
 function handleClickOutside(event) {
