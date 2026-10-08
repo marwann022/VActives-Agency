@@ -365,3 +365,28 @@ Following approval, [`.github/workflows/verify.yml`](file:///Users/marwan/Docume
   - `npm audit --omit=dev`: 0 runtime vulnerabilities.
   - Turnstile production key check: 0 test keys present in `dist/`.
 
+---
+
+## 16. Production Post-Deployment Read-Only Verification (`https://www.vactives.com`)
+
+Conducted a live read-only post-deployment audit against production (`https://www.vactives.com`) following deployment of commit `0d993b3` on `main`.
+
+### 1. Verification Matrix Summary
+
+| Task / Item | Status | Verified Details |
+|---|---|---|
+| **1. Production Deployment Status** | **PASS** | Deployed commit `0d993b3` on Vercel is `Ready` (HTTP 200, cache HIT). |
+| **2. Deployed Commit Verification** | **PASS** | Matches latest `main` branch. Verified presence of `fetchpriority="high"`, updated font chunking, and latest production asset bundles. |
+| **3. Route Integrity (`/`, `/services`, `/contact`)** | **PASS** | All primary routes return `HTTP 200` with prerendered HTML content. |
+| **4. Direct Navigation & Refresh** | **PASS** | Navigating directly to routes or performing full browser reloads retains route state cleanly. |
+| **5. 404 Routing for Unknown Paths** | **PASS** | Requests to `/404` and `/unknown-random-route` return `HTTP 404` with brand 404 page. Legacy `/start-hiring` redirects via `HTTP 308` to `/#hire`. |
+| **6. Production Security Headers & CSP** | **PASS** | All strict headers confirmed: `Content-Security-Policy`, `Strict-Transport-Security` (`max-age=63072000`), `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`. |
+| **7. Font Loading & Zero CSP Violations** | **PASS** | `plus-jakarta-sans-cyrillic-ext-wght-normal-lLTsRRxN.woff2` loads as a dedicated asset (HTTP 200). Zero `data:font` inlining; zero `window.__cspViolations` events. |
+| **8. Responsive Behavior (Mobile & Desktop)** | **PASS** | Desktop (1280x800) and Mobile (390x844) verified. `document.documentElement.scrollWidth <= innerWidth + 1` (no horizontal overflow). |
+| **9. SEO Files (`sitemap.xml`, `robots.txt`)** | **PASS** | `/robots.txt` returns `HTTP 200` (disallowing `/api/`). `/sitemap.xml` returns valid XML indexing `/`, `/services`, and `/contact`. |
+| **10. Browser Runtime Console** | **PASS** | Zero unhandled JavaScript exceptions (`pageerror: 0`). Only standard Cloudflare Turnstile anti-bot console probing. |
+| **11. ReferralForm Status** | **PASS** | `#referral` element count is strictly `0` in DOM across all viewports. |
+| **12. API Accessibility (`/api/inquiry`)** | **PASS** | Non-mutating `GET /api/inquiry` returns `HTTP 405 Method Not Allowed` with header `Allow: POST` and `Cache-Control: no-store`. |
+| **13. Preview vs. Production Parity** | **PASS** | Assets and logic are 100% identical. Preview uses Vercel SSO protection and `noindex`; Production is public and indexed. |
+| **14. Email Infrastructure** | **NOT VERIFIED** | **DEFERRED** per plan. Zero emails sent, zero forms submitted, DNS and Resend untouched. |
+
