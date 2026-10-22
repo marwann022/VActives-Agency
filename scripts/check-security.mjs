@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import assert from 'node:assert/strict'
 
 const tracked = execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' }).split('\0').filter(Boolean)
@@ -19,7 +19,7 @@ const walk = dir => readdirSync(dir).flatMap(name => { const p = `${dir}/${name}
 const published = walk('dist')
 assert.ok(!published.some(p => /\.(map|env)$/.test(p) || p.includes('/server/')), 'Private build artifact is published')
 const untrackedFiles = untracked.filter(p => /\.(?:js|mjs|vue|json|html|ya?ml|md|txt)$/.test(p) && p !== 'package-lock.json')
-const files = [...new Set([...tracked, ...published, ...untrackedFiles])].filter(p => /\.(?:js|mjs|vue|json|html|ya?ml|md|txt)$/.test(p) && p !== 'package-lock.json')
+const files = [...new Set([...tracked, ...published, ...untrackedFiles])].filter(p => existsSync(p) && /\.(?:js|mjs|vue|json|html|ya?ml|md|txt)$/.test(p) && p !== 'package-lock.json')
 for (const file of files) {
   const text = readFileSync(file, 'utf8')
   assert.ok(!patterns.some(pattern => pattern.test(text)), `Potential secret in ${file} (value redacted)`)

@@ -18,6 +18,9 @@ dist-ssr
 test-results/
 playwright-report/
 
+# Local design exploration and QA captures (kept locally, not published)
+work/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
