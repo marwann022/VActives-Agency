@@ -4,7 +4,7 @@
 
 This report documents the review, debugging, security hardening, performance audit, and quality assurance verification conducted on the VActives Agency Vue 3 / Vite application.
 
-The application has been audited and hardened across security, performance, accessibility, routing, and form reliability **without working on email infrastructure at this stage**. Email infrastructure (Resend account verification, domain DNS records SPF/DKIM/MX/DMARC) is explicitly deferred to the final launch phase per project plan.
+The application has been audited and hardened across security, performance, accessibility, routing, and form reliability. The email application flow and required Production variable names are in place; the final same-address setup for `info@vactives.com` still depends on root-domain Resend verification, mailbox-provider MX records and a live delivery test.
 
 All automated test suites pass with 100% success:
 - **Unit and API tests**: 10 passed out of 10 (`npm test`)
@@ -21,7 +21,7 @@ All automated test suites pass with 100% success:
 ## 2. Working Tree State & Modifications
 
 - **Git Branch**: `main`
-- **No commit, push, or deployment has been performed.**
+- **Repository state reviewed on 8 October 2026**: `main` matched `origin/main` at commit `4f91b34`, and Vercel reported that exact commit as the current `READY` Production deployment. The new same-address email documentation and tests described below are local follow-up changes and are not deployed yet.
 - **Approved visual design**: Preserved with 100% fidelity. No redesigns or unauthorized UI changes.
 - **ReferralForm**: Remains strictly disabled across client and server layers.
 
@@ -208,26 +208,30 @@ Full Dependency Audit    npm audit                ADVISORY    5 high (Tailwind 3
 
 ---
 
-## 12. DEFERRED — EMAIL INFRASTRUCTURE
+## 12. EMAIL INFRASTRUCTURE — SAME-ADDRESS CUTOVER PENDING
 
 > **IMPORTANT PROJECT NOTICE**:
-> Email infrastructure configuration has intentionally been **DEFERRED** until the final launch phase per project plan.
+> The final requirement is for `info@vactives.com` to be both the visible sender and receiving mailbox. Application logic supports this, but DNS/provider configuration and live delivery remain external acceptance steps.
 > Do not classify working application components as failed solely because live email delivery has not been tested.
 > The existing `info@vactives.com` mailbox is reported by the owner to be working.
 > All application-side email generation, HTML escaping, and idempotency logic are verified via mocks.
 
 The final email launch tasks remain clearly documented for the subsequent launch phase:
 
-1. [ ] **Resend Sending Domain Verification**:
+1. [ ] **Same-address Resend Sending Domain Verification**:
    - Access the business-owned Resend dashboard.
-   - Confirm sending domain `notifications.vactives.com` status.
+   - Keep the verified `notifications.vactives.com` domain while adding and verifying `vactives.com`.
    - Publish required DNS records (SPF, DKIM, MX) in Vercel DNS.
-   - Confirm domain status shows "Verified" in Resend.
-2. [ ] **DMARC Record**:
+   - Confirm `vactives.com` shows "Verified" in Resend before using `info@vactives.com` as From.
+   - Public DNS currently exposes a Resend DKIM record for `vactives.com`, but the complete root-domain sending configuration could not be confirmed from DNS alone.
+2. [ ] **Mailbox Receiving DNS**:
+   - Choose or confirm the actual mailbox provider for `info@vactives.com` (for example Google Workspace, Microsoft 365 or Zoho Mail).
+   - Publish that provider's exact MX records at `vactives.com`. No apex MX record was visible during the 8 October 2026 DNS check, so receipt at `info@vactives.com` must not be assumed yet.
+3. [ ] **DMARC Record**:
    - Publish TXT record for `_dmarc.vactives.com` (e.g. `v=DMARC1; p=none; rua=mailto:info@vactives.com`).
-3. [ ] **Production Environment Variables**:
-   - Add `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `FORM_INBOX`, `TURNSTILE_SECRET_KEY`, and `VITE_TURNSTILE_SITE_KEY` to Vercel Project Settings.
-4. [ ] **Live End-to-End Submission Test**:
+4. [ ] **Production Environment Variables**:
+   - Required Production keys are present in Vercel. After root-domain verification, set `RESEND_FROM_EMAIL=VActives Agency <info@vactives.com>` and `FORM_INBOX=info@vactives.com`, then redeploy.
+5. [ ] **Live End-to-End Submission Test**:
    - Submit 1 test inquiry from the live website once published.
    - Confirm receipt in `info@vactives.com` and visitor confirmation inbox.
 
@@ -239,7 +243,7 @@ The final email launch tasks remain clearly documented for the subsequent launch
 - **Client Security & CSP**: **READY FOR PRODUCTION** `[VERIFIED LOCALLY]`
 - **Forms & Turnstile**: **READY FOR PRODUCTION** `[VERIFIED VIA MOCKS]`
 - **Performance & SEO**: **READY FOR PRODUCTION** `[VERIFIED LOCALLY]`
-- **Email Infrastructure**: **DEFERRED TO FINAL LAUNCH PHASE** `[NOT VERIFIED]`
+- **Email Infrastructure**: **CONFIGURED BUT SAME-ADDRESS CUTOVER PENDING** `[LIVE DELIVERY NOT VERIFIED]`
 
 **Final Recommendation**: The codebase is stable, thoroughly tested, hardened, and ready to proceed to the email configuration and production publication phase.
 
@@ -388,5 +392,4 @@ Conducted a live read-only post-deployment audit against production (`https://ww
 | **11. ReferralForm Status** | **PASS** | `#referral` element count is strictly `0` in DOM across all viewports. |
 | **12. API Accessibility (`/api/inquiry`)** | **PASS** | Non-mutating `GET /api/inquiry` returns `HTTP 405 Method Not Allowed` with header `Allow: POST` and `Cache-Control: no-store`. |
 | **13. Preview vs. Production Parity** | **PASS** | Assets and logic are 100% identical. Preview uses Vercel SSO protection and `noindex`; Production is public and indexed. |
-| **14. Email Infrastructure** | **NOT VERIFIED** | **DEFERRED** per plan. Zero emails sent, zero forms submitted, DNS and Resend untouched. |
-
+| **14. Email Infrastructure** | **PARTIAL** | Required Production variable names are present and the application flow is covered by mocks. The same-address cutover requires `vactives.com` verification in Resend, updating both email values to `info@vactives.com`, redeployment, and one authorized live submission test. |

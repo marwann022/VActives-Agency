@@ -1,6 +1,6 @@
 # SEO and enquiry email launch
 
-> **Status Notice**: Email delivery configuration, Resend verification, and mailbox DNS records are **DEFERRED** until the final launch phase per project plan. The application frontend, serverless API logic, security headers, routing, and Turnstile integration are verified independently.
+> **Current email decision (8 October 2026)**: `info@vactives.com` must be both the visible sender and the receiving mailbox. The application already supports this through separate environment variables. The production switch must wait until `vactives.com` itself is verified as a sending domain in Resend; verification of `notifications.vactives.com` alone does not authorize `info@vactives.com` as a sender.
 
 ## Implemented in the repository
 
@@ -14,9 +14,9 @@
 
 ## 1. Resend — separate from Vercel website domain verification
 
-1. Create the business-owned Resend account. Under Domains add `notifications.vactives.com` as a sending subdomain.
+1. Keep the existing verified `notifications.vactives.com` configuration in place while migrating. Under Resend Domains, add the apex sending domain `vactives.com` so Resend can authorize `info@vactives.com` as the sender.
 2. Copy the exact DNS records Resend provides into the domain owner's Vercel DNS panel. Match Type, Name, Value and MX Priority exactly. Do not overwrite existing root-domain mail records or use example DNS values.
-3. Return to Resend and verify until the domain is Verified. This authorizes email sending; it does not create an `info@vactives.com` mailbox.
+3. Return to Resend and verify until `vactives.com` shows **Verified**. A verified subdomain does not authorize sibling or parent-domain sender addresses. Verification authorizes sending; it does not create the `info@vactives.com` mailbox.
 4. Confirm that `info@vactives.com` is an existing, working inbox with their mail provider. Purchasing a domain alone does not create it.
 5. Create a Resend API key with sending access limited to the verified domain. Put it directly into Vercel environment variables, never source code or chat.
 
@@ -35,7 +35,7 @@ Add a Vercel Firewall rate-limit rule for `POST /api/inquiry` before launch as a
 | Name | Value | Exposure |
 |---|---|---|
 | `RESEND_API_KEY` | Sending API key from Resend | Server only |
-| `RESEND_FROM_EMAIL` | `VActives Agency <forms@notifications.vactives.com>` | Server only |
+| `RESEND_FROM_EMAIL` | `VActives Agency <info@vactives.com>` | Server only |
 | `FORM_INBOX` | `info@vactives.com` | Server only |
 | `TURNSTILE_SECRET_KEY` | Turnstile secret | Server only |
 | `VITE_TURNSTILE_SITE_KEY` | Turnstile public site key | Public, compiled into frontend |
@@ -44,6 +44,8 @@ Add a Vercel Firewall rate-limit rule for `POST /api/inquiry` before launch as a
 | `ENABLE_REFERRALS` | `false` (keep disabled until referral terms approved) | Server only |
 
 Set Production variables and redeploy. Public `VITE_` values require a rebuild. Do not prefix any secret with `VITE_`. For local backend testing use Vercel's development environment; `vite` and `vite preview` alone do not run Vercel API functions.
+
+With both email values set to `info@vactives.com`, the notification is sent **from** and delivered **to** that mailbox, while its `Reply-To` remains the visitor's address so the team can answer the enquiry directly. The visitor confirmation is also sent from `info@vactives.com`, with `Reply-To: info@vactives.com`.
 
 Browser test builds inject a mock Turnstile key (`1x00000000000000000000AA`). Never deploy `dist/` directly from a browser-test run; always perform a clean `npm run build` with production environment variables before deploying.
 
@@ -56,6 +58,24 @@ After publishing, verify all three routes load directly and through navigation, 
 Submit one authorized test enquiry from Home and one from Contact. Confirm the team receives each exactly once, Reply replies to the visitor, and the visitor receives confirmation with Reply going to the team. Check Resend delivery/bounce status, not just the UI. Test a failed security challenge and a provider failure: neither should falsely report success. Never log request bodies, tokens or API keys. There is no application database here: records are in the inbox/provider. Confirm a retention policy and approved privacy notice before launch; contact consent is not a substitute for those documents.
 
 Local checks: `npm run build && npm test`. Tests mock external providers and do not send email. Live delivery remains unverified until account setup and the above test.
+
+### Deliverability / Junk-folder diagnosis (9 October 2026)
+
+The application already sends a small HTML message plus a plain-text alternative and does not use a `no-reply` address. The first broken boundary observed is domain authentication, not the email template:
+
+- Vercel is authoritative for DNS.
+- `resend._domainkey.vactives.com` is visible through both Google and Cloudflare public resolvers.
+- `_dmarc.vactives.com` is not published.
+- The previous `resend._domainkey.notifications.vactives.com` record is not visible, although the `send.notifications.vactives.com` SPF and MX records remain.
+- Therefore the active Production `From` address must be matched to the corresponding fully verified Resend domain before judging content or reputation.
+
+Required acceptance sequence:
+
+1. In Resend, open the exact domain used by `RESEND_FROM_EMAIL` and restore every record shown under **Enable Sending** until the dashboard reports it Verified.
+2. Publish a valid DMARC TXT record at `_dmarc.vactives.com`. Start with monitoring (`p=none`); add an aggregate-report mailbox only after that mailbox can receive mail.
+3. In the delivered Gmail message, use **Show original** and require `SPF: PASS`, `DKIM: PASS`, and `DMARC: PASS` with the visible From domain aligned. Do not treat “Delivered” in Resend as proof of inbox placement.
+4. Open the email in Resend and run **Insights**. Resolve every “Needs attention” item. Keep open/click tracking disabled for these transactional form messages unless it is genuinely required.
+5. Warm the newly authenticated domain with low-volume, wanted transactional messages. Ask test recipients to mark a legitimate message as “Not spam”; never compensate by bulk-sending test messages.
 
 ## 5. Google Search Console
 

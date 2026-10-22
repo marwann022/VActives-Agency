@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { buildEmails, createInquiryHandler, validateInquiry } from '../server/inquiry.js'
 const body = { type: 'contact', name: 'Test Visitor', email: 'visitor@example.com', company: '', message: '<script>hello</script>', consent: true, website: '', submissionId: '12345678-1234-4234-8234-123456789abc', turnstileToken: 'test-token' }
-const env = { RESEND_API_KEY: 'test', RESEND_FROM_EMAIL: 'VActives <forms@notifications.vactives.com>', TURNSTILE_SECRET_KEY: 'test' }
+const env = { RESEND_API_KEY: 'test', RESEND_FROM_EMAIL: 'VActives Agency <info@vactives.com>', FORM_INBOX: 'info@vactives.com', TURNSTILE_SECRET_KEY: 'test' }
 async function run({ patch = {}, origin = 'https://www.vactives.com', settings = env, challenge = {}, fail = 0, method = 'POST', headers = {}, raw, networkFailure = false } = {}) {
   const calls = []
   const fetchImpl = async (url, options) => {
@@ -20,8 +20,12 @@ test('sends team notification and fixed confirmation with safe reply-to', async 
   assert.equal(result.code, 200)
   assert.equal(result.calls.length, 3)
   const team = JSON.parse(result.calls[1].body)
+  const confirmation = JSON.parse(result.calls[2].body)
+  assert.equal(team.from, 'VActives Agency <info@vactives.com>')
   assert.deepEqual(team.to, ['info@vactives.com'])
   assert.equal(team.reply_to, body.email)
+  assert.equal(confirmation.from, 'VActives Agency <info@vactives.com>')
+  assert.equal(confirmation.reply_to, 'info@vactives.com')
   assert.match(team.html, /&lt;script&gt;/)
   assert.ok(!JSON.parse(result.calls[2].body).html.includes(body.message))
 })
