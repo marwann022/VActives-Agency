@@ -59,9 +59,16 @@ test('referrals are server-gated and require permission and valid contact', asyn
   assert.deepEqual(JSON.parse(result.calls[2].body).to, [body.email])
 })
 test('invalid forms never reach provider', async () => {
-  for (const patch of [{ consent: false }, { email: 'bad' }, { website: 'spam' }, { message: 'a'.repeat(5001) }, { type: 'hiring', company: '', role: '' }, { turnstileToken: '' }]) {
+  for (const patch of [{ consent: false }, { email: 'bad' }, { website: 'spam' }, { message: 'a'.repeat(5001) }, { type: 'hiring', company: '', role: [] }, { type: 'hiring', company: 'Example', role: ['Virtual Assistant'], employmentType: '' }, { type: 'hiring', company: 'Example', role: ['Virtual Assistant'], employmentType: 'Contract' }, { type: 'hiring', company: 'Example', role: Array(11).fill('Role') }, { turnstileToken: '' }]) {
     const result = await run({ patch }); assert.equal(result.code, 400); assert.equal(result.calls.length, 0)
   }
+})
+test('hiring enquiries accept multiple roles and include employment type', async () => {
+  const result = await run({ patch: { type: 'hiring', company: 'Example', role: ['Virtual Assistant', 'Executive Assistant'], employmentType: 'Part-time' } })
+  assert.equal(result.code, 200)
+  const team = JSON.parse(result.calls[1].body)
+  assert.match(team.text, /Roles: Virtual Assistant, Executive Assistant/)
+  assert.match(team.text, /Employment type: Part-time/)
 })
 test('rejects wrong origin, methods and missing config', async () => {
   assert.equal((await run({ origin: 'https://evil.example' })).code, 403)

@@ -7,7 +7,7 @@
       tabindex="-1"
       aria-hidden="true"
       class="custom-select__hidden-input"
-      :value="modelValue"
+      :value="hiddenValue"
       :required="required"
       @invalid="onInvalid"
     />
@@ -17,7 +17,7 @@
       ref="triggerRef"
       type="button"
       class="custom-select__trigger"
-      :class="{ 'has-value': Boolean(modelValue), 'is-invalid': isInvalid }"
+      :class="{ 'has-value': hasValue, 'is-invalid': isInvalid }"
       :aria-expanded="isOpen"
       :aria-controls="listboxId"
       :aria-activedescendant="isOpen && highlightedIndex >= 0 ? `${listboxId}-${highlightedIndex}` : undefined"
@@ -41,6 +41,7 @@
         :id="listboxId"
         class="custom-select__menu"
         role="listbox"
+        :aria-multiselectable="multiple || undefined"
         tabindex="-1"
         @keydown="onListboxKeydown"
       >
@@ -50,17 +51,18 @@
           :id="`${listboxId}-${idx}`"
           class="custom-select__option"
           :class="{
-            'is-selected': option.value === modelValue,
+            'is-selected': isSelected(option.value),
             'is-highlighted': idx === highlightedIndex
           }"
           role="option"
-          :aria-selected="option.value === modelValue"
+          :aria-selected="isSelected(option.value)"
           @mouseenter="highlightedIndex = idx"
           @click="selectOption(option.value)"
         >
         <span class="custom-select__option-text">{{ option.label }}</span>
           <div class="custom-select__option-content">
             <span v-if="option.badge" class="custom-select__option-badge">{{ option.badge }}</span>
+            <IconCheck v-if="isSelected(option.value)" class="custom-select__option-check" :size="17" aria-hidden="true" />
           </div>
         </div>
       </div>
@@ -70,11 +72,11 @@
 
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useId } from 'vue'
-import { IconChevronDown } from '@tabler/icons-vue'
+import { IconCheck, IconChevronDown } from '@tabler/icons-vue'
 
 const props = defineProps({
   modelValue: {
-    type: String,
+    type: [String, Array],
     default: ''
   },
   options: {
@@ -86,6 +88,10 @@ const props = defineProps({
     default: 'Select an option'
   },
   required: {
+    type: Boolean,
+    default: false
+  },
+  multiple: {
     type: Boolean,
     default: false
   },
@@ -119,10 +125,24 @@ const formattedOptions = computed(() => {
   })
 })
 
+const selectedValues = computed(() => props.multiple
+  ? (Array.isArray(props.modelValue) ? props.modelValue : [])
+  : [props.modelValue].filter(Boolean))
+
+const hasValue = computed(() => selectedValues.value.length > 0)
+const hiddenValue = computed(() => selectedValues.value.join(', '))
+
 const selectedLabel = computed(() => {
-  const found = formattedOptions.value.find((opt) => opt.value === props.modelValue)
-  return found ? found.label : ''
+  const labels = formattedOptions.value
+    .filter((option) => selectedValues.value.includes(option.value))
+    .map((option) => option.label)
+  if (props.multiple && labels.length > 2) return `${labels.length} roles selected`
+  return labels.join(', ')
 })
+
+function isSelected(value) {
+  return selectedValues.value.includes(value)
+}
 
 function toggleDropdown() {
   if (isOpen.value) {
@@ -135,7 +155,7 @@ function toggleDropdown() {
 function openDropdown() {
   isOpen.value = true
   isInvalid.value = false
-  const selectedIdx = formattedOptions.value.findIndex((opt) => opt.value === props.modelValue)
+  const selectedIdx = formattedOptions.value.findIndex((opt) => isSelected(opt.value))
   highlightedIndex.value = selectedIdx >= 0 ? selectedIdx : 0
 
   nextTick(() => {
@@ -149,10 +169,13 @@ function closeDropdown() {
 }
 
 function selectOption(value) {
-  emit('update:modelValue', value)
-  emit('change', value)
+  const nextValue = props.multiple
+    ? (isSelected(value) ? selectedValues.value.filter((item) => item !== value) : [...selectedValues.value, value])
+    : value
+  emit('update:modelValue', nextValue)
+  emit('change', nextValue)
   isInvalid.value = false
-  closeDropdown()
+  if (!props.multiple) closeDropdown()
 }
 
 function scrollToHighlighted() {

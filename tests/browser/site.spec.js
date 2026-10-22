@@ -112,7 +112,7 @@ test('mobile menu focus trap and Escape', async ({ page }) => {
   await expect(page.locator('#mobile-menu')).toHaveCount(0)
   await expect(page.locator('#app')).not.toHaveAttribute('inert')
 })
-test('home hiring form, role keyboard selection, expired challenge and success', async ({ page }) => {
+test('home hiring form, multi-role keyboard selection, employment type, expired challenge and success', async ({ page }) => {
   let payload
   await page.route('**/api/inquiry', route => {
     payload = route.request().postDataJSON()
@@ -125,6 +125,10 @@ test('home hiring form, role keyboard selection, expired challenge and success',
   await page.locator('.custom-select__trigger').focus()
   await page.keyboard.press('Enter')
   await page.keyboard.press('Enter')
+  await page.keyboard.press('ArrowDown')
+  await page.keyboard.press('Enter')
+  await page.keyboard.press('Escape')
+  await page.getByLabel('Part-time').check()
   await page.getByLabel('What does your team need help with?').fill('Synthetic hiring test.')
   await page.getByRole('checkbox', { name: /agree/ }).check()
   await page.waitForFunction(() => window.__challengeOptions)
@@ -134,5 +138,6 @@ test('home hiring form, role keyboard selection, expired challenge and success',
   await page.getByRole('button', { name: 'Send enquiry' }).click()
   await expect(page.getByRole('status')).toContainText('submitted')
   expect(payload.type).toBe('hiring')
-  expect(payload.role).toBeTruthy()
+  expect(payload.role).toEqual(['Cold Caller / Appointment Setter', 'Lead Manager / CRM Manager'])
+  expect(payload.employmentType).toBe('Part-time')
 })

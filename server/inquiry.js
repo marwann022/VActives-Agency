@@ -23,7 +23,23 @@ export function validateInquiry(body) {
   if (!emailPattern.test(email)) throw new Error('Please enter a valid email address.')
   const submissionId = value('submissionId', 36)
   if (!/^[a-f\d]{8}-[a-f\d]{4}-4[a-f\d]{3}-[89ab][a-f\d]{3}-[a-f\d]{12}$/i.test(submissionId)) throw new Error('Please refresh the page and try again.')
-  const data = { type, name: value('name', 120), email, company: value('company', 160, type === 'hiring'), role: value('role', 160, type === 'hiring'), message: value('message', 5000, type !== 'referral'), submissionId }
+  let role = ''
+  let employmentType = ''
+  if (type === 'hiring') {
+    const roleValues = Array.isArray(body.role) ? body.role : [body.role]
+    if (!roleValues.length || roleValues.length > 10) throw new Error('Please select at least one role.')
+    const roles = roleValues.map((item) => {
+      if (typeof item !== 'string') throw new Error('Please check role.')
+      const text = item.trim()
+      if (!text || text.length > 160 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f]/.test(text)) throw new Error('Please check role.')
+      return text
+    })
+    if (new Set(roles).size !== roles.length) throw new Error('Please check role.')
+    role = roles.join(', ')
+    employmentType = value('employmentType', 20)
+    if (!['Full-time', 'Part-time'].includes(employmentType)) throw new Error('Please select an employment type.')
+  }
+  const data = { type, name: value('name', 120), email, company: value('company', 160, type === 'hiring'), role, employmentType, message: value('message', 5000, type !== 'referral'), submissionId }
   if (type === 'referral') {
     if (body.referralConsent !== true) throw new Error('Please confirm permission to share these contact details.')
     data.referrerPhone = value('referrerPhone', 40, false)
@@ -44,7 +60,7 @@ export function validateInquiry(body) {
 const escape = (value) => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]))
 
 export function buildEmails(data, env) {
-  const fields = [['Form', data.type], ['Name', data.name], ['Email', data.email], ['Company', data.company], ['Role', data.role], ['Message', data.message]].filter(([, value]) => value)
+  const fields = [['Form', data.type], ['Name', data.name], ['Email', data.email], ['Company', data.company], ['Roles', data.role], ['Employment type', data.employmentType], ['Message', data.message]].filter(([, value]) => value)
   if (data.type === 'referral') for (const [label, key] of [['Referrer phone', 'referrerPhone'], ['Relationship', 'relationship'], ['Referred name', 'referredName'], ['Referred company', 'referredCompany'], ['Referred email', 'referredEmail'], ['Referred phone', 'referredPhone'], ['Market', 'market'], ['Permission to share contact details', 'referralConsent']]) {
     if (data[key]) fields.push([label, data[key]])
   }

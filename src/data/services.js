@@ -12,7 +12,7 @@ export const roles = [
 ]
 
 export const packages = [
-  { label: 'Part-time support', hours: '20 hours / week', price: '$600–$900', note: 'per month' },
+  { label: 'Part-time support', hours: '20 hours / week', price: '$700–$1,000', note: 'per month' },
   { label: 'Full-time dedicated support', hours: '40 hours / week', price: '$950–$1,900', note: 'per month' },
   { label: 'Recruitment setup', hours: 'One-time fee', price: 'From $299', note: 'per placement' }
 ]
