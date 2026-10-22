@@ -21,6 +21,12 @@ playwright-report/
 # Local design exploration and QA captures (kept locally, not published)
 work/
 
+# Historical design/QA notes retained locally; current specifications stay tracked
+/UX-AUDIT.md
+/design-qa.md
+/docs/Hero_Talent_Stack_Direction.md
+/docs/homepage-direction-2026-08-29.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
