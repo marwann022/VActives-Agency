@@ -42,6 +42,63 @@ test('internal navigation, back and forward', async ({ page }) => {
   await page.goForward()
   await expect(page).toHaveURL(/\/services$/)
 })
+test('primary calls to action and public contact links are wired', async ({ page }) => {
+  await page.goto('/')
+  await page.locator('.hero-actions').getByRole('link', { name: 'Start Hiring' }).click()
+  await expect(page).toHaveURL(/\/#hire$/)
+  await expect(page.locator('#hire')).toBeVisible()
+
+  await page.locator('.hero-actions').getByRole('link', { name: 'Contact Us' }).click()
+  await expect(page).toHaveURL(/\/contact$/)
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('remote team')
+
+  const emailLinks = page.locator('a[href="mailto:info@vactives.com"]')
+  expect(await emailLinks.count()).toBeGreaterThan(0)
+  await expect(emailLinks.first()).toHaveAttribute('href', 'mailto:info@vactives.com')
+
+  const candidate = page.getByRole('link', { name: 'Apply as a candidate' })
+  await expect(candidate).toHaveAttribute('href', /docs\.google\.com\/forms/)
+  await expect(candidate).toHaveAttribute('target', '_blank')
+  await expect(candidate).toHaveAttribute('rel', /noopener/)
+  await expect(page.getByRole('link', { name: 'VActives on Instagram' })).toHaveAttribute('href', /instagram\.com\/_vactives/)
+  await expect(page.getByRole('link', { name: 'VActives on Facebook' })).toHaveAttribute('href', /facebook\.com/)
+})
+test('services filters, role details, pricing actions and FAQs work', async ({ page }) => {
+  await page.goto('/services')
+  const cards = page.locator('.role-card')
+  await expect(cards).toHaveCount(6)
+
+  await page.getByRole('button', { name: 'Show all 10 roles' }).click()
+  await expect(cards).toHaveCount(10)
+  await page.getByRole('button', { name: 'Show fewer roles' }).click()
+  await expect(cards).toHaveCount(6)
+
+  await page.getByRole('button', { name: 'Real estate', exact: true }).click()
+  await expect(cards).toHaveCount(4)
+  await expect(page.getByRole('heading', { name: 'Acquisition Manager' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Cold Caller / Appointment Setter' })).toHaveCount(0)
+
+  const details = cards.first().getByRole('button', { name: 'View role details' })
+  await details.click()
+  const closeDetails = cards.first().getByRole('button', { name: 'Close details' })
+  await expect(closeDetails).toHaveAttribute('aria-expanded', 'true')
+  await expect(cards.first().locator('.role-detail')).toContainText('Responsibilities')
+  await expect(cards.first().locator('.role-detail')).toContainText('Typical KPIs')
+  await closeDetails.click()
+  await expect(cards.first().locator('.role-detail')).toHaveCount(0)
+
+  const firstFaq = page.getByRole('button', { name: 'How do the monthly plans and setup fee work?' })
+  const secondFaq = page.getByRole('button', { name: 'How quickly can you present candidates?' })
+  await expect(firstFaq).toHaveAttribute('aria-expanded', 'true')
+  await secondFaq.click()
+  await expect(firstFaq).toHaveAttribute('aria-expanded', 'false')
+  await expect(secondFaq).toHaveAttribute('aria-expanded', 'true')
+  await expect(secondFaq.locator('xpath=..').locator('p')).toContainText('7–14 business days')
+
+  await page.locator('.pricing-card').first().getByRole('link', { name: 'Choose this option' }).click()
+  await expect(page).toHaveURL(/\/#hire$/)
+  await expect(page.locator('#hire')).toBeVisible()
+})
 test('headers and no inline executable scripts', async ({ request }) => {
   const response = await request.get('/')
   expect(response.headers()['x-frame-options']).toBe('DENY')
